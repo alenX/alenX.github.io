@@ -3,14 +3,29 @@
 <head>
   <meta charset="utf-8">
   
-  <title>南山东篱</title>
+  <title>oracle连接超时应用无响应问题跟踪 | 南山东篱</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="南山东篱">
-<meta property="og:url" content="https://alenx.github.io/index.html">
+  <meta name="description" content="tomcat应用无响应 问题跟踪工作中遇到如图所示问题(环境linux+tomcat+jdk7)：
+
+具体表现为系统运行一段时间后，无法登陆，重新登陆时，日志卡住，如上图所示，但等待30分钟左右，系统恢复正常，成功进入系统后查看该卡住的任务，执行时间约30分钟使用jstack查看卡住时jvm的运行情况的日志如下所示：
+1234567891011121314151617181920212223242">
+<meta property="og:type" content="article">
+<meta property="og:title" content="oracle连接超时应用无响应问题跟踪">
+<meta property="og:url" content="https://alenx.github.io/2017/03/31/oracle无反应问题跟踪/index.html">
 <meta property="og:site_name" content="南山东篱">
+<meta property="og:description" content="tomcat应用无响应 问题跟踪工作中遇到如图所示问题(环境linux+tomcat+jdk7)：
+
+具体表现为系统运行一段时间后，无法登陆，重新登陆时，日志卡住，如上图所示，但等待30分钟左右，系统恢复正常，成功进入系统后查看该卡住的任务，执行时间约30分钟使用jstack查看卡住时jvm的运行情况的日志如下所示：
+1234567891011121314151617181920212223242">
+<meta property="og:image" content="http://onnpr2ifi.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170330141719.png">
+<meta property="og:updated_time" content="2017-03-31T02:37:50.960Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="南山东篱">
+<meta name="twitter:title" content="oracle连接超时应用无响应问题跟踪">
+<meta name="twitter:description" content="tomcat应用无响应 问题跟踪工作中遇到如图所示问题(环境linux+tomcat+jdk7)：
+
+具体表现为系统运行一段时间后，无法登陆，重新登陆时，日志卡住，如上图所示，但等待30分钟左右，系统恢复正常，成功进入系统后查看该卡住的任务，执行时间约30分钟使用jstack查看卡住时jvm的运行情况的日志如下所示：
+1234567891011121314151617181920212223242">
+<meta name="twitter:image" content="http://onnpr2ifi.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170330141719.png">
   
     <link rel="alternate" href="/atom.xml" title="南山东篱" type="application/atom+xml">
   
@@ -59,9 +74,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-oracle无反应问题跟踪" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-oracle无反应问题跟踪" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/03/31/oracle无反应问题跟踪/" class="article-date">
   <time datetime="2017-03-31T02:20:14.215Z" itemprop="datePublished">2017-03-31</time>
@@ -74,8 +87,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/31/oracle无反应问题跟踪/">oracle连接超时应用无响应问题跟踪</a>
+    <h1 class="article-title" itemprop="name">
+      oracle连接超时应用无响应问题跟踪
     </h1>
   
 
@@ -106,111 +119,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-kotlin入门" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/17/kotlin入门/" class="article-date">
-  <time datetime="2017-03-17T14:19:12.863Z" itemprop="datePublished">2017-03-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/17/kotlin入门/">kotlin基础语法一</a>
-    </h1>
+    <a href="/2017/03/17/kotlin入门/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">kotlin基础语法一</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><h3 id="定义包"><a href="#定义包" class="headerlink" title="定义包"></a>定义包</h3><p>包的定义应该在源文件的顶部<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> my.demo</div><div class="line"><span class="keyword">import</span> java.util.*</div><div class="line"><span class="comment">//</span></div></pre></td></tr></table></figure></p>
-<p>目录和包不是必须匹配，也就是说源文件可以任意存放</p>
-<h3 id="定义函数"><a href="#定义函数" class="headerlink" title="定义函数"></a>定义函数</h3><p>一个拥有两个<strong> Int</strong>参数和一个<strong>Int</strong>返回值的函数如下所示:<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">sum</span><span class="params">(a:<span class="type">Int</span>,b:<span class="type">Int</span>)</span></span>:<span class="built_in">Int</span>&#123;</div><div class="line">	<span class="keyword">return</span> a+b</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>一个拥有表达式体的函数和返回类型可推断出的函数如下所示:<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">sum</span><span class="params">(a:<span class="type">Int</span>,b:<span class="type">Int</span>)</span></span>=a+b</div></pre></td></tr></table></figure></p>
-<p>无返回值的函数如下所示:<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">printSum</span><span class="params">(a:<span class="type">Int</span>,b:<span class="type">Int</span>)</span></span>:<span class="built_in">Unit</span>&#123;</div><div class="line">  print(a+b)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><strong>Unit</strong>返回类型可以省略<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">printSum</span><span class="params">(a:<span class="type">Int</span>,b:<span class="type">Int</span>)</span></span>&#123;</div><div class="line">  print(a+b)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>定义局部变量<br>只读属性的局部变量定义如下：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> a:<span class="built_in">Int</span> =<span class="number">1</span></div><div class="line"><span class="keyword">val</span> b = <span class="number">1</span> <span class="comment">// `Int`类型可以推断出</span></div><div class="line"><span class="keyword">val</span> c:<span class="built_in">Int</span> <span class="comment">// 当变量没有初始化时，类型必须生命</span></div><div class="line">c = <span class="number">1</span> <span class="comment">//定义赋值</span></div></pre></td></tr></table></figure></p>
-<p>可变变量<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> x = <span class="number">5</span></div><div class="line">x+=<span class="number">1</span></div></pre></td></tr></table></figure></p>
-<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><p>像Java和JavaScript一样，kotlin支持行注释和块注释<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 行注释</span></div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line">基于多行的块注释</div><div class="line">*/</div></pre></td></tr></table></figure></p>
-<p>和Java不同，kotlin的块注释可以嵌套</p>
-<h3 id="string-templates"><a href="#string-templates" class="headerlink" title="string templates"></a>string templates</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args:<span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span>&#123;</div><div class="line">  <span class="keyword">if</span>(args.size==<span class="number">0</span>)<span class="keyword">return</span></div><div class="line">  print(<span class="string">"First argument:<span class="subst">$&#123;args[<span class="number">0</span>]&#125;</span>"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="条件表达"><a href="#条件表达" class="headerlink" title="条件表达"></a>条件表达</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">max</span><span class="params">(a:<span class="type">Int</span>,b:<span class="type">Int</span>)</span></span>:<span class="built_in">Int</span>&#123;</div><div class="line">  <span class="keyword">if</span>(a&gt;b)</div><div class="line">  	<span class="keyword">return</span> a</div><div class="line">  <span class="keyword">else</span></div><div class="line">  	<span class="keyword">return</span> b</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>表达式化的if语句<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">max</span><span class="params">(a:<span class="type">Int</span>,b:<span class="type">Int</span>)</span></span>=<span class="keyword">if</span>(a&gt;b)a <span class="keyword">else</span> b</div></pre></td></tr></table></figure></p>
-<h3 id="可空数值和对null的检查"><a href="#可空数值和对null的检查" class="headerlink" title="可空数值和对null的检查"></a>可空数值和对<strong>null</strong>的检查</h3><p>当引用类型可能为null时，必须将其标识为nullable<br>如果<strong>str</strong>不是数字是返回<strong>null</strong><br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">parseInt</span><span class="params">(str:<span class="type">String</span>)</span></span>:<span class="built_in">Int</span>?&#123;</div><div class="line">  <span class="comment">//</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>函数中返回可空的数值<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args:<span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span>&#123;</div><div class="line">  <span class="keyword">if</span>(args.size&lt;<span class="number">2</span>)&#123;</div><div class="line">    print(<span class="string">"Two integers expected"</span>)</div><div class="line">    <span class="keyword">return</span></div><div class="line">  &#125;</div><div class="line">  <span class="keyword">val</span> x = parseInt(args[<span class="number">0</span>])</div><div class="line">  <span class="keyword">val</span> y = parseInt(args[<span class="number">1</span>])</div><div class="line">  <span class="keyword">if</span>(x!=<span class="literal">null</span> &amp;&amp; y!=<span class="literal">null</span>)&#123;</div><div class="line">    print(x*y)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>或者如下:<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(x==<span class="literal">null</span>)&#123;</div><div class="line">  pritn(<span class="string">"wrong number format in '<span class="subst">$&#123;args[<span class="number">0</span>]&#125;</span>'"</span>)</div><div class="line">  <span class="keyword">return</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">if</span>(y==<span class="literal">null</span>)&#123;</div><div class="line">  pritn(<span class="string">"wrong number format in '<span class="subst">$&#123;args[<span class="number">1</span>]&#125;</span>'"</span>)</div><div class="line">  <span class="keyword">return</span></div><div class="line">&#125;</div><div class="line">print(x*y)</div></pre></td></tr></table></figure></p>
-<hr>
-<blockquote>
-<p><em>备注:该内容翻译自kotlin官方文档，学习之用</em></p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://alenx.github.io/2017/03/17/kotlin入门/" data-id="cj0x81hu70001n8ow6qolif2u" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-hello-world hexo" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/03/13/hello-world hexo/" class="article-date">
-  <time datetime="2017-03-13T09:25:23.297Z" itemprop="datePublished">2017-03-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/13/hello-world hexo/">Hello World世界</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://alenx.github.io/2017/03/13/hello-world hexo/" data-id="cj0x81hxq0002n8owpwjzlgpc" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 </section>
         
