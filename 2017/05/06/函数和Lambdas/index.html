@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>函数和Lambdas | 南山东篱</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="函数和Lambdas函数函数声明kotlin中的函数通过fun关键字来声明
+12fun double (x:Int):Int&amp;#123;&amp;#125;
+函数用法通过传统的方式调用函数
+1val result = double(2)
+用.标识调用成员函数
+1Sample().foo()
+中缀标识(Infix notation)函数在下列情况也可以用中缀调用的方式来调用
+
+成员函数或者扩张函数(exte">
+<meta property="og:type" content="article">
+<meta property="og:title" content="函数和Lambdas">
+<meta property="og:url" content="https://alenx.github.io/2017/05/06/函数和Lambdas/index.html">
+<meta property="og:site_name" content="南山东篱">
+<meta property="og:description" content="函数和Lambdas函数函数声明kotlin中的函数通过fun关键字来声明
+12fun double (x:Int):Int&amp;#123;&amp;#125;
+函数用法通过传统的方式调用函数
+1val result = double(2)
+用.标识调用成员函数
+1Sample().foo()
+中缀标识(Infix notation)函数在下列情况也可以用中缀调用的方式来调用
+
+成员函数或者扩张函数(exte">
+<meta property="og:updated_time" content="2017-05-06T09:41:01.263Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="函数和Lambdas">
+<meta name="twitter:description" content="函数和Lambdas函数函数声明kotlin中的函数通过fun关键字来声明
+12fun double (x:Int):Int&amp;#123;&amp;#125;
+函数用法通过传统的方式调用函数
+1val result = double(2)
+用.标识调用成员函数
+1Sample().foo()
+中缀标识(Infix notation)函数在下列情况也可以用中缀调用的方式来调用
+
+成员函数或者扩张函数(exte">
+  
+    <link rel="alternate" href="/atom.xml" title="南山东篱" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">南山东篱</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://alenx.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-函数和Lambdas" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/06/函数和Lambdas/" class="article-date">
+  <time datetime="2017-05-06T09:38:01.866Z" itemprop="datePublished">2017-05-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      函数和Lambdas
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="函数和Lambdas"><a href="#函数和Lambdas" class="headerlink" title="函数和Lambdas"></a>函数和Lambdas</h1><h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h3 id="函数声明"><a href="#函数声明" class="headerlink" title="函数声明"></a>函数声明</h3><p>kotlin中的函数通过fun关键字来声明</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">double</span> <span class="params">(x:<span class="type">Int</span>)</span></span>:<span class="built_in">Int</span>&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="函数用法"><a href="#函数用法" class="headerlink" title="函数用法"></a>函数用法</h3><p>通过传统的方式调用函数</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> result = double(<span class="number">2</span>)</div></pre></td></tr></table></figure>
+<p>用.标识调用成员函数</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Sample().foo()</div></pre></td></tr></table></figure>
+<h4 id="中缀标识-Infix-notation"><a href="#中缀标识-Infix-notation" class="headerlink" title="中缀标识(Infix notation)"></a>中缀标识(Infix notation)</h4><p>函数在下列情况也可以用中缀调用的方式来调用</p>
+<blockquote>
+<p>成员函数或者扩张函数(extension functions)</p>
+<p>函数只有单一参数</p>
+<p>函数用关键字infix标识</p>
+</blockquote>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">infix</span> <span class="function"><span class="keyword">fun</span> <span class="built_in">Int</span>.<span class="title">shl</span><span class="params">(x:<span class="type">Int</span>)</span></span>:<span class="built_in">Int</span>&#123;</div><div class="line">&#125;</div><div class="line"><span class="number">1</span> shl <span class="number">2</span></div><div class="line"><span class="number">1.</span>shl(<span class="number">2</span>)</div></pre></td></tr></table></figure>
+<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><p>函数的参数使用Pascal标识来定义，即name:type。参数与参数之间使用逗号分隔。每个参数必须制定类型</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">powerOf</span><span class="params">(number:<span class="type">Int</span>,exponent:<span class="type">Int</span>)</span></span>&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="默认参数"><a href="#默认参数" class="headerlink" title="默认参数"></a>默认参数</h4><p>函数参数可以有默认值，该默认值在没有传递对应参数值被使用。和其他语言相比，能够减少参数传递数量。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">read</span><span class="params">(b:<span class="type">Array</span>&lt;<span class="type">Byte</span>&gt;,off:<span class="type">Int</span> =<span class="number">0</span> ,len:<span class="type">Int</span> = b.size()</span></span>)&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>参数默认值使用“=”添加在参数类型后面<br>重写方法时，往往和父类方法使用相同的默认参数值，当重写一个带有默认参数值的方法时，子类方法里的默认参数值必须省略掉。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</div><div class="line">	<span class="keyword">open</span> <span class="function"><span class="keyword">fun</span> <span class="title">foo</span><span class="params">(i:<span class="type">Int</span>=<span class="number">10</span>)</span></span>&#123;...&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span>:<span class="type">A</span></span>()&#123;</div><div class="line">	<span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">foo</span><span class="params">(i:<span class="type">Int</span>)</span></span>&#123;...&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="命名参数"><a href="#命名参数" class="headerlink" title="命名参数"></a>命名参数</h4><p>函数被调用时，参数被命名对于一个函数有很多参数或者有很多默认值时是非常方便的。<br>看下面的函数定义</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">reformat</span><span class="params">(str:<span class="type">String</span>,normalizaCase:<span class="type">Boolean</span> =<span class="literal">true</span>,</span></span></div><div class="line">							upperCaseFirstLetter:<span class="type">Boolean</span> = <span class="literal">true</span>,</div><div class="line">							upperCaseFirstLetter:<span class="type">Boolean</span> = <span class="literal">true</span>,</div><div class="line">							divideByCamelHumps:<span class="type">Boolean</span> = <span class="literal">false</span>,</div><div class="line">							wordSeparator:<span class="type">Char</span> = <span class="string">' '</span>)&#123;</div><div class="line">...							</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们可以通过默认参数来这样调用</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">reformat(str)</div></pre></td></tr></table></figure>
+<p>但如果我们没有参数默认值，可能就需要如下这样调用</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">reformat(str,<span class="literal">true</span>,<span class="literal">true</span>,<span class="literal">false</span>,<span class="string">'_'</span>)</div></pre></td></tr></table></figure>
+<p>通过命名参数，我们可以使代码可读性更强</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">reformat(str,normalizaCase =<span class="literal">true</span>,</div><div class="line">							upperCaseFirstLetter = <span class="literal">true</span>,</div><div class="line">							upperCaseFirstLetter = <span class="literal">true</span>,</div><div class="line">							divideByCamelHumps = <span class="literal">false</span>,</div><div class="line">							wordSeparator = <span class="string">'_'</span>)</div></pre></td></tr></table></figure>
+<p>如果我们不需要所有的参数</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">reformat(str:String,wordSeparator = <span class="string">' '</span>)</div></pre></td></tr></table></figure>
+<p>注意命名参数语法在调用java代码时，不可能使用，因为java字节码并不是一直保存函数参数的名称</p>
+<h4 id="Unit作为返回的函数"><a href="#Unit作为返回的函数" class="headerlink" title="Unit作为返回的函数"></a>Unit作为返回的函数</h4><p>如果一个函数没有返回具体有用的述职，那么它的返回类型为Unit。Unit是一个只有一个Unit值的类型。该数值可以不被返回。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">printHello</span><span class="params">(name:<span class="type">String</span>?)</span></span>:<span class="built_in">Unit</span>&#123;</div><div class="line">	<span class="keyword">if</span>(name != <span class="literal">null</span>)</div><div class="line">		println(<span class="string">"Hello <span class="subst">$&#123;name&#125;</span>"</span>)</div><div class="line">	<span class="keyword">else</span></div><div class="line">		println(<span class="string">"Hi there!"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Unit的返回类型也是可选的，上面的代码和以下代码等价</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">printHello</span><span class="params">(name:<span class="type">String</span>?)</span></span>&#123;</div><div class="line">	...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>单表达式函数<br>当函数返回单表达式时，函数的大括号可以省略，直接将表达式放在=后面</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">double</span><span class="params">(x:<span class="type">Int</span>)</span></span>:<span class="built_in">Int</span> = x*<span class="number">2</span></div></pre></td></tr></table></figure>
+<p>当编译器能够推断出函数的返回值时，返回值类型可以省略。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">double</span><span class="params">(x:<span class="type">Int</span>)</span></span> = x*<span class="number">2</span></div></pre></td></tr></table></figure>
+<h4 id="指定返回类型"><a href="#指定返回类型" class="headerlink" title="指定返回类型"></a>指定返回类型</h4><p>函数必须指定返回类型，除非返回Unit。kotlin不会推导函数的返回类型，因为函数的函数体内可能存在复杂的控制流语句，返回类型可能没那么明显，有时候对编译器也没那么明显。</p>
+<h4 id="可变参数"><a href="#可变参数" class="headerlink" title="可变参数"></a>可变参数</h4><p>函数的参数可以用vararg来修饰，通常是最后一个参数，来标识为可变参数</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> <span class="title">asList</span><span class="params">(<span class="keyword">vararg</span> ts:<span class="type">T</span>)</span></span>:List&lt;T&gt;&#123;</div><div class="line">	<span class="keyword">val</span> result = ArrayList&lt;T&gt;()</div><div class="line">	<span class="keyword">for</span> (t <span class="keyword">in</span> ts)</div><div class="line">		result.add(t)</div><div class="line">	<span class="keyword">return</span> result</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>允许多个参数传递给函数</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> list = asList(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</div></pre></td></tr></table></figure>
+<p>函数内可变参数T被当做T的一个数组，也就是说上面例子中的ts变量类型为Array<out t=""><br>函数中只有一个参数可以被标识为vararg，如果一个vararg参数不是参数列表中的最后一个，那么其之后的参数可以使用命名参数的方式调用，或者，如果参数是一个函数类型，那么使用传递lambda的外部括号<br>我们调用可变参数的函数时，可以一个一个传递参数，或者如果我们已经存在一个数组，并想把数组内容传递给函数作为参数，我们可以使用spread操作符(在数组前增加前缀*)</out></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> a = arrayOf(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</div><div class="line"><span class="keyword">val</span> list = asList(<span class="number">-1</span>,<span class="number">0</span>,*a,<span class="number">4</span>)</div></pre></td></tr></table></figure>
+<h2 id="函数作用域"><a href="#函数作用域" class="headerlink" title="函数作用域"></a>函数作用域</h2><p>kotlin中的函数可以在源码文件的中直接定义，也就是说，无需像其他语言Java、C#、Scala一样创建一个class来包含函数，kotlin的函数可以本地声明，作为成员函数以及扩展函数。</p>
+<h4 id="局部函数"><a href="#局部函数" class="headerlink" title="局部函数"></a>局部函数</h4><p>Kotlin支持局部函数，也就是函数内部定义函数</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">dfs</span><span class="params">(graph:<span class="type">Graph</span>)</span></span>&#123;</div><div class="line">	<span class="function"><span class="keyword">fun</span> <span class="title">dfs</span><span class="params">(current:<span class="type">Vertex</span>,visited:<span class="type">Set</span>&lt;<span class="type">Vertex</span>&gt;)</span></span>&#123;</div><div class="line">		<span class="keyword">if</span> (!visited.add(current))<span class="keyword">return</span></div><div class="line">		<span class="keyword">for</span>(v <span class="keyword">in</span> current.neighbors)</div><div class="line">			dfs(v,visited)</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	dfs(graph.vertices[<span class="number">0</span>],HashSet())</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>局部函数可以访问外部函数的成员变量，所以上面例子中，变量visited是一个本地变量。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">dfs</span><span class="params">(graph:<span class="type">Graph</span>)</span></span>&#123;</div><div class="line">	<span class="keyword">val</span> visited = HashSet&lt;Vertex&gt;()</div><div class="line">	<span class="function"><span class="keyword">fun</span> <span class="title">dfs</span><span class="params">(current:<span class="type">Vertex</span>)</span></span>&#123;</div><div class="line">		<span class="keyword">if</span> (!visited.add(current))<span class="keyword">return</span></div><div class="line">		<span class="keyword">for</span>(v <span class="keyword">in</span> current.neighbors)</div><div class="line">			dfs(v,visited)</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	dfs(graph.vertices[<span class="number">0</span>])</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="成员函数"><a href="#成员函数" class="headerlink" title="成员函数"></a>成员函数</h4><p>成员函数指的是定义在类以及objec内部的函数</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sample</span></span>()&#123;</div><div class="line">	<span class="function"><span class="keyword">fun</span> <span class="title">foo</span><span class="params">()</span></span> &#123;print(<span class="string">"Foo"</span>)&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>成员函数可以使用.直接调用</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Sample().foo() <span class="comment">//创建Sample实例然后调用foo函数</span></div></pre></td></tr></table></figure>
+<h4 id="泛型函数"><a href="#泛型函数" class="headerlink" title="泛型函数"></a>泛型函数</h4><p>函数可以传递泛型参数，需要将函数名称前增加尖括号，<t></t></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> <span class="title">sigletonList</span><span class="params">(item:<span class="type">T</span>)</span></span>:List&lt;T&gt;&#123;</div><div class="line">	...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="内联函数"><a href="#内联函数" class="headerlink" title="内联函数"></a>内联函数</h4><h4 id="扩展函数"><a href="#扩展函数" class="headerlink" title="扩展函数"></a>扩展函数</h4><h4 id="高阶函数和Lambdas"><a href="#高阶函数和Lambdas" class="headerlink" title="高阶函数和Lambdas"></a>高阶函数和Lambdas</h4><h4 id="尾递归函数"><a href="#尾递归函数" class="headerlink" title="尾递归函数"></a>尾递归函数</h4><p>Kotlin支持尾递归，使一些算法可以用循环开发而不是使用可能存在栈溢出的递归。当一个函数用tailrec标识符标识时，会以符合要求的形式进行编译优化递归，leaving behind a fast and efficient loop based version instead.</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tailrec <span class="function"><span class="keyword">fun</span> <span class="title">findFixPoint</span><span class="params">(x:<span class="type">Double</span>=<span class="number">1.0</span>)</span></span>:<span class="built_in">Double</span> = <span class="keyword">if</span>(x==Math.cos(x)) x <span class="keyword">else</span> findFixPoint(Math.cos(x))</div></pre></td></tr></table></figure>
+<p>以上代码是计算不动点的余弦值，该数值为一常量。方式为从1.0开始不停调用Math.cos只要结果不再变化为止，最终返回结果0.7390851332151607。该代码和以下代码等价。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">findFixPoint</span><span class="params">()</span></span>:<span class="built_in">Double</span>&#123;</div><div class="line"> <span class="keyword">var</span> x = <span class="number">1.0</span></div><div class="line"> <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</div><div class="line"> 	<span class="keyword">val</span> y = Math.cos(x)</div><div class="line"> 	<span class="keyword">if</span>(x==y) <span class="keyword">return</span> y</div><div class="line"> 	x = y</div><div class="line"> &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>为了使tailrec标识符有效，函数体最后必须一个步骤必须为调用自己。当调用自身之后还存在其余逻辑代码时，尾递归无法使用。同时尾递归也不能在try/catch/finally中使用，目前尾递归只有kotlin的jvm支持。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://alenx.github.io/2017/05/06/函数和Lambdas/" data-id="cj2d2vvmi0000w4owa9p4482c" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/03/31/oracle无反应问题跟踪/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">oracle连接超时应用无响应问题跟踪</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/05/06/函数和Lambdas/">函数和Lambdas</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/31/oracle无反应问题跟踪/">oracle连接超时应用无响应问题跟踪</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/17/kotlin入门/">kotlin基础语法一</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/13/hello-world hexo/">Hello World世界</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 wangss<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
