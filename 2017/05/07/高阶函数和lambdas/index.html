@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="南山东篱">
 <meta property="og:description" content="高阶函数和Lambda高阶函数高阶函数即可以将函数作为参数的函数，或者返回类型为函数的函数，高阶函数的比较好的例子就是lock()函数，以一个lock对象和一个函数作为参数，首先获取锁，然后执行参数中的函数，然后释放锁。
 12345678fun &amp;lt;T&amp;gt; lock(lock:Lock,body:()-&amp;gt; T):T&amp;#123;	lock.lock()	try&amp;#123;		retur">
-<meta property="og:updated_time" content="2017-05-07T00:49:45.232Z">
+<meta property="og:updated_time" content="2017-05-07T01:03:07.961Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="高阶函数和Lambda">
 <meta name="twitter:description" content="高阶函数和Lambda高阶函数高阶函数即可以将函数作为参数的函数，或者返回类型为函数的函数，高阶函数的比较好的例子就是lock()函数，以一个lock对象和一个函数作为参数，首先获取锁，然后执行参数中的函数，然后释放锁。
@@ -96,7 +96,7 @@
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> result = lock(lock,&#123;sharedResource.operation()&#125;)</div></pre></td></tr></table></figure>
 <p>Lambda表达式简要可以如下描述</p>
 <blockquote>
-<p>Lambda表达式总是用大括号包围{}<br>其参数需要在-&gt;前声明（参数类型可以省略）<br>函数体附在-&gt;后面，如果需要体现的话</p>
+<p>Lambda表达式总是用大括号包围{}<br>其参数需要在-&gt;前声明（参数类型可以省略）<br>函数体附在-&gt;后面，如果需要体现的话  </p>
 </blockquote>
 <p>在kotlin中，有一个约定，即如果函数的最后一个参数是函数，且使用lambda声明该参数，可以将其在圆括号(）外指定。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">lock(lock)&#123;</div><div class="line">	sharedResource.operation()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -123,7 +123,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://alenx.github.io/2017/05/07/高阶函数和lambdas/" data-id="cj2dzea220004zkowr9itxxhp" class="article-share-link">Share</a>
+      <a data-url="https://alenx.github.io/2017/05/07/高阶函数和lambdas/" data-id="cj2dzvg8s000300ow0jpu3ml3" class="article-share-link">Share</a>
       
       
     </footer>
