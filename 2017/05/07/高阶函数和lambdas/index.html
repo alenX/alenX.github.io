@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>南山东篱</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="title:高阶函数和Lambda高阶函数和Lambda高阶函数高阶函数即可以将函数作为参数的函数，或者返回类型为函数的函数，高阶函数的比较好的例子就是lock()函数，以一个lock对象和一个函数作为参数，首先获取锁，然后执行参数中的函数，然后释放锁。
+12345678fun &amp;lt;T&amp;gt; lock(lock:Lock,body:()-&amp;gt; T):T&amp;#123;	lock.lock(">
+<meta property="og:type" content="article">
+<meta property="og:title" content="南山东篱">
+<meta property="og:url" content="https://alenx.github.io/2017/05/07/高阶函数和lambdas/index.html">
+<meta property="og:site_name" content="南山东篱">
+<meta property="og:description" content="title:高阶函数和Lambda高阶函数和Lambda高阶函数高阶函数即可以将函数作为参数的函数，或者返回类型为函数的函数，高阶函数的比较好的例子就是lock()函数，以一个lock对象和一个函数作为参数，首先获取锁，然后执行参数中的函数，然后释放锁。
+12345678fun &amp;lt;T&amp;gt; lock(lock:Lock,body:()-&amp;gt; T):T&amp;#123;	lock.lock(">
+<meta property="og:updated_time" content="2017-05-07T00:45:47.365Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="南山东篱">
+<meta name="twitter:description" content="title:高阶函数和Lambda高阶函数和Lambda高阶函数高阶函数即可以将函数作为参数的函数，或者返回类型为函数的函数，高阶函数的比较好的例子就是lock()函数，以一个lock对象和一个函数作为参数，首先获取锁，然后执行参数中的函数，然后释放锁。
+12345678fun &amp;lt;T&amp;gt; lock(lock:Lock,body:()-&amp;gt; T):T&amp;#123;	lock.lock(">
+  
+    <link rel="alternate" href="/atom.xml" title="南山东篱" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">南山东篱</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://alenx.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-高阶函数和lambdas" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/07/高阶函数和lambdas/" class="article-date">
+  <time datetime="2017-05-07T00:46:03.477Z" itemprop="datePublished">2017-05-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<h2 id="title-高阶函数和Lambda"><a href="#title-高阶函数和Lambda" class="headerlink" title="title:高阶函数和Lambda"></a>title:高阶函数和Lambda</h2><h2 id="高阶函数和Lambda"><a href="#高阶函数和Lambda" class="headerlink" title="高阶函数和Lambda"></a>高阶函数和Lambda</h2><h4 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h4><p>高阶函数即可以将函数作为参数的函数，或者返回类型为函数的函数，高阶函数的比较好的例子就是lock()函数，以一个lock对象和一个函数作为参数，首先获取锁，然后执行参数中的函数，然后释放锁。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> <span class="title">lock</span><span class="params">(lock:<span class="type">Lock</span>,body:()</span></span>-&gt; T):T&#123;</div><div class="line">	lock.lock()</div><div class="line">	<span class="keyword">try</span>&#123;</div><div class="line">		<span class="keyword">return</span> body()</div><div class="line">	&#125;<span class="keyword">finally</span>&#123;</div><div class="line">		lock.unlock()</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>查看下以上代码是否符合高阶函数的定义，body参数是一个函数类型:()-&gt;T,该函数类型参数为没有参数返回一个类型为T的函数类型，该函数在lock锁保护的情况下在try块中执行，and its result is returned by the lock() function.<br>如果我们想要调用lock()方法，我们可以把另一个函数当做参数传递给它</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">toBeSynchronized</span><span class="params">()</span></span>= sharedResource.operation()</div><div class="line"><span class="keyword">val</span> result = lock(lock,::toBeSynchronized)</div></pre></td></tr></table></figure>
+<p>另外，更方便的方式是传递一个Lambda表达式</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> result = lock(lock,&#123;sharedResource.operation()&#125;)</div></pre></td></tr></table></figure>
+<p>Lambda表达式简要可以如下描述</p>
+<blockquote>
+<p>Lambda表达式总是用大括号包围{}<br>其参数需要在-&gt;前声明（参数类型可以省略）<br>函数体附在-&gt;后面，如果需要体现的话</p>
+</blockquote>
+<p>在kotlin中，有一个约定，即如果函数的最后一个参数是函数，且使用lambda声明该参数，可以将其在圆括号(）外指定。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">lock(lock)&#123;</div><div class="line">	sharedResource.operation()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>高阶函数的另一个例子就是map()函数。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T,R&gt;</span> List<span class="type">&lt;T&gt;</span>.<span class="title">map</span><span class="params">(transform:(<span class="type">T</span>)</span></span>-&gt;R):List&lt;R&gt;&#123;</div><div class="line">	<span class="keyword">val</span> result = arraryList&lt;R&gt;()</div><div class="line">	<span class="keyword">for</span> ( item <span class="keyword">in</span> <span class="keyword">this</span>)</div><div class="line">		result.add(tranform(item))</div><div class="line">	<span class="keyword">return</span> result</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>该函数可以如下调用</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> doubled = ints.map&#123;value -&gt; value *<span class="number">2</span>&#125;</div></pre></td></tr></table></figure>
+<p>注意，如果被调用的lambda是该函数的唯一参数，那么调用中的括号可以整体省略</p>
+<p>####it:单参数的隐式名称<br>一个有用的约定是当一个函数的语法定义中只有一个参数时，那么该参数的声明可以被省略(-&gt;同时被省略)，且该参数被标识为it</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ints.map&#123;it *<span class="number">2</span>&#125;</div></pre></td></tr></table></figure>
+<p>该约定对于编写LINQ式的代码非常友好。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">strings.filter&#123; it.length==<span class="number">5</span>&#125;.sortBy&#123;it&#125;.map&#123;it.toUpperCase()&#125;</div></pre></td></tr></table></figure>
+<p>####下划线替换无用变量（since1.1）<br>如果lambda的参数没有用到，可以使用下划线来替换对应的名称</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">map.forEach&#123;_,value-&gt; println(<span class="string">"<span class="subst">$value</span>"</span>)&#125;</div></pre></td></tr></table></figure>
+<p>####Lambda函数的解构(destructuring)（since1.1）<br>可以对lambda的参数进行解构声明语法。当一个lambda函数中的某个参数是Pair类型或者Map.Entry类型，或者其他任意拥有准确的componentN函数的类型，都可以通过括号引入多个新参数，替换之前的可被解构的参数。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">map.mapValues &#123;entry -&gt;<span class="string">"<span class="subst">$&#123;entry.value&#125;</span>!"</span>&#125;</div><div class="line">map.mapValues &#123;(key,value)-&gt;<span class="string">"<span class="subst">$value</span>!"</span>&#125;</div></pre></td></tr></table></figure>
+<p>注意声明两个参数和解构一个参数的区别</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;a-&gt;...&#125;<span class="comment">//一个参数</span></div><div class="line">&#123;a,b-&gt;...&#125;<span class="comment">//两个参数</span></div><div class="line">&#123;(a,b)-&gt;...&#125;<span class="comment">//解构的pair</span></div><div class="line">&#123;(a,b),c-&gt;...&#125;<span class="comment">//解构的pair和一个其他参数</span></div></pre></td></tr></table></figure>
+<p>如果解构元素中的某个用不到，可以用下划线替换，避免新建元素名称</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">map.mapValues&#123;(_,value)-&gt;<span class="string">"<span class="subst">$value</span>!"</span>&#125;</div></pre></td></tr></table></figure>
+<p>可以指定被解构的类型或者单独指定解构结果里某个元素的类型</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">map.mapValues &#123;(_,value):Map.Entry&lt;<span class="built_in">Int</span>,String&gt;-&gt;<span class="string">"<span class="subst">$value</span>!"</span>&#125;</div><div class="line">map.mapValues &#123;(_,value:String):-&gt;<span class="string">"<span class="subst">$value</span>!"</span>&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://alenx.github.io/2017/05/07/高阶函数和lambdas/" data-id="cj2dza7zt00030gow5tbtvohn" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/05/06/函数和Lambdas/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">函数和Lambdas</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">五月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">三月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/05/07/高阶函数和lambdas/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/06/函数和Lambdas/">函数和Lambdas</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/31/oracle无反应问题跟踪/">oracle连接超时应用无响应问题跟踪</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/17/kotlin入门/">kotlin基础语法一</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/13/hello-world hexo/">Hello World世界</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 wangss   邮箱:genhaoai#gmail.com<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
