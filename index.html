@@ -71,10 +71,19 @@
   <div class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/07/高阶函数和lambdas/">高阶函数和Lambda</a>
+    </h1>
+  
+
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <hr>
-<h2 id="title-高阶函数和Lambda"><a href="#title-高阶函数和Lambda" class="headerlink" title="title:高阶函数和Lambda"></a>title:高阶函数和Lambda</h2><h2 id="高阶函数和Lambda"><a href="#高阶函数和Lambda" class="headerlink" title="高阶函数和Lambda"></a>高阶函数和Lambda</h2><h4 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h4><p>高阶函数即可以将函数作为参数的函数，或者返回类型为函数的函数，高阶函数的比较好的例子就是lock()函数，以一个lock对象和一个函数作为参数，首先获取锁，然后执行参数中的函数，然后释放锁。</p>
+        <h2 id="高阶函数和Lambda"><a href="#高阶函数和Lambda" class="headerlink" title="高阶函数和Lambda"></a>高阶函数和Lambda</h2><h4 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h4><p>高阶函数即可以将函数作为参数的函数，或者返回类型为函数的函数，高阶函数的比较好的例子就是lock()函数，以一个lock对象和一个函数作为参数，首先获取锁，然后执行参数中的函数，然后释放锁。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> <span class="title">lock</span><span class="params">(lock:<span class="type">Lock</span>,body:()</span></span>-&gt; T):T&#123;</div><div class="line">	lock.lock()</div><div class="line">	<span class="keyword">try</span>&#123;</div><div class="line">		<span class="keyword">return</span> body()</div><div class="line">	&#125;<span class="keyword">finally</span>&#123;</div><div class="line">		lock.unlock()</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>查看下以上代码是否符合高阶函数的定义，body参数是一个函数类型:()-&gt;T,该函数类型参数为没有参数返回一个类型为T的函数类型，该函数在lock锁保护的情况下在try块中执行，and its result is returned by the lock() function.<br>如果我们想要调用lock()方法，我们可以把另一个函数当做参数传递给它</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">toBeSynchronized</span><span class="params">()</span></span>= sharedResource.operation()</div><div class="line"><span class="keyword">val</span> result = lock(lock,::toBeSynchronized)</div></pre></td></tr></table></figure>
@@ -109,7 +118,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://alenx.github.io/2017/05/07/高阶函数和lambdas/" data-id="cj2dza7zt00030gow5tbtvohn" class="article-share-link">Share</a>
+      <a data-url="https://alenx.github.io/2017/05/07/高阶函数和lambdas/" data-id="cj2dzea220004zkowr9itxxhp" class="article-share-link">Share</a>
       
       
     </footer>
@@ -206,7 +215,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://alenx.github.io/2017/05/06/函数和Lambdas/" data-id="cj2dza7zt00040gowrq1s4e2v" class="article-share-link">Share</a>
+      <a data-url="https://alenx.github.io/2017/05/06/函数和Lambdas/" data-id="cj2dzea1m0002zkowky5gs2gx" class="article-share-link">Share</a>
       
       
     </footer>
@@ -255,7 +264,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://alenx.github.io/2017/03/31/oracle无反应问题跟踪/" data-id="cj2dza7yi00010gowiq4g4ftt" class="article-share-link">Share</a>
+      <a data-url="https://alenx.github.io/2017/03/31/oracle无反应问题跟踪/" data-id="cj2dzea220003zkowhe1f2wzf" class="article-share-link">Share</a>
       
       
     </footer>
@@ -311,7 +320,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://alenx.github.io/2017/03/17/kotlin入门/" data-id="cj2dza7y300000gow1ugi6800" class="article-share-link">Share</a>
+      <a data-url="https://alenx.github.io/2017/03/17/kotlin入门/" data-id="cj2dzea1m0001zkowoehk11af" class="article-share-link">Share</a>
       
       
     </footer>
@@ -356,7 +365,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://alenx.github.io/2017/03/13/hello-world hexo/" data-id="cj2dza7yy00020gowrcf8hl25" class="article-share-link">Share</a>
+      <a data-url="https://alenx.github.io/2017/03/13/hello-world hexo/" data-id="cj2dzea170000zkowclwxsqpd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -396,7 +405,7 @@
       <ul>
         
           <li>
-            <a href="/2017/05/07/高阶函数和lambdas/">(no title)</a>
+            <a href="/2017/05/07/高阶函数和lambdas/">高阶函数和Lambda</a>
           </li>
         
           <li>
