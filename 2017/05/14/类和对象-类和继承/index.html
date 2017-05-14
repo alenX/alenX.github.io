@@ -19,7 +19,7 @@
 类声明由类名称、类头（指定类的参数类型和第一构造函数等）以及由括号包围的类体构成。函数头和函数体是可选的，如果类没有函数体，那么大括号可以被省略
 1class Empty
 构造方法kotlin中的类有一个首要构造方法和若干个次要构造方法。首要构造方法是函数头的一部分，紧跟在类名的后">
-<meta property="og:updated_time" content="2017-05-14T05:01:33.123Z">
+<meta property="og:updated_time" content="2017-05-14T05:07:05.327Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="类和对象-类和继承">
 <meta name="twitter:description" content="类和对象类和继承类kotlin中的类使用关键字class声明
@@ -121,7 +121,7 @@
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">DontCreateMe</span> <span class="keyword">private</span> <span class="keyword">constructor</span></span>()&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <blockquote>
 <p>在JVM上，如果首要构造方法的参数全部都有默认值，那么编译器将使用默认参数值额外生成一个无参的构造方法。这使得用kotlin调用例如jackson或者JPA这些通过无参构造方法创建实例的库更加简单。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; ckass Customer(<span class="keyword">val</span> customerName:String=<span class="string">""</span>)</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="class"><span class="keyword">class</span> <span class="title">Customer</span></span>(<span class="keyword">val</span> customerName:String=<span class="string">""</span>)</div><div class="line">&gt;</div></pre></td></tr></table></figure>
 </blockquote>
 <h3 id="创建类实例"><a href="#创建类实例" class="headerlink" title="创建类实例"></a>创建类实例</h3><p>创建类实例时，我们直接调用类的构造方法。</p>
 <figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> invoice = Invoice()</div><div class="line"><span class="keyword">val</span> customer = Customer(<span class="string">"Joe Simth"</span>)</div></pre></td></tr></table></figure>
@@ -131,7 +131,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://alenx.github.io/2017/05/14/类和对象-类和继承/" data-id="cj2o8iv51000298owe5j96xso" class="article-share-link">Share</a>
+      <a data-url="https://alenx.github.io/2017/05/14/类和对象-类和继承/" data-id="cj2o8o6zk0001tcowaevd215n" class="article-share-link">Share</a>
       
       
     </footer>
