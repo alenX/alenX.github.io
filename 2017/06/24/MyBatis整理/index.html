@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="古诗词," />
+  <meta name="keywords" content="数据库,MyBatis," />
 
 
 
@@ -93,31 +93,19 @@
 
 
 
-<meta name="description" content="浅谈咏梅陆游的这首《卜算子·咏梅》应该是家喻户晓的词作
-
-驿外断桥边，寂寞开无主。已是黄昏独自愁，更著风和雨。无意苦争春，一任群芳妒。零落成泥碾作尘，只有香如故。
-
-诚然，现在不是谈论冬天，谈论梅花的季节，但是个人还是很执意拿出这首词来简单的讨论一下，简单说说自己的想法，且不去管是否谬误。
-前半阙着重说出梅花的周围环境，很明显，环境是非常的恶劣，驿外断桥边,着重是外和断字，被遗弃被放逐的状态通过这">
+<meta name="description" content="MyBatis缓存一级缓存MyBatis开启一次和数据库的会话，创建一个SqlSession对象表示一次数据库会话。在会话对象中建立一个简单的缓存，将查询到的结果缓存起来，当下次查询的时候，判断是否已经存在该查询，如果存在，直接从缓存中读取查询结果返回，如果不存在，那么从数据库查询，并将结果加入缓存。
+SqlSession将工作交给Executor执行器完成，负责对数据库的各种操作，缓存信息就被维">
 <meta property="og:type" content="article">
-<meta property="og:title" content="杂论-浅谈咏梅">
-<meta property="og:url" content="https://alenx.github.io/2017/05/16/浅谈咏梅/index.html">
+<meta property="og:title" content="MyBatis缓存基础">
+<meta property="og:url" content="https://alenx.github.io/2017/06/24/MyBatis整理/index.html">
 <meta property="og:site_name" content="南山东篱">
-<meta property="og:description" content="浅谈咏梅陆游的这首《卜算子·咏梅》应该是家喻户晓的词作
-
-驿外断桥边，寂寞开无主。已是黄昏独自愁，更著风和雨。无意苦争春，一任群芳妒。零落成泥碾作尘，只有香如故。
-
-诚然，现在不是谈论冬天，谈论梅花的季节，但是个人还是很执意拿出这首词来简单的讨论一下，简单说说自己的想法，且不去管是否谬误。
-前半阙着重说出梅花的周围环境，很明显，环境是非常的恶劣，驿外断桥边,着重是外和断字，被遗弃被放逐的状态通过这">
-<meta property="og:updated_time" content="2017-06-24T02:10:32.190Z">
+<meta property="og:description" content="MyBatis缓存一级缓存MyBatis开启一次和数据库的会话，创建一个SqlSession对象表示一次数据库会话。在会话对象中建立一个简单的缓存，将查询到的结果缓存起来，当下次查询的时候，判断是否已经存在该查询，如果存在，直接从缓存中读取查询结果返回，如果不存在，那么从数据库查询，并将结果加入缓存。
+SqlSession将工作交给Executor执行器完成，负责对数据库的各种操作，缓存信息就被维">
+<meta property="og:updated_time" content="2017-06-24T02:32:20.497Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="杂论-浅谈咏梅">
-<meta name="twitter:description" content="浅谈咏梅陆游的这首《卜算子·咏梅》应该是家喻户晓的词作
-
-驿外断桥边，寂寞开无主。已是黄昏独自愁，更著风和雨。无意苦争春，一任群芳妒。零落成泥碾作尘，只有香如故。
-
-诚然，现在不是谈论冬天，谈论梅花的季节，但是个人还是很执意拿出这首词来简单的讨论一下，简单说说自己的想法，且不去管是否谬误。
-前半阙着重说出梅花的周围环境，很明显，环境是非常的恶劣，驿外断桥边,着重是外和断字，被遗弃被放逐的状态通过这">
+<meta name="twitter:title" content="MyBatis缓存基础">
+<meta name="twitter:description" content="MyBatis缓存一级缓存MyBatis开启一次和数据库的会话，创建一个SqlSession对象表示一次数据库会话。在会话对象中建立一个简单的缓存，将查询到的结果缓存起来，当下次查询的时候，判断是否已经存在该查询，如果存在，直接从缓存中读取查询结果返回，如果不存在，那么从数据库查询，并将结果加入缓存。
+SqlSession将工作交给Executor执行器完成，负责对数据库的各种操作，缓存信息就被维">
 
 
 
@@ -145,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="https://alenx.github.io/2017/05/16/浅谈咏梅/"/>
+  <link rel="canonical" href="https://alenx.github.io/2017/06/24/MyBatis整理/"/>
 
 
 
 
 
-  <title>杂论-浅谈咏梅 | 南山东篱</title>
+  <title>MyBatis缓存基础 | 南山东篱</title>
   
 
 
@@ -270,7 +258,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://alenx.github.io/2017/05/16/浅谈咏梅/">
+    <link itemprop="mainEntityOfPage" href="https://alenx.github.io/2017/06/24/MyBatis整理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="wangss   邮箱:genhaoai#gmail.com">
@@ -287,7 +275,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">杂论-浅谈咏梅</h1>
+          <h1 class="post-title" itemprop="name headline">MyBatis缓存基础</h1>
         
 
         <div class="post-meta">
@@ -299,8 +287,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-16T19:49:24+08:00">
-                2017-05-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-24T10:29:19+08:00">
+                2017-06-24
               </time>
             
 
@@ -334,12 +322,26 @@
       
 
       
-        <h2 id="浅谈咏梅"><a href="#浅谈咏梅" class="headerlink" title="浅谈咏梅"></a>浅谈咏梅</h2><p>陆游的这首《卜算子·咏梅》应该是家喻户晓的词作</p>
-<blockquote>
-<p>驿外断桥边，寂寞开无主。已是黄昏独自愁，更著风和雨。<br>无意苦争春，一任群芳妒。零落成泥碾作尘，只有香如故。</p>
-</blockquote>
-<p>诚然，现在不是谈论冬天，谈论梅花的季节，但是个人还是很执意拿出这首词来简单的讨论一下，简单说说自己的想法，且不去管是否谬误。</p>
-<p>前半阙着重说出梅花的周围环境，很明显，环境是非常的恶劣，<strong>驿外断桥边</strong>,着重是外和断字，被遗弃被放逐的状态通过这两个字现露出来，这么恶劣的环境其实难道只有梅花才有的，想想我们周遭的事情，每个人的环境都有外和断，都是被放逐和被流浪的状态，只不过梅花只有冬天的时候才是梅花，而我们却每时每刻都是我们。当然作者也是如此。<br><strong>寂寞开无主</strong>，孤芳自赏这个词语就应该是对这句的最好映照，因为寂寞开无主，所以才会孤芳自赏，如果<strong>开有主</strong>呢，那样会不会是另一番景象，那样便不会有<strong>孤</strong>和<strong>自</strong>了，正是因为周围环境的恶劣，所以梅花只能退而求其次，求自己的欣赏，追求自我的肯定，因为无法追求别人的肯定，这一切都是源自<strong>驿外断桥边</strong>，源自周围环境对自己施加的结果。<br><strong>无意苦争春</strong>，这样看，春在这里有着特殊的含义，应该是世俗的追求，这里的追求显然是存在一定的竞争关系，首先写出自己无意，又点出其余人的苦的状态，更加彰显个人的追求境界，但是这句中却隐含着一个非常深层的意思，即，就算我不争春，难道春天就不青睐我么？很显然，现实是哪怕我无意争春，我还是倍受春天青睐的一个，至于后面的<strong>一任群芳妒</strong>，更多的是一种对于不能望其项背者的调侃，既然你们不如我，那至少能让你们嫉妒。<br>最后一句好像写出了梅花的归宿，从最后来看，作者本人也是知道自己最终的归途，当然，这里不管其追求的是否是香如故，至少，成泥成尘了。<br>纵览这阙词，词里不免对自身处境的哀叹，但里面也透露着<strong>不恨古人吾不见，恨古人，不见吾狂尔</strong>的豪气，比起前者，我更欣赏后者，正所谓，首先你是梅花，然后你才自怨自艾。当然，此处的自怨自艾，更多的应是褒义。</p>
+        <h3 id="MyBatis缓存"><a href="#MyBatis缓存" class="headerlink" title="MyBatis缓存"></a>MyBatis缓存</h3><h4 id="一级缓存"><a href="#一级缓存" class="headerlink" title="一级缓存"></a>一级缓存</h4><p>MyBatis开启一次和数据库的会话，创建一个SqlSession对象表示一次数据库会话。<br>在会话对象中建立一个简单的缓存，将查询到的结果缓存起来，当下次查询的时候，判断是否已经存在该查询，如果存在，直接从缓存中读取查询结果返回，如果不存在，那么从数据库查询，并将结果加入缓存。</p>
+<p>SqlSession将工作交给Executor执行器完成，负责对数据库的各种操作，缓存信息就被维护在Executor执行器中。将缓存和对缓存相关的操作，封装成Cache接口中。<br>Executor接口的实现类BaseExecutor中拥有一个Cache接口的实现类<br>PerpetualCache，对于BaseExecutor来说，它将使用PerpetualCache来维护缓存。<br>实际维护时用HashMap维护，map的key使用 statementId,params,rowBounds构建 </p>
+<h5 id="事项说明"><a href="#事项说明" class="headerlink" title="事项说明"></a>事项说明</h5><ol>
+<li>SqlSession中执行了任何一个update操作（upate、delete、insert）都会清空PerpetualCache对象的数据，但是该对象可以继续使用</li>
+<li>SqlSession调用close()方法后释放一级缓存PerpetualCache对象，一级缓存将不可用，调用clearCache()，清空PerpetualCache中的数据，但是对象可以继续使用。</li>
+<li>map的大小没有做效率优化</li>
+<li>一级缓存是一个粗粒度的缓存，没有更新缓存和缓存过期的概念</li>
+<li>一级缓存存在一定的数据不同步的可能，如果对于数据变化频率很大，控制SqlSession的生存时间。</li>
+</ol>
+<h4 id="二级缓存"><a href="#二级缓存" class="headerlink" title="二级缓存"></a>二级缓存</h4><p>二级缓存使用cacheEnabled=true配置，那么SqlSession在创建Executor时，会在Executor对象上加一个装饰器CachingExecutor，后续的查询使用CachingExecutor进行管理，是否在Application级别的二级缓存中是否有缓存结果。<br>二级缓存的划分</p>
+<ol>
+<li>每一个mapper都有一个cache对象</li>
+<li><p>MyBatis对二级缓存的支持粒度很细，它会指定某一条查询语句是否使用二级缓存</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;select id=<span class="string">"select"</span> userCache=<span class="string">"true"</span>/&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>使用顺序：二级缓存-一级缓存-数据库</p>
+</li>
+</ol>
+<h4 id="MyBatis连接池"><a href="#MyBatis连接池" class="headerlink" title="MyBatis连接池"></a>MyBatis连接池</h4><p>PooledDataSource<br>PooledConnection分为空间和活动两种状态，使用两个list来维护。<br>首先从空闲状态的PooledConnection对象，如果有直接返回，如果没有查看活动的PooledConnection是否已经满，如果没有满，那么新建一个PooledConnection同时放进活动PooledConnection的list中，如果已经满了，看最先进入活动PooledConnection中的链接是否已经过期，如果过期，那么清除该连接，同时新建一个活动连接，放入活动PooledConnection中，否则等待。<br>增加Connection的代理，当调用其他方法时，直接调用Connection的方法，但是当调用close方法时，特殊处理，并不把Connection关闭，而是将该连接对象添加到连接池中。 </p>
+<h4 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h4><p>物理分页和逻辑分页，物理分页使用数据库的分页实现好处效率高坏处sql不统一，逻辑分页利用游标分页，hibernate使用物理分页，mybatis使用rowbound实现的分页是逻辑分页，使用pagehelper实现物理分页</p>
 
       
     </div>
@@ -369,7 +371,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/古诗词/" rel="tag"># 古诗词</a>
+            <a href="/tags/数据库/" rel="tag"># 数据库</a>
+          
+            <a href="/tags/MyBatis/" rel="tag"># MyBatis</a>
           
         </div>
       
@@ -382,8 +386,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/05/14/类和对象-类和继承/" rel="next" title="类和对象-类和继承">
-                <i class="fa fa-chevron-left"></i> 类和对象-类和继承
+              <a href="/2017/05/16/浅谈咏梅/" rel="next" title="杂论-浅谈咏梅">
+                <i class="fa fa-chevron-left"></i> 杂论-浅谈咏梅
               </a>
             
           </div>
@@ -391,10 +395,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/24/MyBatis整理/" rel="prev" title="MyBatis缓存基础">
-                MyBatis缓存基础 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -514,7 +514,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#浅谈咏梅"><span class="nav-number">1.</span> <span class="nav-text">浅谈咏梅</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#MyBatis缓存"><span class="nav-number">1.</span> <span class="nav-text">MyBatis缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一级缓存"><span class="nav-number">1.1.</span> <span class="nav-text">一级缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#事项说明"><span class="nav-number">1.1.1.</span> <span class="nav-text">事项说明</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二级缓存"><span class="nav-number">1.2.</span> <span class="nav-text">二级缓存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MyBatis连接池"><span class="nav-number">1.3.</span> <span class="nav-text">MyBatis连接池</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分页"><span class="nav-number">1.4.</span> <span class="nav-text">分页</span></a></li></ol></li></ol></div>
             
 
           </div>
