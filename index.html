@@ -321,7 +321,7 @@
       
         
           
-            <h3 id="MyBatis缓存"><a href="#MyBatis缓存" class="headerlink" title="MyBatis缓存"></a>MyBatis缓存</h3><h4 id="一级缓存"><a href="#一级缓存" class="headerlink" title="一级缓存"></a>一级缓存</h4><p>MyBatis开启一次和数据库的会话，创建一个SqlSession对象表示一次数据库会话。<br>在会话对象中建立一个简单的缓存，将查询到的结果缓存起来，当下次查询的时候，判断是否已经存在该查询，如果存在，直接从缓存中读取查询结果返回，如果不存在，那么从数据库查询，并将结果加入缓存。</p>
+            <h4 id="一级缓存"><a href="#一级缓存" class="headerlink" title="一级缓存"></a>一级缓存</h4><p>MyBatis开启一次和数据库的会话，创建一个SqlSession对象表示一次数据库会话。<br>在会话对象中建立一个简单的缓存，将查询到的结果缓存起来，当下次查询的时候，判断是否已经存在该查询，如果存在，直接从缓存中读取查询结果返回，如果不存在，那么从数据库查询，并将结果加入缓存。</p>
 <p>SqlSession将工作交给Executor执行器完成，负责对数据库的各种操作，缓存信息就被维护在Executor执行器中。将缓存和对缓存相关的操作，封装成Cache接口中。<br>Executor接口的实现类BaseExecutor中拥有一个Cache接口的实现类<br>PerpetualCache，对于BaseExecutor来说，它将使用PerpetualCache来维护缓存。<br>实际维护时用HashMap维护，map的key使用 statementId,params,rowBounds构建 </p>
 <h5 id="事项说明"><a href="#事项说明" class="headerlink" title="事项说明"></a>事项说明</h5><ol>
 <li>SqlSession中执行了任何一个update操作（upate、delete、insert）都会清空PerpetualCache对象的数据，但是该对象可以继续使用</li>

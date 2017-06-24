@@ -93,19 +93,19 @@
 
 
 
-<meta name="description" content="MyBatis缓存一级缓存MyBatis开启一次和数据库的会话，创建一个SqlSession对象表示一次数据库会话。在会话对象中建立一个简单的缓存，将查询到的结果缓存起来，当下次查询的时候，判断是否已经存在该查询，如果存在，直接从缓存中读取查询结果返回，如果不存在，那么从数据库查询，并将结果加入缓存。
-SqlSession将工作交给Executor执行器完成，负责对数据库的各种操作，缓存信息就被维">
+<meta name="description" content="一级缓存MyBatis开启一次和数据库的会话，创建一个SqlSession对象表示一次数据库会话。在会话对象中建立一个简单的缓存，将查询到的结果缓存起来，当下次查询的时候，判断是否已经存在该查询，如果存在，直接从缓存中读取查询结果返回，如果不存在，那么从数据库查询，并将结果加入缓存。
+SqlSession将工作交给Executor执行器完成，负责对数据库的各种操作，缓存信息就被维护在Executo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MyBatis缓存基础">
 <meta property="og:url" content="https://alenx.github.io/2017/06/24/MyBatis整理/index.html">
 <meta property="og:site_name" content="南山东篱">
-<meta property="og:description" content="MyBatis缓存一级缓存MyBatis开启一次和数据库的会话，创建一个SqlSession对象表示一次数据库会话。在会话对象中建立一个简单的缓存，将查询到的结果缓存起来，当下次查询的时候，判断是否已经存在该查询，如果存在，直接从缓存中读取查询结果返回，如果不存在，那么从数据库查询，并将结果加入缓存。
-SqlSession将工作交给Executor执行器完成，负责对数据库的各种操作，缓存信息就被维">
-<meta property="og:updated_time" content="2017-06-24T02:36:03.136Z">
+<meta property="og:description" content="一级缓存MyBatis开启一次和数据库的会话，创建一个SqlSession对象表示一次数据库会话。在会话对象中建立一个简单的缓存，将查询到的结果缓存起来，当下次查询的时候，判断是否已经存在该查询，如果存在，直接从缓存中读取查询结果返回，如果不存在，那么从数据库查询，并将结果加入缓存。
+SqlSession将工作交给Executor执行器完成，负责对数据库的各种操作，缓存信息就被维护在Executo">
+<meta property="og:updated_time" content="2017-06-24T02:37:41.811Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MyBatis缓存基础">
-<meta name="twitter:description" content="MyBatis缓存一级缓存MyBatis开启一次和数据库的会话，创建一个SqlSession对象表示一次数据库会话。在会话对象中建立一个简单的缓存，将查询到的结果缓存起来，当下次查询的时候，判断是否已经存在该查询，如果存在，直接从缓存中读取查询结果返回，如果不存在，那么从数据库查询，并将结果加入缓存。
-SqlSession将工作交给Executor执行器完成，负责对数据库的各种操作，缓存信息就被维">
+<meta name="twitter:description" content="一级缓存MyBatis开启一次和数据库的会话，创建一个SqlSession对象表示一次数据库会话。在会话对象中建立一个简单的缓存，将查询到的结果缓存起来，当下次查询的时候，判断是否已经存在该查询，如果存在，直接从缓存中读取查询结果返回，如果不存在，那么从数据库查询，并将结果加入缓存。
+SqlSession将工作交给Executor执行器完成，负责对数据库的各种操作，缓存信息就被维护在Executo">
 
 
 
@@ -322,7 +322,7 @@ SqlSession将工作交给Executor执行器完成，负责对数据库的各种�
       
 
       
-        <h3 id="MyBatis缓存"><a href="#MyBatis缓存" class="headerlink" title="MyBatis缓存"></a>MyBatis缓存</h3><h4 id="一级缓存"><a href="#一级缓存" class="headerlink" title="一级缓存"></a>一级缓存</h4><p>MyBatis开启一次和数据库的会话，创建一个SqlSession对象表示一次数据库会话。<br>在会话对象中建立一个简单的缓存，将查询到的结果缓存起来，当下次查询的时候，判断是否已经存在该查询，如果存在，直接从缓存中读取查询结果返回，如果不存在，那么从数据库查询，并将结果加入缓存。</p>
+        <h4 id="一级缓存"><a href="#一级缓存" class="headerlink" title="一级缓存"></a>一级缓存</h4><p>MyBatis开启一次和数据库的会话，创建一个SqlSession对象表示一次数据库会话。<br>在会话对象中建立一个简单的缓存，将查询到的结果缓存起来，当下次查询的时候，判断是否已经存在该查询，如果存在，直接从缓存中读取查询结果返回，如果不存在，那么从数据库查询，并将结果加入缓存。</p>
 <p>SqlSession将工作交给Executor执行器完成，负责对数据库的各种操作，缓存信息就被维护在Executor执行器中。将缓存和对缓存相关的操作，封装成Cache接口中。<br>Executor接口的实现类BaseExecutor中拥有一个Cache接口的实现类<br>PerpetualCache，对于BaseExecutor来说，它将使用PerpetualCache来维护缓存。<br>实际维护时用HashMap维护，map的key使用 statementId,params,rowBounds构建 </p>
 <h5 id="事项说明"><a href="#事项说明" class="headerlink" title="事项说明"></a>事项说明</h5><ol>
 <li>SqlSession中执行了任何一个update操作（upate、delete、insert）都会清空PerpetualCache对象的数据，但是该对象可以继续使用</li>
@@ -514,7 +514,7 @@ SqlSession将工作交给Executor执行器完成，负责对数据库的各种�
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#MyBatis缓存"><span class="nav-number">1.</span> <span class="nav-text">MyBatis缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一级缓存"><span class="nav-number">1.1.</span> <span class="nav-text">一级缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#事项说明"><span class="nav-number">1.1.1.</span> <span class="nav-text">事项说明</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二级缓存"><span class="nav-number">1.2.</span> <span class="nav-text">二级缓存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MyBatis连接池"><span class="nav-number">1.3.</span> <span class="nav-text">MyBatis连接池</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分页"><span class="nav-number">1.4.</span> <span class="nav-text">分页</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一级缓存"><span class="nav-number">1.</span> <span class="nav-text">一级缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#事项说明"><span class="nav-number">1.1.</span> <span class="nav-text">事项说明</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二级缓存"><span class="nav-number">2.</span> <span class="nav-text">二级缓存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#MyBatis连接池"><span class="nav-number">3.</span> <span class="nav-text">MyBatis连接池</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分页"><span class="nav-number">4.</span> <span class="nav-text">分页</span></a></li></ol></div>
             
 
           </div>
