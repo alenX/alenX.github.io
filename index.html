@@ -253,6 +253,128 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://alenx.github.io/2017/07/02/MyBatis的Cache/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wangss   邮箱:genhaoai#gmail.com">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="南山东篱">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/02/MyBatis的Cache/" itemprop="url">MyBatis的Cache的浅谈</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-02T16:50:57+08:00">
+                2017-07-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="MyBatis的Cache的浅谈"><a href="#MyBatis的Cache的浅谈" class="headerlink" title="MyBatis的Cache的浅谈"></a>MyBatis的Cache的浅谈</h2><h3 id="Cache简介"><a href="#Cache简介" class="headerlink" title="Cache简介"></a>Cache简介</h3><p>在Cache类的注释中写明<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SPI <span class="keyword">for</span> cache provider</div></pre></td></tr></table></figure></p>
+<p>说明该接口提供Cache的服务<br>目前Cache接口的方法主要有以下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//返回该cache的标识符</span></div><div class="line"><span class="function">String <span class="title">getId</span><span class="params">()</span></span>;</div><div class="line"><span class="comment">//cache缓存存储</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">putObject</span><span class="params">(Object key,Object value)</span></span>;</div><div class="line"><span class="comment">//获取key存储的object对象</span></div><div class="line"><span class="function">Object <span class="title">getObject</span><span class="params">(Object key)</span></span>;</div><div class="line"><span class="comment">//移除某一对象</span></div><div class="line"><span class="function">Object <span class="title">removeObject</span><span class="params">(Object key)</span></span>;</div><div class="line"><span class="comment">//清空该缓存</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">getSize</span><span class="params">()</span></span>;</div><div class="line"><span class="function">ReadWriteLock <span class="title">getReadWriteLock</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure></p>
+<h3 id="PerpetualCache"><a href="#PerpetualCache" class="headerlink" title="PerpetualCache"></a>PerpetualCache</h3><p>PerpetualCache用来作为MyBatis的一级缓存，具体可以参考抽象类BaseExecutor中的实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">protected</span> PerpetualCache localCache;</div></pre></td></tr></table></figure></p>
+<p>该缓存主要使用HashMap来实现缓存内容的存储，具体可以参考PerpetualCache类源码32行<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> Map&lt;Object,Object&gt; cache = <span class="keyword">new</span> HashMap&lt;Object,Object&gt;();</div></pre></td></tr></table></figure></p>
+<p>同样与此对应的cache接口中的get、put、remove方法可以对应HashMap的get、put、remove方法，具体源码如下:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">putObject</span><span class="params">(Object key, Object value)</span> </span>&#123;</div><div class="line">  cache.put(key, value);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">getObject</span><span class="params">(Object key)</span> </span>&#123;</div><div class="line">  <span class="keyword">return</span> cache.get(key);</div><div class="line">&#125;</div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> Object <span class="title">removeObject</span><span class="params">(Object key)</span> </span>&#123;</div><div class="line">  <span class="keyword">return</span> cache.remove(key);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>注意此处的hashCode方法，将该cache的id的hashCode作为该PerpetualCache的hashCode的返回值<br>从源码中可以看出，该缓存实际就是以一个HashMap容器作为存储进行读写，而且该HashMap也没有做过多的优化，这样实现的主要原因还是在于MyBatis的SqlSession的声明周期一般较短，同时发生update操作时，该缓存内容就发生变化。</p>
+<h3 id="LruCache"><a href="#LruCache" class="headerlink" title="LruCache"></a>LruCache</h3><p>LRU算法其实不陌生，说是算法，其实只有一句话就能概括，即淘汰最先进入<br>所以从实现上来说，需要存储被淘汰的最先进入的Object，另外还需要将先后进入的顺序体现出来，那么参照代码<br>首先<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> Object eldestKey;<span class="comment">//被淘汰的最先进入的数据key</span></div></pre></td></tr></table></figure></p>
+<p>重点主要有两个方法，一个是setSize方法另外一个是cycleKeyList方法。<br>在setSize方法中，通过LinkedHashMap来控制最先进入的被淘汰，参考代码<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setSize</span><span class="params">(<span class="keyword">final</span> <span class="keyword">int</span> size)</span> </span>&#123;</div><div class="line">    keyMap = <span class="keyword">new</span> LinkedHashMap&lt;Object, Object&gt;(size, .<span class="number">75F</span>, <span class="keyword">true</span>) &#123;</div><div class="line">      <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">4267176411845948333L</span>;</div><div class="line"></div><div class="line">      <span class="meta">@Override</span></div><div class="line">      <span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">removeEldestEntry</span><span class="params">(Map.Entry&lt;Object, Object&gt; eldest)</span> </span>&#123;</div><div class="line">        <span class="keyword">boolean</span> tooBig = size() &gt; size;</div><div class="line">        <span class="keyword">if</span> (tooBig) &#123;</div><div class="line">          eldestKey = eldest.getKey();<span class="comment">//如果实际长度大于限定长度，那么返回最早进入的数值</span></div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> tooBig;</div><div class="line">      &#125;</div><div class="line">    &#125;;</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<p>将该HashMap的size控制在参数size的范围内，如果超过该size，那么使用removeEldestEntry方法，将最先进入的数值返回。<br>cycleKeyList方法如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">cycleKeyList</span><span class="params">(Object key)</span> </span>&#123;</div><div class="line">    keyMap.put(key, key);</div><div class="line">    <span class="keyword">if</span> (eldestKey != <span class="keyword">null</span>) &#123;<span class="comment">//判断是否为空，如果不为空，那么从cache中删除该key值</span></div><div class="line">      delegate.removeObject(eldestKey);</div><div class="line">      eldestKey = <span class="keyword">null</span>;</div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<h3 id="FifoCache"><a href="#FifoCache" class="headerlink" title="FifoCache"></a>FifoCache</h3><p>顾名思义，先进先出，一般使用队列实现，在MyBatis中也是如此<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> Deque&lt;Object&gt; keyList;</div></pre></td></tr></table></figure></p>
+<p>最重要的方法为cycleKeyList(Object key)如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">cycleKeyList</span><span class="params">(Object key)</span> </span>&#123;</div><div class="line">    keyList.addLast(key);<span class="comment">//向队列最后添加key值</span></div><div class="line">    <span class="keyword">if</span> (keyList.size() &gt; size) &#123;<span class="comment">//当keyList长度大于指定长度时</span></div><div class="line">      Object oldestKey = keyList.removeFirst();<span class="comment">//将keyList的第一个数值移除，同时返回该数值</span></div><div class="line">      delegate.removeObject(oldestKey);<span class="comment">//从cache中移除该缓存</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://alenx.github.io/2017/06/24/MyBatis整理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1367,7 +1489,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
