@@ -93,19 +93,19 @@
 
 
 
-<meta name="description" content="MyBatis的Cache的浅谈Cache简介在Cache类的注释中写明1SPI for cache provider
-说明该接口提供Cache的服务目前Cache接口的方法主要有以下123456789101112//返回该cache的标识符String getId();//cache缓存存储void putObject(Object key,Object value);//获取key存储的obj">
+<meta name="description" content="MyBatis的Cache浅谈Cache简介在Cache类的注释中写明1SPI for cache provider
+说明该接口提供Cache的服务目前Cache接口的方法主要有以下123456789101112//返回该cache的标识符String getId();//cache缓存存储void putObject(Object key,Object value);//获取key存储的obje">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MyBatis的Cache的浅谈">
+<meta property="og:title" content="MyBatis的Cache浅谈">
 <meta property="og:url" content="https://alenx.github.io/2017/07/02/MyBatis的Cache/index.html">
 <meta property="og:site_name" content="南山东篱">
-<meta property="og:description" content="MyBatis的Cache的浅谈Cache简介在Cache类的注释中写明1SPI for cache provider
-说明该接口提供Cache的服务目前Cache接口的方法主要有以下123456789101112//返回该cache的标识符String getId();//cache缓存存储void putObject(Object key,Object value);//获取key存储的obj">
-<meta property="og:updated_time" content="2017-07-02T08:52:36.888Z">
+<meta property="og:description" content="MyBatis的Cache浅谈Cache简介在Cache类的注释中写明1SPI for cache provider
+说明该接口提供Cache的服务目前Cache接口的方法主要有以下123456789101112//返回该cache的标识符String getId();//cache缓存存储void putObject(Object key,Object value);//获取key存储的obje">
+<meta property="og:updated_time" content="2017-07-02T08:58:44.816Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MyBatis的Cache的浅谈">
-<meta name="twitter:description" content="MyBatis的Cache的浅谈Cache简介在Cache类的注释中写明1SPI for cache provider
-说明该接口提供Cache的服务目前Cache接口的方法主要有以下123456789101112//返回该cache的标识符String getId();//cache缓存存储void putObject(Object key,Object value);//获取key存储的obj">
+<meta name="twitter:title" content="MyBatis的Cache浅谈">
+<meta name="twitter:description" content="MyBatis的Cache浅谈Cache简介在Cache类的注释中写明1SPI for cache provider
+说明该接口提供Cache的服务目前Cache接口的方法主要有以下123456789101112//返回该cache的标识符String getId();//cache缓存存储void putObject(Object key,Object value);//获取key存储的obje">
 
 
 
@@ -139,7 +139,7 @@
 
 
 
-  <title>MyBatis的Cache的浅谈 | 南山东篱</title>
+  <title>MyBatis的Cache浅谈 | 南山东篱</title>
   
 
 
@@ -275,7 +275,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">MyBatis的Cache的浅谈</h1>
+          <h1 class="post-title" itemprop="name headline">MyBatis的Cache浅谈</h1>
         
 
         <div class="post-meta">
@@ -322,7 +322,7 @@
       
 
       
-        <h2 id="MyBatis的Cache的浅谈"><a href="#MyBatis的Cache的浅谈" class="headerlink" title="MyBatis的Cache的浅谈"></a>MyBatis的Cache的浅谈</h2><h3 id="Cache简介"><a href="#Cache简介" class="headerlink" title="Cache简介"></a>Cache简介</h3><p>在Cache类的注释中写明<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SPI <span class="keyword">for</span> cache provider</div></pre></td></tr></table></figure></p>
+        <h2 id="MyBatis的Cache浅谈"><a href="#MyBatis的Cache浅谈" class="headerlink" title="MyBatis的Cache浅谈"></a>MyBatis的Cache浅谈</h2><h3 id="Cache简介"><a href="#Cache简介" class="headerlink" title="Cache简介"></a>Cache简介</h3><p>在Cache类的注释中写明<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">SPI <span class="keyword">for</span> cache provider</div></pre></td></tr></table></figure></p>
 <p>说明该接口提供Cache的服务<br>目前Cache接口的方法主要有以下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//返回该cache的标识符</span></div><div class="line"><span class="function">String <span class="title">getId</span><span class="params">()</span></span>;</div><div class="line"><span class="comment">//cache缓存存储</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">putObject</span><span class="params">(Object key,Object value)</span></span>;</div><div class="line"><span class="comment">//获取key存储的object对象</span></div><div class="line"><span class="function">Object <span class="title">getObject</span><span class="params">(Object key)</span></span>;</div><div class="line"><span class="comment">//移除某一对象</span></div><div class="line"><span class="function">Object <span class="title">removeObject</span><span class="params">(Object key)</span></span>;</div><div class="line"><span class="comment">//清空该缓存</span></div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span></span>;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">getSize</span><span class="params">()</span></span>;</div><div class="line"><span class="function">ReadWriteLock <span class="title">getReadWriteLock</span><span class="params">()</span></span>;</div></pre></td></tr></table></figure></p>
 <h3 id="PerpetualCache"><a href="#PerpetualCache" class="headerlink" title="PerpetualCache"></a>PerpetualCache</h3><p>PerpetualCache用来作为MyBatis的一级缓存，具体可以参考抽象类BaseExecutor中的实现<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">protected</span> PerpetualCache localCache;</div></pre></td></tr></table></figure></p>
 <p>该缓存主要使用HashMap来实现缓存内容的存储，具体可以参考PerpetualCache类源码32行<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> Map&lt;Object,Object&gt; cache = <span class="keyword">new</span> HashMap&lt;Object,Object&gt;();</div></pre></td></tr></table></figure></p>
@@ -503,7 +503,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MyBatis的Cache的浅谈"><span class="nav-number">1.</span> <span class="nav-text">MyBatis的Cache的浅谈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cache简介"><span class="nav-number">1.1.</span> <span class="nav-text">Cache简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PerpetualCache"><span class="nav-number">1.2.</span> <span class="nav-text">PerpetualCache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LruCache"><span class="nav-number">1.3.</span> <span class="nav-text">LruCache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FifoCache"><span class="nav-number">1.4.</span> <span class="nav-text">FifoCache</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MyBatis的Cache浅谈"><span class="nav-number">1.</span> <span class="nav-text">MyBatis的Cache浅谈</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cache简介"><span class="nav-number">1.1.</span> <span class="nav-text">Cache简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PerpetualCache"><span class="nav-number">1.2.</span> <span class="nav-text">PerpetualCache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LruCache"><span class="nav-number">1.3.</span> <span class="nav-text">LruCache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FifoCache"><span class="nav-number">1.4.</span> <span class="nav-text">FifoCache</span></a></li></ol></li></ol></div>
             
 
           </div>
