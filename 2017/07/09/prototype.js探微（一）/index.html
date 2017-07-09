@@ -1,0 +1,747 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript,Prototype.js," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="由于新项目框架用到了prototype.js，之前没有接触过，趁着周末熟悉下该框架，老框架，你懂得
+prototype.js简介prototype.js官网prototype.js Doc
+prototype.js的主要用途有如下几点：
+
+定义类和继承关系
+DOM扩展
+简化的Ajax的请求
+JSON的编码解码支持
+事件委托
+元素像素级获取支持
+
+定义类和继承关系类创建的方法，Class.creat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="prototype.js探微（一）">
+<meta property="og:url" content="https://alenx.github.io/2017/07/09/prototype.js探微（一）/index.html">
+<meta property="og:site_name" content="南山东篱">
+<meta property="og:description" content="由于新项目框架用到了prototype.js，之前没有接触过，趁着周末熟悉下该框架，老框架，你懂得
+prototype.js简介prototype.js官网prototype.js Doc
+prototype.js的主要用途有如下几点：
+
+定义类和继承关系
+DOM扩展
+简化的Ajax的请求
+JSON的编码解码支持
+事件委托
+元素像素级获取支持
+
+定义类和继承关系类创建的方法，Class.creat">
+<meta property="og:updated_time" content="2017-07-09T12:14:41.526Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="prototype.js探微（一）">
+<meta name="twitter:description" content="由于新项目框架用到了prototype.js，之前没有接触过，趁着周末熟悉下该框架，老框架，你懂得
+prototype.js简介prototype.js官网prototype.js Doc
+prototype.js的主要用途有如下几点：
+
+定义类和继承关系
+DOM扩展
+简化的Ajax的请求
+JSON的编码解码支持
+事件委托
+元素像素级获取支持
+
+定义类和继承关系类创建的方法，Class.creat">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://alenx.github.io/2017/07/09/prototype.js探微（一）/"/>
+
+
+
+
+
+  <title>prototype.js探微（一） | 南山东篱</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">南山东篱</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://alenx.github.io/2017/07/09/prototype.js探微（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wangss   邮箱:genhaoai#gmail.com">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="南山东篱">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">prototype.js探微（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-09T20:02:19+08:00">
+                2017-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>由于新项目框架用到了prototype.js，之前没有接触过，趁着周末熟悉下该框架，老框架，你懂得</p>
+<h2 id="prototype-js简介"><a href="#prototype-js简介" class="headerlink" title="prototype.js简介"></a>prototype.js简介</h2><p><a href="http://prototypejs.org/" target="_blank" rel="external">prototype.js官网</a><br><a href="http://prototypejs.org/learn/" target="_blank" rel="external">prototype.js Doc</a></p>
+<p>prototype.js的主要用途有如下几点：</p>
+<ul>
+<li>定义类和继承关系</li>
+<li>DOM扩展</li>
+<li>简化的Ajax的请求</li>
+<li>JSON的编码解码支持</li>
+<li>事件委托</li>
+<li>元素像素级获取支持</li>
+</ul>
+<h3 id="定义类和继承关系"><a href="#定义类和继承关系" class="headerlink" title="定义类和继承关系"></a>定义类和继承关系</h3><p>类创建的方法，Class.create()方法</p>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/** obsolete syntax **/</span></div><div class="line">    </div><div class="line"><span class="keyword">var</span> Person = Class.create();</div><div class="line">Person.prototype = &#123;</div><div class="line">  <span class="attr">initialize</span>: <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.name = name;</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">say</span>: <span class="function"><span class="keyword">function</span>(<span class="params">message</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name + <span class="string">': '</span> + message;</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line">    </div><div class="line"><span class="keyword">var</span> guy = <span class="keyword">new</span> Person(<span class="string">'Miro'</span>);</div><div class="line">guy.say(<span class="string">'hi'</span>);</div><div class="line"><span class="comment">// -&gt; "Miro: hi"</span></div><div class="line">    </div><div class="line"><span class="keyword">var</span> Pirate = Class.create();</div><div class="line"><span class="comment">//之前继承的写法</span></div><div class="line"><span class="comment">// inherit from Person class:</span></div><div class="line">Pirate.prototype = <span class="built_in">Object</span>.extend(<span class="keyword">new</span> Person(), &#123;</div><div class="line">  <span class="comment">// redefine the speak method</span></div><div class="line">  say: <span class="function"><span class="keyword">function</span>(<span class="params">message</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name + <span class="string">': '</span> + message + <span class="string">', yarr!'</span>;</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line">    </div><div class="line"><span class="keyword">var</span> john = <span class="keyword">new</span> Pirate(<span class="string">'Long John'</span>);</div><div class="line">john.say(<span class="string">'ahoy matey'</span>);</div><div class="line"><span class="comment">// -&gt; "Long John: ahoy matey, yarr!"</span></div></pre></td></tr></table></figure>
+<p>改良版类继承写法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/** new, preferred syntax **/</span></div><div class="line">    </div><div class="line"><span class="comment">// properties are directly passed to `create` method</span></div><div class="line"><span class="keyword">var</span> Person = Class.create(&#123;</div><div class="line">  <span class="attr">initialize</span>: <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;<span class="comment">//Person构造方法</span></div><div class="line">    <span class="keyword">this</span>.name = name;</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">say</span>: <span class="function"><span class="keyword">function</span>(<span class="params">message</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name + <span class="string">': '</span> + message;</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line">    </div><div class="line"><span class="comment">// when subclassing, specify the class you want to inherit from</span></div><div class="line"><span class="keyword">var</span> Pirate = Class.create(Person, &#123;<span class="comment">//继承Person类</span></div><div class="line">  <span class="comment">// redefine the speak method</span></div><div class="line">  say: <span class="function"><span class="keyword">function</span>(<span class="params">$super, message</span>) </span>&#123;<span class="comment">// $super为父类say方法</span></div><div class="line">    <span class="keyword">return</span> $<span class="keyword">super</span>(message) + <span class="string">', yarr!'</span>;</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line">    </div><div class="line"><span class="keyword">var</span> john = <span class="keyword">new</span> Pirate(<span class="string">'Long John'</span>);</div><div class="line">john.say(<span class="string">'ahoy matey'</span>);</div><div class="line"><span class="comment">// -&gt; "Long John: ahoy matey, yarr!"</span></div></pre></td></tr></table></figure>
+<p>以上两种写法，明显第二种写法简洁一点</p>
+<h4 id="方法定义中的-super参数"><a href="#方法定义中的-super参数" class="headerlink" title="方法定义中的$super参数"></a>方法定义中的$super参数</h4><p>当在子类方法中需要调用父类方法时，需要一个引用，这个引用可以在定义方法时增加一个额外的参数$super，但是实际调用的时候，还是没有这个参数</p>
+<h4 id="如何mix-in模块"><a href="#如何mix-in模块" class="headerlink" title="如何mix-in模块"></a>如何mix-in模块</h4><p>Class.create参数个数不固定，如果第一个参数类型时class，那么该类即为该函数的所属父类，其他所有的参数（如果第一个参数类型不是class，那么也包括第一个参数），将会被认为mixins</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// define a module</span></div><div class="line"><span class="keyword">var</span> Vulnerable = &#123;</div><div class="line">  <span class="attr">wound</span>: <span class="function"><span class="keyword">function</span>(<span class="params">hp</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.health -= hp;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.health &lt; <span class="number">0</span>) <span class="keyword">this</span>.kill();</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">kill</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.dead = <span class="literal">true</span>;</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line">    </div><div class="line"><span class="comment">// the first argument isn't a class object, so there is no inheritance ...</span></div><div class="line"><span class="comment">// simply mix in all the arguments as methods:</span></div><div class="line"><span class="keyword">var</span> Person = Class.create(Vulnerable, &#123;<span class="comment">//第一个参数不是类对象，所以不是继承</span></div><div class="line">  initialize: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.health = <span class="number">100</span>;</div><div class="line">    <span class="keyword">this</span>.dead = <span class="literal">false</span>;</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line">    </div><div class="line"><span class="keyword">var</span> bruce = <span class="keyword">new</span> Person;</div><div class="line">bruce.wound(<span class="number">55</span>);<span class="comment">//即使不是继承，一样调用该类的方法</span></div><div class="line">bruce.health; <span class="comment">//-&gt; 45</span></div></pre></td></tr></table></figure>
+<h4 id="编程语言的继承类型"><a href="#编程语言的继承类型" class="headerlink" title="编程语言的继承类型"></a>编程语言的继承类型</h4><p>一般我们会区分类继承和原型继承，后者只针对JavaScript<br>举例说明，php中的初始实例变量</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Logger</span> </span>&#123;</div><div class="line">  <span class="keyword">public</span> $log = <span class="keyword">array</span>();</div><div class="line">    </div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">write</span><span class="params">($message)</span> </span>&#123;</div><div class="line">    <span class="keyword">$this</span>-&gt;log[] = $message;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">    </div><div class="line">$logger = <span class="keyword">new</span> Logger;</div><div class="line">$logger-&gt;write(<span class="string">'foo'</span>);</div><div class="line">$logger-&gt;write(<span class="string">'bar'</span>);</div><div class="line">$logger-&gt;log; <span class="comment">// -&gt; ['foo', 'bar']</span></div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<p>用原型的话，如下实现</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">var</span> Logger = Class.create(&#123;</div><div class="line">  <span class="attr">initialize</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; &#125;,</div><div class="line">  <span class="attr">log</span>: [],</div><div class="line">  <span class="attr">write</span>: <span class="function"><span class="keyword">function</span>(<span class="params">message</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.log.push(message);</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line">    </div><div class="line"><span class="keyword">var</span> logger = <span class="keyword">new</span> Logger;</div><div class="line">logger.log; <span class="comment">// -&gt; []</span></div><div class="line">logger.write(<span class="string">'foo'</span>);</div><div class="line">logger.write(<span class="string">'bar'</span>);</div><div class="line">logger.log; <span class="comment">// -&gt; ['foo', 'bar']</span></div></pre></td></tr></table></figure>
+<p>如果创建另一个Logger实例</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> logger2 = <span class="keyword">new</span> Logger;</div><div class="line"><span class="comment">//该对象应该为空，但是实际却有数值</span></div><div class="line">logger2.log; <span class="comment">// -&gt; ['foo', 'bar']</span></div><div class="line">    </div><div class="line"><span class="comment">// ... hey, the log should have been empty!</span></div></pre></td></tr></table></figure>
+<p>所有的Logger对象共用一个数组对象，因为使用的是引用而不是数值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Logger = Class.create(&#123;</div><div class="line">  <span class="attr">initialize</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">// this is the right way to do it:</span></div><div class="line">    <span class="keyword">this</span>.log = [];</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">write</span>: <span class="function"><span class="keyword">function</span>(<span class="params">message</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.log.push(message);</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>所以需要在构造方法中将变量初始化</p>
+<h4 id="定义类方法"><a href="#定义类方法" class="headerlink" title="定义类方法"></a>定义类方法</h4><p>Prototype 1.6.0中对类的方法没有特别的支持</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Pirate.allHandsOnDeck = <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> voices = [];</div><div class="line">  n.times(<span class="function"><span class="keyword">function</span>(<span class="params">i</span>) </span>&#123;</div><div class="line">    voices.push(<span class="keyword">new</span> Pirate(<span class="string">'Sea dog'</span>).say(i + <span class="number">1</span>));</div><div class="line">  &#125;);</div><div class="line">  <span class="keyword">return</span> voices;</div><div class="line">&#125;</div><div class="line">    </div><div class="line">Pirate.allHandsOnDeck(<span class="number">3</span>);</div><div class="line"><span class="comment">// -&gt; ["Sea dog: 1, yarr!", "Sea dog: 2, yarr!", "Sea dog: 3, yarr!"]</span></div></pre></td></tr></table></figure>
+<h4 id="特殊的类属性"><a href="#特殊的类属性" class="headerlink" title="特殊的类属性"></a>特殊的类属性</h4><p>Prototype 1.6.0 定义了两个特殊的类属性，subclasses以及superclass<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">Person.superclass</div><div class="line"><span class="comment">// -&gt; null</span></div><div class="line">Person.subclasses.length</div><div class="line"><span class="comment">// -&gt; 1</span></div><div class="line">Person.subclasses.first() == Pirate</div><div class="line"><span class="comment">// -&gt; true</span></div><div class="line">Pirate.superclass == Person</div><div class="line"><span class="comment">// -&gt; true</span></div><div class="line">Captain.superclass == Pirate</div><div class="line"><span class="comment">// -&gt; true</span></div><div class="line">Captain.superclass == Person</div><div class="line"><span class="comment">// -&gt; false</span></div></pre></td></tr></table></figure></p>
+<h4 id="通过Class-addMethods动态添加方法"><a href="#通过Class-addMethods动态添加方法" class="headerlink" title="通过Class#addMethods动态添加方法"></a>通过Class#addMethods动态添加方法</h4><p><strong>个人感觉用处不大,类的方法在定义类时就应该调整完毕，而不是在其他地方动态去增加方法，这样不便于类方法的管理，同样的实现还有kotlin如下</strong><br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</div><div class="line">    println(<span class="string">"ss"</span>.isName())<span class="comment">//输出 false</span></div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">fun</span> String.<span class="title">isName</span><span class="params">()</span></span>:<span class="built_in">Boolean</span>&#123;</div><div class="line">    <span class="keyword">return</span> length==<span class="number">3</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>对String增加isName方法<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> john = <span class="keyword">new</span> Pirate(<span class="string">'Long John'</span>);</div><div class="line">john.sleep();</div><div class="line"><span class="comment">// -&gt; ERROR: sleep is not a method</span></div><div class="line">    </div><div class="line"><span class="comment">// every person should be able to sleep, not just pirates!</span></div><div class="line">Person.addMethods(&#123;</div><div class="line">  <span class="attr">sleep</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.say(<span class="string">'ZzZ'</span>);</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line">    </div><div class="line">john.sleep();</div><div class="line"><span class="comment">// -&gt; "Long John: ZzZ, yarr!"</span></div></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/tags/Prototype-js/" rel="tag"># Prototype.js</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/08/python的列表推导之变量泄漏问题/" rel="next" title="python的列表推导之变量泄漏问题">
+                <i class="fa fa-chevron-left"></i> python的列表推导之变量泄漏问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/09/prototype.js探微（二）/" rel="prev" title="prototype.js探微（三）">
+                prototype.js探微（三） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/head.jpg"
+               alt="wangss   邮箱:genhaoai#gmail.com" />
+          <p class="site-author-name" itemprop="name">wangss   邮箱:genhaoai#gmail.com</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#prototype-js简介"><span class="nav-number">1.</span> <span class="nav-text">prototype.js简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义类和继承关系"><span class="nav-number">1.1.</span> <span class="nav-text">定义类和继承关系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例子"><span class="nav-number">1.1.1.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法定义中的-super参数"><span class="nav-number">1.1.2.</span> <span class="nav-text">方法定义中的$super参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何mix-in模块"><span class="nav-number">1.1.3.</span> <span class="nav-text">如何mix-in模块</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编程语言的继承类型"><span class="nav-number">1.1.4.</span> <span class="nav-text">编程语言的继承类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#定义类方法"><span class="nav-number">1.1.5.</span> <span class="nav-text">定义类方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特殊的类属性"><span class="nav-number">1.1.6.</span> <span class="nav-text">特殊的类属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通过Class-addMethods动态添加方法"><span class="nav-number">1.1.7.</span> <span class="nav-text">通过Class#addMethods动态添加方法</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wangss   邮箱:genhaoai#gmail.com</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="JavaScript,Prototype.js," />
 
 
 
@@ -93,19 +93,19 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="description" content="DOM扩展Prototype如何扩展DOMPrototype中使用$()函数来操作对应的页面元素，例如，你可以这样写$(‘comments’).addClassName(‘active’).show() ，获取comments元素，然后增加active类，然后将该元素展示  
+Element.extend方法大部分DOM方法被Element.Methods包裹着，并且在Element对象中。123">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World世界">
-<meta property="og:url" content="https://alenx.github.io/2017/03/13/hello-world hexo/index.html">
+<meta property="og:title" content="prototype.js探微（二）">
+<meta property="og:url" content="https://alenx.github.io/2017/07/09/prototype.js探微（三）/index.html">
 <meta property="og:site_name" content="南山东篱">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2017-03-14T02:43:08.595Z">
+<meta property="og:description" content="DOM扩展Prototype如何扩展DOMPrototype中使用$()函数来操作对应的页面元素，例如，你可以这样写$(‘comments’).addClassName(‘active’).show() ，获取comments元素，然后增加active类，然后将该元素展示  
+Element.extend方法大部分DOM方法被Element.Methods包裹着，并且在Element对象中。123">
+<meta property="og:updated_time" content="2017-07-09T12:14:35.453Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World世界">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="prototype.js探微（二）">
+<meta name="twitter:description" content="DOM扩展Prototype如何扩展DOMPrototype中使用$()函数来操作对应的页面元素，例如，你可以这样写$(‘comments’).addClassName(‘active’).show() ，获取comments元素，然后增加active类，然后将该元素展示  
+Element.extend方法大部分DOM方法被Element.Methods包裹着，并且在Element对象中。123">
 
 
 
@@ -133,13 +133,13 @@ Quick">
 
 
 
-  <link rel="canonical" href="https://alenx.github.io/2017/03/13/hello-world hexo/"/>
+  <link rel="canonical" href="https://alenx.github.io/2017/07/09/prototype.js探微（三）/"/>
 
 
 
 
 
-  <title>Hello World世界 | 南山东篱</title>
+  <title>prototype.js探微（二） | 南山东篱</title>
   
 
 
@@ -258,7 +258,7 @@ Quick">
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://alenx.github.io/2017/03/13/hello-world hexo/">
+    <link itemprop="mainEntityOfPage" href="https://alenx.github.io/2017/07/09/prototype.js探微（三）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="wangss   邮箱:genhaoai#gmail.com">
@@ -275,7 +275,7 @@ Quick">
 
         
         
-          <h1 class="post-title" itemprop="name headline">Hello World世界</h1>
+          <h1 class="post-title" itemprop="name headline">prototype.js探微（二）</h1>
         
 
         <div class="post-meta">
@@ -287,8 +287,8 @@ Quick">
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-13T17:25:23+08:00">
-                2017-03-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-09T20:07:10+08:00">
+                2017-07-09
               </time>
             
 
@@ -322,16 +322,15 @@ Quick">
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
+        <h3 id="DOM扩展"><a href="#DOM扩展" class="headerlink" title="DOM扩展"></a>DOM扩展</h3><h4 id="Prototype如何扩展DOM"><a href="#Prototype如何扩展DOM" class="headerlink" title="Prototype如何扩展DOM"></a>Prototype如何扩展DOM</h4><p>Prototype中使用$()函数来操作对应的页面元素，例如，你可以这样写$(‘comments’).addClassName(‘active’).show() ，获取comments元素，然后增加active类，然后将该元素展示  </p>
+<h4 id="Element-extend方法"><a href="#Element-extend方法" class="headerlink" title="Element.extend方法"></a>Element.extend方法</h4><p>大部分DOM方法被Element.Methods包裹着，并且在Element对象中。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Element.hide(<span class="string">'comments'</span>);</div><div class="line"><span class="keyword">var</span> div_height = Element.getHeight(my_div);</div><div class="line">Element.addClassName(<span class="string">'contactform'</span>, <span class="string">'pending'</span>);</div></pre></td></tr></table></figure></p>
+<p>将需要操作的元素作为第一个参数放置在参数列表中。<br>使用Element.extend()方法为该元素拷贝所有的方法。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> my_div = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>);</div><div class="line"></div><div class="line">Element.extend(my_div);</div><div class="line">my_div.addClassName(<span class="string">'pending'</span>).hide();</div><div class="line"></div><div class="line"><span class="comment">// insert it in the document</span></div><div class="line"><span class="built_in">document</span>.body.appendChild(my_div);</div></pre></td></tr></table></figure>
+<p>另外，Element.extend()同样将Form.Methods方法赋值给Form元素把Form.Element.Methods赋值给INPUT、TEXTAREA和SELECT元素<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> contact_data = $(<span class="string">'contactform'</span>).serialize();</div><div class="line"><span class="keyword">var</span> search_terms = $(<span class="string">'search_input'</span>).getValue();</div></pre></td></tr></table></figure></p>
+<h4 id="用Element-addMethods扩展自己的方法"><a href="#用Element-addMethods扩展自己的方法" class="headerlink" title="用Element.addMethods扩展自己的方法"></a>用Element.addMethods扩展自己的方法</h4><p>示例如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> MyUtils = &#123;</div><div class="line">  <span class="attr">truncate</span>: <span class="function"><span class="keyword">function</span>(<span class="params">element, length</span>)</span>&#123;<span class="comment">//方法的第一个参数</span></div><div class="line">    element = $(element);</div><div class="line">    <span class="keyword">return</span> element.update(element.innerHTML.truncate(length));</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">updateAndMark</span>: <span class="function"><span class="keyword">function</span>(<span class="params">element, html</span>)</span>&#123;<span class="comment">//方法的第一个参数</span></div><div class="line">    <span class="keyword">return</span> $(element).update(html).addClassName(<span class="string">'updated'</span>);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line">        </div><div class="line">Element.addMethods(MyUtils);<span class="comment">//使用Element.addMethods()增加方法</span></div><div class="line">        </div><div class="line"><span class="comment">// now you can:</span></div><div class="line">$(<span class="string">'explanation'</span>).truncate(<span class="number">100</span>);</div></pre></td></tr></table></figure>
+<p>唯一需要注意的是方法的第一个参数必须是element</p>
+<h4 id="本地扩展native-extensions"><a href="#本地扩展native-extensions" class="headerlink" title="本地扩展native extensions"></a>本地扩展native extensions</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// this will error out in IE: </span></div><div class="line">$(<span class="string">'someElement'</span>).parentNode.hide();</div><div class="line"><span class="comment">// to make it cross-browser:</span></div><div class="line">$($(<span class="string">'someElement'</span>).parentNode).hide();</div></pre></td></tr></table></figure>
       
     </div>
 
@@ -358,6 +357,14 @@ Quick">
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/tags/Prototype-js/" rel="tag"># Prototype.js</a>
+          
+        </div>
+      
 
       
       
@@ -367,14 +374,18 @@ Quick">
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2017/07/09/prototype.js探微（二）/" rel="next" title="prototype.js探微（三）">
+                <i class="fa fa-chevron-left"></i> prototype.js探微（三）
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/03/17/kotlin入门/" rel="prev" title="kotlin基础语法一">
-                kotlin基础语法一 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/07/09/prototype.js探微（四）/" rel="prev" title="prototype.js探微（四）">
+                prototype.js探微（四） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -495,7 +506,7 @@ Quick">
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM扩展"><span class="nav-number">1.</span> <span class="nav-text">DOM扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Prototype如何扩展DOM"><span class="nav-number">1.1.</span> <span class="nav-text">Prototype如何扩展DOM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Element-extend方法"><span class="nav-number">1.2.</span> <span class="nav-text">Element.extend方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用Element-addMethods扩展自己的方法"><span class="nav-number">1.3.</span> <span class="nav-text">用Element.addMethods扩展自己的方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#本地扩展native-extensions"><span class="nav-number">1.4.</span> <span class="nav-text">本地扩展native extensions</span></a></li></ol></li></ol></div>
             
 
           </div>

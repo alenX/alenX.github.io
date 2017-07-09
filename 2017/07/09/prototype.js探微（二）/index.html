@@ -1,0 +1,706 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript,Prototype.js," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="AjaxAjax的函数在Ajax对象里，Ajax的request请求使用XmlHttpRequest，而忽略其浏览器的差异性。实际处理时，通过创建Ajax.Request对象来实现。1new Ajax.Request(&apos;/some_url&apos;, &amp;#123; method:&apos;get&apos; &amp;#125;);
+第一个参数是请求的URL，第二个参数是可选的hash键值对参数。HTTP方法中的method选项，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="prototype.js探微（三）">
+<meta property="og:url" content="https://alenx.github.io/2017/07/09/prototype.js探微（二）/index.html">
+<meta property="og:site_name" content="南山东篱">
+<meta property="og:description" content="AjaxAjax的函数在Ajax对象里，Ajax的request请求使用XmlHttpRequest，而忽略其浏览器的差异性。实际处理时，通过创建Ajax.Request对象来实现。1new Ajax.Request(&apos;/some_url&apos;, &amp;#123; method:&apos;get&apos; &amp;#125;);
+第一个参数是请求的URL，第二个参数是可选的hash键值对参数。HTTP方法中的method选项，">
+<meta property="og:updated_time" content="2017-07-09T12:13:40.607Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="prototype.js探微（三）">
+<meta name="twitter:description" content="AjaxAjax的函数在Ajax对象里，Ajax的request请求使用XmlHttpRequest，而忽略其浏览器的差异性。实际处理时，通过创建Ajax.Request对象来实现。1new Ajax.Request(&apos;/some_url&apos;, &amp;#123; method:&apos;get&apos; &amp;#125;);
+第一个参数是请求的URL，第二个参数是可选的hash键值对参数。HTTP方法中的method选项，">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://alenx.github.io/2017/07/09/prototype.js探微（二）/"/>
+
+
+
+
+
+  <title>prototype.js探微（三） | 南山东篱</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">南山东篱</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://alenx.github.io/2017/07/09/prototype.js探微（二）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wangss   邮箱:genhaoai#gmail.com">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="南山东篱">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">prototype.js探微（三）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-09T20:05:44+08:00">
+                2017-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="Ajax"><a href="#Ajax" class="headerlink" title="Ajax"></a>Ajax</h4><p>Ajax的函数在Ajax对象里，Ajax的request请求使用XmlHttpRequest，而忽略其浏览器的差异性。实际处理时，通过创建Ajax.Request对象来实现。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Ajax.Request(<span class="string">'/some_url'</span>, &#123; <span class="attr">method</span>:<span class="string">'get'</span> &#125;);</div></pre></td></tr></table></figure></p>
+<p>第一个参数是请求的URL，第二个参数是可选的hash键值对参数。HTTP方法中的method选项，默认方法是post。<br>为了安全考虑，例如防止cross-site scripting attacks等，同一页面的ajax请求中，必须协议、主机、端口要相同。虽然有些浏览器支持任意的url</p>
+<h4 id="Ajax响应回调"><a href="#Ajax响应回调" class="headerlink" title="Ajax响应回调"></a>Ajax响应回调</h4><p>ajax请求都是异步的，所以说必须要有回调处理其返回。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Ajax.Request(<span class="string">'/some_url'</span>, &#123;</div><div class="line">  <span class="attr">method</span>:<span class="string">'get'</span>,</div><div class="line">  <span class="attr">onSuccess</span>: <span class="function"><span class="keyword">function</span>(<span class="params">transport</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> response = transport.responseText || <span class="string">"no response text"</span>;</div><div class="line">    alert(<span class="string">"Success! \n\n"</span> + response);</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">onFailure</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; alert(<span class="string">'Something went wrong...'</span>); &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>回调onSuccess以及onFailure，第一个参数是本地的xmlHttpRequest对象，其属性有responseText 和 responseXML，可以指定任意多个回调函数，其余的回调函数</p>
+<blockquote>
+<ul>
+<li>onUninitialized</li>
+<li>onLoading</li>
+<li>onLoaded</li>
+<li>onInteractive</li>
+<li>onComplete</li>
+<li>onException</li>
+</ul>
+</blockquote>
+<p>除了onException其余存在一个xmlHttpRequest状态。<br>方法onUninitialized, onLoading, onLoaded和 onInteractive 回调并不是所有浏览器都支持，所以要谨慎使用。</p>
+<h4 id="参数和HTTP方法"><a href="#参数和HTTP方法" class="headerlink" title="参数和HTTP方法"></a>参数和HTTP方法</h4><p>使用parameters属性来传递参数，<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Ajax.Request(<span class="string">'/some_url'</span>, &#123;</div><div class="line">  <span class="attr">method</span>: <span class="string">'get'</span>,</div><div class="line">  <span class="attr">parameters</span>: &#123;<span class="attr">company</span>: <span class="string">'example'</span>, <span class="attr">limit</span>: <span class="number">12</span>&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>参数作为键值对来传递使用<br>对于GET请求和POST请求，GET请求一定不要修改数据操作。<br>对于Form数据的ajax请求，Prototype本身提供了一个简便的方法，Form.serialize<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Ajax.Request(<span class="string">'/some_url'</span>, &#123;</div><div class="line">  <span class="attr">parameters</span>: $(<span class="string">'id_of_form_element'</span>).serialize(<span class="literal">true</span>)</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>使用requestHeaders自定义HTTP的请求头，传递键值对或者数组即可。</p>
+<h4 id="求值JavaScript响应"><a href="#求值JavaScript响应" class="headerlink" title="求值JavaScript响应"></a>求值JavaScript响应</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Ajax.Request(<span class="string">'/some_url'</span>, &#123;</div><div class="line">  <span class="attr">method</span>:<span class="string">'get'</span>,</div><div class="line">  <span class="attr">onSuccess</span>: <span class="function"><span class="keyword">function</span>(<span class="params">transport, json</span>)</span>&#123;</div><div class="line">    alert(json ? <span class="built_in">Object</span>.inspect(json) : <span class="string">"no JSON object"</span>);</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h4 id="全局responders"><a href="#全局responders" class="headerlink" title="全局responders"></a>全局responders</h4><h4 id="使用Ajax-Updater动态更新页面"><a href="#使用Ajax-Updater动态更新页面" class="headerlink" title="使用Ajax.Updater动态更新页面"></a>使用Ajax.Updater动态更新页面</h4><p>例如页面中有如下信息：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>Our fantastic products<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"products"</span>&gt;</span>(fetching product list ...)<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Ajax.Updater(<span class="string">'products'</span>, <span class="string">'/some_url'</span>, &#123; <span class="attr">method</span>: <span class="string">'get'</span> &#125;);</div></pre></td></tr></table></figure>
+<p>更新div products中信息使用ajax请求<br>使用insertion来指定返回数据位于元素的位置<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Ajax.Updater(<span class="string">'products'</span>, <span class="string">'/some_url'</span>, &#123;</div><div class="line">  <span class="attr">method</span>: <span class="string">'get'</span>,</div><div class="line">  <span class="attr">insertion</span>: Insertion.Top</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h4 id="用Ajax-PeriodicalUpdater实现自动化请求"><a href="#用Ajax-PeriodicalUpdater实现自动化请求" class="headerlink" title="用Ajax.PeriodicalUpdater实现自动化请求"></a>用Ajax.PeriodicalUpdater实现自动化请求</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Ajax.PeriodicalUpdater(<span class="string">'products'</span>, <span class="string">'/some_url'</span>, &#123;</div><div class="line">  <span class="attr">method</span>: <span class="string">'get'</span>,</div><div class="line">  <span class="attr">insertion</span>: Insertion.Top,</div><div class="line">  <span class="attr">frequency</span>: <span class="number">1</span>,<span class="comment">//每一秒发送一次请求</span></div><div class="line">  decay: <span class="number">2</span><span class="comment">//如果该请求和上次请求的结果一致，那么该次是1秒，下次是2秒，再消磁是4秒(二倍延迟)</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/tags/Prototype-js/" rel="tag"># Prototype.js</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/09/prototype.js探微（一）/" rel="next" title="prototype.js探微（一）">
+                <i class="fa fa-chevron-left"></i> prototype.js探微（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/09/prototype.js探微（三）/" rel="prev" title="prototype.js探微（二）">
+                prototype.js探微（二） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/head.jpg"
+               alt="wangss   邮箱:genhaoai#gmail.com" />
+          <p class="site-author-name" itemprop="name">wangss   邮箱:genhaoai#gmail.com</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Ajax"><span class="nav-number">1.</span> <span class="nav-text">Ajax</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Ajax响应回调"><span class="nav-number">2.</span> <span class="nav-text">Ajax响应回调</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参数和HTTP方法"><span class="nav-number">3.</span> <span class="nav-text">参数和HTTP方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#求值JavaScript响应"><span class="nav-number">4.</span> <span class="nav-text">求值JavaScript响应</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#全局responders"><span class="nav-number">5.</span> <span class="nav-text">全局responders</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用Ajax-Updater动态更新页面"><span class="nav-number">6.</span> <span class="nav-text">使用Ajax.Updater动态更新页面</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用Ajax-PeriodicalUpdater实现自动化请求"><span class="nav-number">7.</span> <span class="nav-text">用Ajax.PeriodicalUpdater实现自动化请求</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wangss   邮箱:genhaoai#gmail.com</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

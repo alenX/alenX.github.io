@@ -253,6 +253,525 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://alenx.github.io/2017/07/09/prototype.js探微（四）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wangss   邮箱:genhaoai#gmail.com">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="南山东篱">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/09/prototype.js探微（四）/" itemprop="url">prototype.js探微（四）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-09T20:08:22+08:00">
+                2017-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="JSON介绍"><a href="#JSON介绍" class="headerlink" title="JSON介绍"></a>JSON介绍</h4><p>关于JSON的介绍不过多说明，详细可以参考<a href="http://www.json.org/" target="_blank" rel="external">JSON官网</a></p>
+<h4 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h4><p>如果不确定需要转换的对象的类型，那么最好使用Object.toJSON方法。同样还存在其余的转换方法<br>Number#toJSON, String#toJSON, Array#toJSON, Hash#toJSON, Date#toJSON, 还有 Object.toJSON.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> data = &#123;<span class="attr">name</span>: <span class="string">'Violet'</span>, <span class="attr">occupation</span>: <span class="string">'character'</span>, <span class="attr">age</span>: <span class="number">25</span> &#125;;</div><div class="line"><span class="built_in">Object</span>.toJSON(data);</div><div class="line"><span class="comment">//-&gt; '&#123;"name": "Violet", "occupation": "character", "age": 25&#125;'</span></div></pre></td></tr></table></figure></p>
+<p>其他情况下，如果你明确该数据不是Object的实例，那么可以直接调用toJSON方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$H(&#123;<span class="attr">name</span>: <span class="string">'Violet'</span>, <span class="attr">occupation</span>: <span class="string">'character'</span>, <span class="attr">age</span>: <span class="number">25</span> &#125;).toJSON();</div><div class="line"><span class="comment">//-&gt; '&#123;"name": "Violet", "occupation": "character", "age": 25&#125;'</span></div></pre></td></tr></table></figure>
+<p>又或者，你可以自己定义自己的toJSON方法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Person = Class.create(&#123;</div><div class="line">  <span class="attr">initialize</span>: <span class="function"><span class="keyword">function</span>(<span class="params">name, age</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.name = name;</div><div class="line">    <span class="keyword">this</span>.age = age;</div><div class="line">  &#125;,  </div><div class="line">  <span class="attr">toJSON</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;<span class="comment">//其实可以理解为java中的toString方法，返回String类型，其实JSON可以理解为规范化的String</span></div><div class="line">    <span class="keyword">return</span> (<span class="string">'My name is '</span> + <span class="keyword">this</span>.name + </div><div class="line">      <span class="string">' and I am '</span> + <span class="keyword">this</span>.age + <span class="string">' years old.'</span>).toJSON();</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line"><span class="keyword">var</span> john = <span class="keyword">new</span> Person(<span class="string">'John'</span>, <span class="number">49</span>);</div><div class="line"><span class="built_in">Object</span>.toJSON(john);</div><div class="line"><span class="comment">//-&gt; '"My name is John and I am 49 years old."'</span></div></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">class Person&#123;</div><div class="line">    public Person(String name) &#123;</div><div class="line">        this.name = name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private String name;</div><div class="line">    @Override</div><div class="line">    public String toString() //toString</div><div class="line">        return "name=="+name;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>另外，使用Element.addMethods可以定制该toJSON方法<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">"firstname"</span> <span class="attr">name</span>=<span class="string">"firstname"</span> <span class="attr">value</span>=<span class="string">"john"</span> /&gt;</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Element.addMethods(<span class="string">'input'</span>, &#123;</div><div class="line">  <span class="attr">toJSON</span>: <span class="function"><span class="keyword">function</span>(<span class="params">element</span>) </span>&#123;</div><div class="line">    element = $(element);</div><div class="line">    <span class="keyword">return</span> element.name.toJSON() + <span class="string">": "</span> + element.getValue().toJSON();</div><div class="line">  &#125;</div><div class="line">&#125;)</div><div class="line">    </div><div class="line"><span class="built_in">Object</span>.toJSON($(<span class="string">'firstname'</span>));</div><div class="line"><span class="comment">//-&gt; '"firstname": "john"'</span></div></pre></td></tr></table></figure>
+<h4 id="JSON解析"><a href="#JSON解析" class="headerlink" title="JSON解析"></a>JSON解析</h4><p>在Prototype中，使用String#evalJSON方法来解析JSON<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> data = <span class="string">'&#123; "name": "Violet", "occupation": "character" &#125;'</span>.evalJSON();</div><div class="line">data.name;</div><div class="line"><span class="comment">//-&gt; "Violet"</span></div></pre></td></tr></table></figure></p>
+<h4 id="Ajax中JSON的应用"><a href="#Ajax中JSON的应用" class="headerlink" title="Ajax中JSON的应用"></a>Ajax中JSON的应用</h4><p>直接在传输的responseText属性上执行String#evalJSON即可。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Ajax.Request(<span class="string">'/some_url'</span>, &#123;</div><div class="line">  <span class="attr">method</span>:<span class="string">'get'</span>,</div><div class="line">  <span class="attr">onSuccess</span>: <span class="function"><span class="keyword">function</span>(<span class="params">transport</span>)</span>&#123;</div><div class="line">     <span class="keyword">var</span> json = transport.responseText.evalJSON();<span class="comment">//直接调用evalJSON方法</span></div><div class="line">   &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>如果返回结果不可信，那么需要首先审查下数据<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Ajax.Request(<span class="string">'/some_url'</span>, &#123;</div><div class="line">  <span class="attr">method</span>:<span class="string">'get'</span>,</div><div class="line">  <span class="attr">requestHeaders</span>: &#123;<span class="attr">Accept</span>: <span class="string">'application/json'</span>&#125;,</div><div class="line">  <span class="attr">onSuccess</span>: <span class="function"><span class="keyword">function</span>(<span class="params">transport</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> json = transport.responseText.evalJSON(<span class="literal">true</span>);<span class="comment">//设置为true</span></div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://alenx.github.io/2017/07/09/prototype.js探微（三）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wangss   邮箱:genhaoai#gmail.com">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="南山东篱">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/09/prototype.js探微（三）/" itemprop="url">prototype.js探微（二）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-09T20:07:10+08:00">
+                2017-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="DOM扩展"><a href="#DOM扩展" class="headerlink" title="DOM扩展"></a>DOM扩展</h3><h4 id="Prototype如何扩展DOM"><a href="#Prototype如何扩展DOM" class="headerlink" title="Prototype如何扩展DOM"></a>Prototype如何扩展DOM</h4><p>Prototype中使用$()函数来操作对应的页面元素，例如，你可以这样写$(‘comments’).addClassName(‘active’).show() ，获取comments元素，然后增加active类，然后将该元素展示  </p>
+<h4 id="Element-extend方法"><a href="#Element-extend方法" class="headerlink" title="Element.extend方法"></a>Element.extend方法</h4><p>大部分DOM方法被Element.Methods包裹着，并且在Element对象中。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Element.hide(<span class="string">'comments'</span>);</div><div class="line"><span class="keyword">var</span> div_height = Element.getHeight(my_div);</div><div class="line">Element.addClassName(<span class="string">'contactform'</span>, <span class="string">'pending'</span>);</div></pre></td></tr></table></figure></p>
+<p>将需要操作的元素作为第一个参数放置在参数列表中。<br>使用Element.extend()方法为该元素拷贝所有的方法。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> my_div = <span class="built_in">document</span>.createElement(<span class="string">'div'</span>);</div><div class="line"></div><div class="line">Element.extend(my_div);</div><div class="line">my_div.addClassName(<span class="string">'pending'</span>).hide();</div><div class="line"></div><div class="line"><span class="comment">// insert it in the document</span></div><div class="line"><span class="built_in">document</span>.body.appendChild(my_div);</div></pre></td></tr></table></figure>
+<p>另外，Element.extend()同样将Form.Methods方法赋值给Form元素把Form.Element.Methods赋值给INPUT、TEXTAREA和SELECT元素<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> contact_data = $(<span class="string">'contactform'</span>).serialize();</div><div class="line"><span class="keyword">var</span> search_terms = $(<span class="string">'search_input'</span>).getValue();</div></pre></td></tr></table></figure></p>
+<h4 id="用Element-addMethods扩展自己的方法"><a href="#用Element-addMethods扩展自己的方法" class="headerlink" title="用Element.addMethods扩展自己的方法"></a>用Element.addMethods扩展自己的方法</h4><p>示例如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> MyUtils = &#123;</div><div class="line">  <span class="attr">truncate</span>: <span class="function"><span class="keyword">function</span>(<span class="params">element, length</span>)</span>&#123;<span class="comment">//方法的第一个参数</span></div><div class="line">    element = $(element);</div><div class="line">    <span class="keyword">return</span> element.update(element.innerHTML.truncate(length));</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">updateAndMark</span>: <span class="function"><span class="keyword">function</span>(<span class="params">element, html</span>)</span>&#123;<span class="comment">//方法的第一个参数</span></div><div class="line">    <span class="keyword">return</span> $(element).update(html).addClassName(<span class="string">'updated'</span>);</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line">        </div><div class="line">Element.addMethods(MyUtils);<span class="comment">//使用Element.addMethods()增加方法</span></div><div class="line">        </div><div class="line"><span class="comment">// now you can:</span></div><div class="line">$(<span class="string">'explanation'</span>).truncate(<span class="number">100</span>);</div></pre></td></tr></table></figure>
+<p>唯一需要注意的是方法的第一个参数必须是element</p>
+<h4 id="本地扩展native-extensions"><a href="#本地扩展native-extensions" class="headerlink" title="本地扩展native extensions"></a>本地扩展native extensions</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// this will error out in IE: </span></div><div class="line">$(<span class="string">'someElement'</span>).parentNode.hide();</div><div class="line"><span class="comment">// to make it cross-browser:</span></div><div class="line">$($(<span class="string">'someElement'</span>).parentNode).hide();</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://alenx.github.io/2017/07/09/prototype.js探微（二）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wangss   邮箱:genhaoai#gmail.com">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="南山东篱">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/09/prototype.js探微（二）/" itemprop="url">prototype.js探微（三）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-09T20:05:44+08:00">
+                2017-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="Ajax"><a href="#Ajax" class="headerlink" title="Ajax"></a>Ajax</h4><p>Ajax的函数在Ajax对象里，Ajax的request请求使用XmlHttpRequest，而忽略其浏览器的差异性。实际处理时，通过创建Ajax.Request对象来实现。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Ajax.Request(<span class="string">'/some_url'</span>, &#123; <span class="attr">method</span>:<span class="string">'get'</span> &#125;);</div></pre></td></tr></table></figure></p>
+<p>第一个参数是请求的URL，第二个参数是可选的hash键值对参数。HTTP方法中的method选项，默认方法是post。<br>为了安全考虑，例如防止cross-site scripting attacks等，同一页面的ajax请求中，必须协议、主机、端口要相同。虽然有些浏览器支持任意的url</p>
+<h4 id="Ajax响应回调"><a href="#Ajax响应回调" class="headerlink" title="Ajax响应回调"></a>Ajax响应回调</h4><p>ajax请求都是异步的，所以说必须要有回调处理其返回。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Ajax.Request(<span class="string">'/some_url'</span>, &#123;</div><div class="line">  <span class="attr">method</span>:<span class="string">'get'</span>,</div><div class="line">  <span class="attr">onSuccess</span>: <span class="function"><span class="keyword">function</span>(<span class="params">transport</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> response = transport.responseText || <span class="string">"no response text"</span>;</div><div class="line">    alert(<span class="string">"Success! \n\n"</span> + response);</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">onFailure</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; alert(<span class="string">'Something went wrong...'</span>); &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>回调onSuccess以及onFailure，第一个参数是本地的xmlHttpRequest对象，其属性有responseText 和 responseXML，可以指定任意多个回调函数，其余的回调函数</p>
+<blockquote>
+<ul>
+<li>onUninitialized</li>
+<li>onLoading</li>
+<li>onLoaded</li>
+<li>onInteractive</li>
+<li>onComplete</li>
+<li>onException</li>
+</ul>
+</blockquote>
+<p>除了onException其余存在一个xmlHttpRequest状态。<br>方法onUninitialized, onLoading, onLoaded和 onInteractive 回调并不是所有浏览器都支持，所以要谨慎使用。</p>
+<h4 id="参数和HTTP方法"><a href="#参数和HTTP方法" class="headerlink" title="参数和HTTP方法"></a>参数和HTTP方法</h4><p>使用parameters属性来传递参数，<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Ajax.Request(<span class="string">'/some_url'</span>, &#123;</div><div class="line">  <span class="attr">method</span>: <span class="string">'get'</span>,</div><div class="line">  <span class="attr">parameters</span>: &#123;<span class="attr">company</span>: <span class="string">'example'</span>, <span class="attr">limit</span>: <span class="number">12</span>&#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>参数作为键值对来传递使用<br>对于GET请求和POST请求，GET请求一定不要修改数据操作。<br>对于Form数据的ajax请求，Prototype本身提供了一个简便的方法，Form.serialize<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Ajax.Request(<span class="string">'/some_url'</span>, &#123;</div><div class="line">  <span class="attr">parameters</span>: $(<span class="string">'id_of_form_element'</span>).serialize(<span class="literal">true</span>)</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>使用requestHeaders自定义HTTP的请求头，传递键值对或者数组即可。</p>
+<h4 id="求值JavaScript响应"><a href="#求值JavaScript响应" class="headerlink" title="求值JavaScript响应"></a>求值JavaScript响应</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Ajax.Request(<span class="string">'/some_url'</span>, &#123;</div><div class="line">  <span class="attr">method</span>:<span class="string">'get'</span>,</div><div class="line">  <span class="attr">onSuccess</span>: <span class="function"><span class="keyword">function</span>(<span class="params">transport, json</span>)</span>&#123;</div><div class="line">    alert(json ? <span class="built_in">Object</span>.inspect(json) : <span class="string">"no JSON object"</span>);</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h4 id="全局responders"><a href="#全局responders" class="headerlink" title="全局responders"></a>全局responders</h4><h4 id="使用Ajax-Updater动态更新页面"><a href="#使用Ajax-Updater动态更新页面" class="headerlink" title="使用Ajax.Updater动态更新页面"></a>使用Ajax.Updater动态更新页面</h4><p>例如页面中有如下信息：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>Our fantastic products<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"products"</span>&gt;</span>(fetching product list ...)<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Ajax.Updater(<span class="string">'products'</span>, <span class="string">'/some_url'</span>, &#123; <span class="attr">method</span>: <span class="string">'get'</span> &#125;);</div></pre></td></tr></table></figure>
+<p>更新div products中信息使用ajax请求<br>使用insertion来指定返回数据位于元素的位置<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Ajax.Updater(<span class="string">'products'</span>, <span class="string">'/some_url'</span>, &#123;</div><div class="line">  <span class="attr">method</span>: <span class="string">'get'</span>,</div><div class="line">  <span class="attr">insertion</span>: Insertion.Top</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<h4 id="用Ajax-PeriodicalUpdater实现自动化请求"><a href="#用Ajax-PeriodicalUpdater实现自动化请求" class="headerlink" title="用Ajax.PeriodicalUpdater实现自动化请求"></a>用Ajax.PeriodicalUpdater实现自动化请求</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Ajax.PeriodicalUpdater(<span class="string">'products'</span>, <span class="string">'/some_url'</span>, &#123;</div><div class="line">  <span class="attr">method</span>: <span class="string">'get'</span>,</div><div class="line">  <span class="attr">insertion</span>: Insertion.Top,</div><div class="line">  <span class="attr">frequency</span>: <span class="number">1</span>,<span class="comment">//每一秒发送一次请求</span></div><div class="line">  decay: <span class="number">2</span><span class="comment">//如果该请求和上次请求的结果一致，那么该次是1秒，下次是2秒，再消磁是4秒(二倍延迟)</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://alenx.github.io/2017/07/09/prototype.js探微（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wangss   邮箱:genhaoai#gmail.com">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="南山东篱">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/07/09/prototype.js探微（一）/" itemprop="url">prototype.js探微（一）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-09T20:02:19+08:00">
+                2017-07-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>由于新项目框架用到了prototype.js，之前没有接触过，趁着周末熟悉下该框架，老框架，你懂得</p>
+<h2 id="prototype-js简介"><a href="#prototype-js简介" class="headerlink" title="prototype.js简介"></a>prototype.js简介</h2><p><a href="http://prototypejs.org/" target="_blank" rel="external">prototype.js官网</a><br><a href="http://prototypejs.org/learn/" target="_blank" rel="external">prototype.js Doc</a></p>
+<p>prototype.js的主要用途有如下几点：</p>
+<ul>
+<li>定义类和继承关系</li>
+<li>DOM扩展</li>
+<li>简化的Ajax的请求</li>
+<li>JSON的编码解码支持</li>
+<li>事件委托</li>
+<li>元素像素级获取支持</li>
+</ul>
+<h3 id="定义类和继承关系"><a href="#定义类和继承关系" class="headerlink" title="定义类和继承关系"></a>定义类和继承关系</h3><p>类创建的方法，Class.create()方法</p>
+<h4 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/** obsolete syntax **/</span></div><div class="line">    </div><div class="line"><span class="keyword">var</span> Person = Class.create();</div><div class="line">Person.prototype = &#123;</div><div class="line">  <span class="attr">initialize</span>: <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.name = name;</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">say</span>: <span class="function"><span class="keyword">function</span>(<span class="params">message</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name + <span class="string">': '</span> + message;</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line">    </div><div class="line"><span class="keyword">var</span> guy = <span class="keyword">new</span> Person(<span class="string">'Miro'</span>);</div><div class="line">guy.say(<span class="string">'hi'</span>);</div><div class="line"><span class="comment">// -&gt; "Miro: hi"</span></div><div class="line">    </div><div class="line"><span class="keyword">var</span> Pirate = Class.create();</div><div class="line"><span class="comment">//之前继承的写法</span></div><div class="line"><span class="comment">// inherit from Person class:</span></div><div class="line">Pirate.prototype = <span class="built_in">Object</span>.extend(<span class="keyword">new</span> Person(), &#123;</div><div class="line">  <span class="comment">// redefine the speak method</span></div><div class="line">  say: <span class="function"><span class="keyword">function</span>(<span class="params">message</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name + <span class="string">': '</span> + message + <span class="string">', yarr!'</span>;</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line">    </div><div class="line"><span class="keyword">var</span> john = <span class="keyword">new</span> Pirate(<span class="string">'Long John'</span>);</div><div class="line">john.say(<span class="string">'ahoy matey'</span>);</div><div class="line"><span class="comment">// -&gt; "Long John: ahoy matey, yarr!"</span></div></pre></td></tr></table></figure>
+<p>改良版类继承写法</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/** new, preferred syntax **/</span></div><div class="line">    </div><div class="line"><span class="comment">// properties are directly passed to `create` method</span></div><div class="line"><span class="keyword">var</span> Person = Class.create(&#123;</div><div class="line">  <span class="attr">initialize</span>: <span class="function"><span class="keyword">function</span>(<span class="params">name</span>) </span>&#123;<span class="comment">//Person构造方法</span></div><div class="line">    <span class="keyword">this</span>.name = name;</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">say</span>: <span class="function"><span class="keyword">function</span>(<span class="params">message</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.name + <span class="string">': '</span> + message;</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line">    </div><div class="line"><span class="comment">// when subclassing, specify the class you want to inherit from</span></div><div class="line"><span class="keyword">var</span> Pirate = Class.create(Person, &#123;<span class="comment">//继承Person类</span></div><div class="line">  <span class="comment">// redefine the speak method</span></div><div class="line">  say: <span class="function"><span class="keyword">function</span>(<span class="params">$super, message</span>) </span>&#123;<span class="comment">// $super为父类say方法</span></div><div class="line">    <span class="keyword">return</span> $<span class="keyword">super</span>(message) + <span class="string">', yarr!'</span>;</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line">    </div><div class="line"><span class="keyword">var</span> john = <span class="keyword">new</span> Pirate(<span class="string">'Long John'</span>);</div><div class="line">john.say(<span class="string">'ahoy matey'</span>);</div><div class="line"><span class="comment">// -&gt; "Long John: ahoy matey, yarr!"</span></div></pre></td></tr></table></figure>
+<p>以上两种写法，明显第二种写法简洁一点</p>
+<h4 id="方法定义中的-super参数"><a href="#方法定义中的-super参数" class="headerlink" title="方法定义中的$super参数"></a>方法定义中的$super参数</h4><p>当在子类方法中需要调用父类方法时，需要一个引用，这个引用可以在定义方法时增加一个额外的参数$super，但是实际调用的时候，还是没有这个参数</p>
+<h4 id="如何mix-in模块"><a href="#如何mix-in模块" class="headerlink" title="如何mix-in模块"></a>如何mix-in模块</h4><p>Class.create参数个数不固定，如果第一个参数类型时class，那么该类即为该函数的所属父类，其他所有的参数（如果第一个参数类型不是class，那么也包括第一个参数），将会被认为mixins</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// define a module</span></div><div class="line"><span class="keyword">var</span> Vulnerable = &#123;</div><div class="line">  <span class="attr">wound</span>: <span class="function"><span class="keyword">function</span>(<span class="params">hp</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.health -= hp;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.health &lt; <span class="number">0</span>) <span class="keyword">this</span>.kill();</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">kill</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.dead = <span class="literal">true</span>;</div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line">    </div><div class="line"><span class="comment">// the first argument isn't a class object, so there is no inheritance ...</span></div><div class="line"><span class="comment">// simply mix in all the arguments as methods:</span></div><div class="line"><span class="keyword">var</span> Person = Class.create(Vulnerable, &#123;<span class="comment">//第一个参数不是类对象，所以不是继承</span></div><div class="line">  initialize: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.health = <span class="number">100</span>;</div><div class="line">    <span class="keyword">this</span>.dead = <span class="literal">false</span>;</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line">    </div><div class="line"><span class="keyword">var</span> bruce = <span class="keyword">new</span> Person;</div><div class="line">bruce.wound(<span class="number">55</span>);<span class="comment">//即使不是继承，一样调用该类的方法</span></div><div class="line">bruce.health; <span class="comment">//-&gt; 45</span></div></pre></td></tr></table></figure>
+<h4 id="编程语言的继承类型"><a href="#编程语言的继承类型" class="headerlink" title="编程语言的继承类型"></a>编程语言的继承类型</h4><p>一般我们会区分类继承和原型继承，后者只针对JavaScript<br>举例说明，php中的初始实例变量</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Logger</span> </span>&#123;</div><div class="line">  <span class="keyword">public</span> $log = <span class="keyword">array</span>();</div><div class="line">    </div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">write</span><span class="params">($message)</span> </span>&#123;</div><div class="line">    <span class="keyword">$this</span>-&gt;log[] = $message;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">    </div><div class="line">$logger = <span class="keyword">new</span> Logger;</div><div class="line">$logger-&gt;write(<span class="string">'foo'</span>);</div><div class="line">$logger-&gt;write(<span class="string">'bar'</span>);</div><div class="line">$logger-&gt;log; <span class="comment">// -&gt; ['foo', 'bar']</span></div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<p>用原型的话，如下实现</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">var</span> Logger = Class.create(&#123;</div><div class="line">  <span class="attr">initialize</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123; &#125;,</div><div class="line">  <span class="attr">log</span>: [],</div><div class="line">  <span class="attr">write</span>: <span class="function"><span class="keyword">function</span>(<span class="params">message</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.log.push(message);</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line">    </div><div class="line"><span class="keyword">var</span> logger = <span class="keyword">new</span> Logger;</div><div class="line">logger.log; <span class="comment">// -&gt; []</span></div><div class="line">logger.write(<span class="string">'foo'</span>);</div><div class="line">logger.write(<span class="string">'bar'</span>);</div><div class="line">logger.log; <span class="comment">// -&gt; ['foo', 'bar']</span></div></pre></td></tr></table></figure>
+<p>如果创建另一个Logger实例</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> logger2 = <span class="keyword">new</span> Logger;</div><div class="line"><span class="comment">//该对象应该为空，但是实际却有数值</span></div><div class="line">logger2.log; <span class="comment">// -&gt; ['foo', 'bar']</span></div><div class="line">    </div><div class="line"><span class="comment">// ... hey, the log should have been empty!</span></div></pre></td></tr></table></figure>
+<p>所有的Logger对象共用一个数组对象，因为使用的是引用而不是数值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Logger = Class.create(&#123;</div><div class="line">  <span class="attr">initialize</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">// this is the right way to do it:</span></div><div class="line">    <span class="keyword">this</span>.log = [];</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">write</span>: <span class="function"><span class="keyword">function</span>(<span class="params">message</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.log.push(message);</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>所以需要在构造方法中将变量初始化</p>
+<h4 id="定义类方法"><a href="#定义类方法" class="headerlink" title="定义类方法"></a>定义类方法</h4><p>Prototype 1.6.0中对类的方法没有特别的支持</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Pirate.allHandsOnDeck = <span class="function"><span class="keyword">function</span>(<span class="params">n</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> voices = [];</div><div class="line">  n.times(<span class="function"><span class="keyword">function</span>(<span class="params">i</span>) </span>&#123;</div><div class="line">    voices.push(<span class="keyword">new</span> Pirate(<span class="string">'Sea dog'</span>).say(i + <span class="number">1</span>));</div><div class="line">  &#125;);</div><div class="line">  <span class="keyword">return</span> voices;</div><div class="line">&#125;</div><div class="line">    </div><div class="line">Pirate.allHandsOnDeck(<span class="number">3</span>);</div><div class="line"><span class="comment">// -&gt; ["Sea dog: 1, yarr!", "Sea dog: 2, yarr!", "Sea dog: 3, yarr!"]</span></div></pre></td></tr></table></figure>
+<h4 id="特殊的类属性"><a href="#特殊的类属性" class="headerlink" title="特殊的类属性"></a>特殊的类属性</h4><p>Prototype 1.6.0 定义了两个特殊的类属性，subclasses以及superclass<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">Person.superclass</div><div class="line"><span class="comment">// -&gt; null</span></div><div class="line">Person.subclasses.length</div><div class="line"><span class="comment">// -&gt; 1</span></div><div class="line">Person.subclasses.first() == Pirate</div><div class="line"><span class="comment">// -&gt; true</span></div><div class="line">Pirate.superclass == Person</div><div class="line"><span class="comment">// -&gt; true</span></div><div class="line">Captain.superclass == Pirate</div><div class="line"><span class="comment">// -&gt; true</span></div><div class="line">Captain.superclass == Person</div><div class="line"><span class="comment">// -&gt; false</span></div></pre></td></tr></table></figure></p>
+<h4 id="通过Class-addMethods动态添加方法"><a href="#通过Class-addMethods动态添加方法" class="headerlink" title="通过Class#addMethods动态添加方法"></a>通过Class#addMethods动态添加方法</h4><p><strong>个人感觉用处不大,类的方法在定义类时就应该调整完毕，而不是在其他地方动态去增加方法，这样不便于类方法的管理，同样的实现还有kotlin如下</strong><br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args: <span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span> &#123;</div><div class="line">    println(<span class="string">"ss"</span>.isName())<span class="comment">//输出 false</span></div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">fun</span> String.<span class="title">isName</span><span class="params">()</span></span>:<span class="built_in">Boolean</span>&#123;</div><div class="line">    <span class="keyword">return</span> length==<span class="number">3</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>对String增加isName方法<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> john = <span class="keyword">new</span> Pirate(<span class="string">'Long John'</span>);</div><div class="line">john.sleep();</div><div class="line"><span class="comment">// -&gt; ERROR: sleep is not a method</span></div><div class="line">    </div><div class="line"><span class="comment">// every person should be able to sleep, not just pirates!</span></div><div class="line">Person.addMethods(&#123;</div><div class="line">  <span class="attr">sleep</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.say(<span class="string">'ZzZ'</span>);</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line">    </div><div class="line">john.sleep();</div><div class="line"><span class="comment">// -&gt; "Long John: ZzZ, yarr!"</span></div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://alenx.github.io/2017/07/08/python的列表推导之变量泄漏问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1015,556 +1534,13 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://alenx.github.io/2017/05/06/函数和Lambdas/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="wangss   邮箱:genhaoai#gmail.com">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="南山东篱">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/06/函数和Lambdas/" itemprop="url">函数和Lambdas</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-06T17:38:01+08:00">
-                2017-05-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="函数和Lambdas"><a href="#函数和Lambdas" class="headerlink" title="函数和Lambdas"></a>函数和Lambdas</h1><h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h3 id="函数声明"><a href="#函数声明" class="headerlink" title="函数声明"></a>函数声明</h3><p>kotlin中的函数通过fun关键字来声明</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">double</span> <span class="params">(x:<span class="type">Int</span>)</span></span>:<span class="built_in">Int</span>&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="函数用法"><a href="#函数用法" class="headerlink" title="函数用法"></a>函数用法</h3><p>通过传统的方式调用函数</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> result = double(<span class="number">2</span>)</div></pre></td></tr></table></figure>
-<p>用.标识调用成员函数</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Sample().foo()</div></pre></td></tr></table></figure>
-<h4 id="中缀标识-Infix-notation"><a href="#中缀标识-Infix-notation" class="headerlink" title="中缀标识(Infix notation)"></a>中缀标识(Infix notation)</h4><p>函数在下列情况也可以用中缀调用的方式来调用</p>
-<blockquote>
-<p>成员函数或者扩展函数(extension functions)</p>
-<p>函数只有单一参数</p>
-<p>函数用关键字infix标识</p>
-</blockquote>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">infix</span> <span class="function"><span class="keyword">fun</span> <span class="built_in">Int</span>.<span class="title">shl</span><span class="params">(x:<span class="type">Int</span>)</span></span>:<span class="built_in">Int</span>&#123;</div><div class="line">&#125;</div><div class="line"><span class="number">1</span> shl <span class="number">2</span></div><div class="line"><span class="number">1.</span>shl(<span class="number">2</span>)</div></pre></td></tr></table></figure>
-<h4 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h4><p>函数的参数使用Pascal标识来定义，即name:type。参数与参数之间使用逗号分隔。每个参数必须制定类型</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">powerOf</span><span class="params">(number:<span class="type">Int</span>,exponent:<span class="type">Int</span>)</span></span>&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="默认参数"><a href="#默认参数" class="headerlink" title="默认参数"></a>默认参数</h4><p>函数参数可以有默认值，该默认值在没有传递对应参数值被使用。和其他语言相比，能够减少参数传递数量。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">read</span><span class="params">(b:<span class="type">Array</span>&lt;<span class="type">Byte</span>&gt;,off:<span class="type">Int</span> =<span class="number">0</span> ,len:<span class="type">Int</span> = b.size()</span></span>)&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>参数默认值使用“=”添加在参数类型后面<br>重写方法时，往往和父类方法使用相同的默认参数值，当重写一个带有默认参数值的方法时，子类方法里的默认参数值必须省略掉。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">A</span></span>&#123;</div><div class="line">	<span class="keyword">open</span> <span class="function"><span class="keyword">fun</span> <span class="title">foo</span><span class="params">(i:<span class="type">Int</span>=<span class="number">10</span>)</span></span>&#123;...&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span>:<span class="type">A</span></span>()&#123;</div><div class="line">	<span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">foo</span><span class="params">(i:<span class="type">Int</span>)</span></span>&#123;...&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="命名参数"><a href="#命名参数" class="headerlink" title="命名参数"></a>命名参数</h4><p>函数被调用时，参数被命名对于一个函数有很多参数或者有很多默认值时是非常方便的。<br>看下面的函数定义</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">reformat</span><span class="params">(str:<span class="type">String</span>,normalizaCase:<span class="type">Boolean</span> =<span class="literal">true</span>,</span></span></div><div class="line">							upperCaseFirstLetter:<span class="type">Boolean</span> = <span class="literal">true</span>,</div><div class="line">							upperCaseFirstLetter:<span class="type">Boolean</span> = <span class="literal">true</span>,</div><div class="line">							divideByCamelHumps:<span class="type">Boolean</span> = <span class="literal">false</span>,</div><div class="line">							wordSeparator:<span class="type">Char</span> = <span class="string">' '</span>)&#123;</div><div class="line">...							</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>我们可以通过默认参数来这样调用</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">reformat(str)</div></pre></td></tr></table></figure>
-<p>但如果我们没有参数默认值，可能就需要如下这样调用</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">reformat(str,<span class="literal">true</span>,<span class="literal">true</span>,<span class="literal">false</span>,<span class="string">'_'</span>)</div></pre></td></tr></table></figure>
-<p>通过命名参数，我们可以使代码可读性更强</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">reformat(str,normalizaCase =<span class="literal">true</span>,</div><div class="line">							upperCaseFirstLetter = <span class="literal">true</span>,</div><div class="line">							upperCaseFirstLetter = <span class="literal">true</span>,</div><div class="line">							divideByCamelHumps = <span class="literal">false</span>,</div><div class="line">							wordSeparator = <span class="string">'_'</span>)</div></pre></td></tr></table></figure>
-<p>如果我们不需要所有的参数</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">reformat(str:String,wordSeparator = <span class="string">' '</span>)</div></pre></td></tr></table></figure>
-<p>注意命名参数语法在调用java代码时，不可能使用，因为java字节码并不是一直保存函数参数的名称</p>
-<h4 id="Unit作为返回的函数"><a href="#Unit作为返回的函数" class="headerlink" title="Unit作为返回的函数"></a>Unit作为返回的函数</h4><p>如果一个函数没有返回具体有用的数值，那么它的返回类型为Unit。Unit是一个只有一个Unit值的类型。该数值可以不被返回。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">printHello</span><span class="params">(name:<span class="type">String</span>?)</span></span>:<span class="built_in">Unit</span>&#123;</div><div class="line">	<span class="keyword">if</span>(name != <span class="literal">null</span>)</div><div class="line">		println(<span class="string">"Hello <span class="subst">$&#123;name&#125;</span>"</span>)</div><div class="line">	<span class="keyword">else</span></div><div class="line">		println(<span class="string">"Hi there!"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>Unit的返回类型也是可选的，上面的代码和以下代码等价</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">printHello</span><span class="params">(name:<span class="type">String</span>?)</span></span>&#123;</div><div class="line">	...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>单表达式函数<br>当函数返回单表达式时，函数的大括号可以省略，直接将表达式放在=后面</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">double</span><span class="params">(x:<span class="type">Int</span>)</span></span>:<span class="built_in">Int</span> = x*<span class="number">2</span></div></pre></td></tr></table></figure>
-<p>当编译器能够推断出函数的返回值时，返回值类型可以省略。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">double</span><span class="params">(x:<span class="type">Int</span>)</span></span> = x*<span class="number">2</span></div></pre></td></tr></table></figure>
-<h4 id="指定返回类型"><a href="#指定返回类型" class="headerlink" title="指定返回类型"></a>指定返回类型</h4><p>函数必须指定返回类型，除非返回Unit。kotlin不会推导函数的返回类型，因为函数的函数体内可能存在复杂的控制流语句，返回类型可能没那么明显，有时候对编译器也没那么明显。</p>
-<h4 id="可变参数"><a href="#可变参数" class="headerlink" title="可变参数"></a>可变参数</h4><p>函数的参数可以用vararg来修饰，通常是最后一个参数，来标识为可变参数</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> <span class="title">asList</span><span class="params">(<span class="keyword">vararg</span> ts:<span class="type">T</span>)</span></span>:List&lt;T&gt;&#123;</div><div class="line">	<span class="keyword">val</span> result = ArrayList&lt;T&gt;()</div><div class="line">	<span class="keyword">for</span> (t <span class="keyword">in</span> ts)</div><div class="line">		result.add(t)</div><div class="line">	<span class="keyword">return</span> result</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>允许多个参数传递给函数</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> list = asList(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</div></pre></td></tr></table></figure>
-<p>函数内可变参数T被当做T的一个数组，也就是说上面例子中的ts变量类型为Array<out t=""><br>函数中只有一个参数可以被标识为vararg，如果一个vararg参数不是参数列表中的最后一个，那么其之后的参数可以使用命名参数的方式调用，或者，如果参数是一个函数类型，那么使用传递lambda的外部括号<br>我们调用可变参数的函数时，可以一个一个传递参数，或者如果我们已经存在一个数组，并想把数组内容传递给函数作为参数，我们可以使用spread操作符(在数组前增加前缀*)</out></p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> a = arrayOf(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)</div><div class="line"><span class="keyword">val</span> list = asList(<span class="number">-1</span>,<span class="number">0</span>,*a,<span class="number">4</span>)</div></pre></td></tr></table></figure>
-<h2 id="函数作用域"><a href="#函数作用域" class="headerlink" title="函数作用域"></a>函数作用域</h2><p>kotlin中的函数可以在源码文件的中直接定义，也就是说，无需像其他语言Java、C#、Scala一样创建一个class来包含函数，kotlin的函数可以本地声明，作为成员函数以及扩展函数。</p>
-<h4 id="局部函数"><a href="#局部函数" class="headerlink" title="局部函数"></a>局部函数</h4><p>Kotlin支持局部函数，也就是函数内部定义函数</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">dfs</span><span class="params">(graph:<span class="type">Graph</span>)</span></span>&#123;</div><div class="line">	<span class="function"><span class="keyword">fun</span> <span class="title">dfs</span><span class="params">(current:<span class="type">Vertex</span>,visited:<span class="type">Set</span>&lt;<span class="type">Vertex</span>&gt;)</span></span>&#123;</div><div class="line">		<span class="keyword">if</span> (!visited.add(current))<span class="keyword">return</span></div><div class="line">		<span class="keyword">for</span>(v <span class="keyword">in</span> current.neighbors)</div><div class="line">			dfs(v,visited)</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	dfs(graph.vertices[<span class="number">0</span>],HashSet())</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>局部函数可以访问外部函数的成员变量，所以上面例子中，变量visited是一个本地变量。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">dfs</span><span class="params">(graph:<span class="type">Graph</span>)</span></span>&#123;</div><div class="line">	<span class="keyword">val</span> visited = HashSet&lt;Vertex&gt;()</div><div class="line">	<span class="function"><span class="keyword">fun</span> <span class="title">dfs</span><span class="params">(current:<span class="type">Vertex</span>)</span></span>&#123;</div><div class="line">		<span class="keyword">if</span> (!visited.add(current))<span class="keyword">return</span></div><div class="line">		<span class="keyword">for</span>(v <span class="keyword">in</span> current.neighbors)</div><div class="line">			dfs(v,visited)</div><div class="line">	&#125;</div><div class="line">	</div><div class="line">	dfs(graph.vertices[<span class="number">0</span>])</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="成员函数"><a href="#成员函数" class="headerlink" title="成员函数"></a>成员函数</h4><p>成员函数指的是定义在类以及objec内部的函数</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Sample</span></span>()&#123;</div><div class="line">	<span class="function"><span class="keyword">fun</span> <span class="title">foo</span><span class="params">()</span></span> &#123;print(<span class="string">"Foo"</span>)&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>成员函数可以使用.直接调用</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Sample().foo() <span class="comment">//创建Sample实例然后调用foo函数</span></div></pre></td></tr></table></figure>
-<h4 id="泛型函数"><a href="#泛型函数" class="headerlink" title="泛型函数"></a>泛型函数</h4><p>函数可以传递泛型参数，需要将函数名称前增加尖括号，<t></t></p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> <span class="title">sigletonList</span><span class="params">(item:<span class="type">T</span>)</span></span>:List&lt;T&gt;&#123;</div><div class="line">	...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="内联函数"><a href="#内联函数" class="headerlink" title="内联函数"></a>内联函数</h4><h4 id="扩展函数"><a href="#扩展函数" class="headerlink" title="扩展函数"></a>扩展函数</h4><h4 id="高阶函数和Lambdas"><a href="#高阶函数和Lambdas" class="headerlink" title="高阶函数和Lambdas"></a>高阶函数和Lambdas</h4><h4 id="尾递归函数"><a href="#尾递归函数" class="headerlink" title="尾递归函数"></a>尾递归函数</h4><p>Kotlin支持尾递归，使一些算法可以用循环开发而不是使用可能存在栈溢出的递归。当一个函数用tailrec标识符标识时，会以符合要求的形式进行编译优化递归，leaving behind a fast and efficient loop based version instead.</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tailrec <span class="function"><span class="keyword">fun</span> <span class="title">findFixPoint</span><span class="params">(x:<span class="type">Double</span>=<span class="number">1.0</span>)</span></span>:<span class="built_in">Double</span> = <span class="keyword">if</span>(x==Math.cos(x)) x <span class="keyword">else</span> findFixPoint(Math.cos(x))</div></pre></td></tr></table></figure>
-<p>以上代码是计算不动点的余弦值，该数值为一常量。方式为从1.0开始不停调用Math.cos只要结果不再变化为止，最终返回结果0.7390851332151607。该代码和以下代码等价。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">findFixPoint</span><span class="params">()</span></span>:<span class="built_in">Double</span>&#123;</div><div class="line"> <span class="keyword">var</span> x = <span class="number">1.0</span></div><div class="line"> <span class="keyword">while</span>(<span class="literal">true</span>)&#123;</div><div class="line"> 	<span class="keyword">val</span> y = Math.cos(x)</div><div class="line"> 	<span class="keyword">if</span>(x==y) <span class="keyword">return</span> y</div><div class="line"> 	x = y</div><div class="line"> &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>为了使tailrec标识符有效，函数体最后必须一个步骤必须为调用自己。当调用自身之后还存在其余逻辑代码时，尾递归无法使用。同时尾递归也不能在try/catch/finally中使用，目前尾递归只有kotlin的jvm支持。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://alenx.github.io/2017/03/31/oracle无反应问题跟踪/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="wangss   邮箱:genhaoai#gmail.com">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="南山东篱">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/03/31/oracle无反应问题跟踪/" itemprop="url">oracle连接超时应用无响应问题跟踪</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-31T10:20:14+08:00">
-                2017-03-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="tomcat应用无响应-问题跟踪"><a href="#tomcat应用无响应-问题跟踪" class="headerlink" title="tomcat应用无响应 问题跟踪"></a>tomcat应用无响应 问题跟踪</h3><p>工作中遇到如图所示问题(环境linux+tomcat+jdk7)：</p>
-<p><img src="http://onnpr2ifi.bkt.clouddn.com/QQ%E6%88%AA%E5%9B%BE20170330141719.png" alt="问题说明"></p>
-<p>具体表现为系统运行一段时间后，无法登陆，重新登陆时，日志卡住，如上图所示，但等待30分钟左右，系统恢复正常，成功进入系统后查看该卡住的任务，执行时间约30分钟<br>使用jstack查看卡住时jvm的运行情况的日志如下所示：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="string">"Thread-702"</span> daemon prio=<span class="number">10</span> tid=<span class="number">0x00007f823c002800</span> nid=<span class="number">0x1eabd</span> runnable [<span class="number">0x00007f8257619000</span>]</div><div class="line">   java.lang.Thread.State: RUNNABLE</div><div class="line">	at java.net.SocketInputStream.socketRead0(Native Method)</div><div class="line">	at java.net.SocketInputStream.read(SocketInputStream.java:<span class="number">150</span>)</div><div class="line">	at java.net.SocketInputStream.read(SocketInputStream.java:<span class="number">121</span>)</div><div class="line">	at oracle.net.ns.Packet.receive(Unknown Source)</div><div class="line">	at oracle.net.ns.DataPacket.receive(Unknown Source)</div><div class="line">	at oracle.net.ns.NetInputStream.getNextPacket(Unknown Source)</div><div class="line">	at oracle.net.ns.NetInputStream.read(Unknown Source)</div><div class="line">	at oracle.net.ns.NetInputStream.read(Unknown Source)</div><div class="line">	at oracle.net.ns.NetInputStream.read(Unknown Source)</div><div class="line">	at oracle.jdbc.driver.T4CMAREngine.unmarshalUB1(T4CMAREngine.java:<span class="number">1109</span>)</div><div class="line">	at oracle.jdbc.driver.T4CMAREngine.unmarshalSB1(T4CMAREngine.java:<span class="number">1080</span>)</div><div class="line">	at oracle.jdbc.driver.T4C8Oall.receive(T4C8Oall.java:<span class="number">485</span>)</div><div class="line">	at oracle.jdbc.driver.T4CStatement.doOall8(T4CStatement.java:<span class="number">210</span>)</div><div class="line">	at oracle.jdbc.driver.T4CStatement.executeForDescribe(T4CStatement.java:<span class="number">804</span>)</div><div class="line">	at oracle.jdbc.driver.OracleStatement.executeMaybeDescribe(OracleStatement.java:<span class="number">1051</span>)</div><div class="line">	at oracle.jdbc.driver.T4CStatement.executeMaybeDescribe(T4CStatement.java:<span class="number">845</span>)</div><div class="line">	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:<span class="number">1156</span>)</div><div class="line">	at oracle.jdbc.driver.OracleStatement.executeQuery(OracleStatement.java:<span class="number">1315</span>)</div><div class="line">	- locked &lt;<span class="number">0x00000000ef07c7e8</span>&gt; (a oracle.jdbc.driver.T4CStatement)</div><div class="line">	- locked &lt;<span class="number">0x00000000ef499c58</span>&gt; (a oracle.jdbc.driver.T4CConnection)</div><div class="line">	at org.apache.commons.dbcp.DelegatingStatement.executeQuery(DelegatingStatement.java:<span class="number">208</span>)</div><div class="line">	at org.apache.commons.dbcp.PoolableConnectionFactory.validateConnection(PoolableConnectionFactory.java:<span class="number">658</span>)</div><div class="line">	at org.apache.commons.dbcp.PoolableConnectionFactory.validateObject(PoolableConnectionFactory.java:<span class="number">635</span>)</div><div class="line">	at org.apache.commons.pool.impl.GenericObjectPool.borrowObject(GenericObjectPool.java:<span class="number">1205</span>)</div><div class="line">	at org.apache.commons.dbcp.PoolingDataSource.getConnection(PoolingDataSource.java:<span class="number">106</span>)</div><div class="line">	at org.jwebap.plugin.tracer.jdbc.ProxyDataSource.getConnection(ProxyDataSource.java:<span class="number">37</span>)</div><div class="line">	at org.apache.commons.dbcp.BasicDataSource.getConnection_$proxy(BasicDataSource.java:<span class="number">1044</span>)</div><div class="line">	at sun.reflect.GeneratedMethodAccessor29.invoke(Unknown Source)</div><div class="line">	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:<span class="number">43</span>)</div><div class="line">	at java.lang.reflect.Method.invoke(Method.java:<span class="number">601</span>)</div><div class="line">	at org.jwebap.plugin.tracer.jdbc.JdbcDriverInjectHandle.invoke(JdbcDriverInjectHandle.java:<span class="number">40</span>)</div><div class="line">	at org.apache.commons.dbcp.BasicDataSource.getConnection(BasicDataSource.java)</div><div class="line">	at smartx.framework.common.bs.dbaccess.dsmgr.DataSourceObject.getConnection(DataSourceManager.java:<span class="number">432</span>)</div><div class="line">	at smartx.framework.common.bs.dbaccess.dsmgr.DataSourceManager.getConnection(DataSourceManager.java:<span class="number">223</span>)</div><div class="line">	at smartx.framework.common.bs.NovaDBConnection.createConn(NovaDBConnection.java:<span class="number">117</span>)</div><div class="line">	at smartx.framework.common.bs.NovaDBConnection.&lt;init&gt;(NovaDBConnection.java:<span class="number">113</span>)</div><div class="line">	at smartx.framework.common.bs.NovaSessionFactory.getConnection(NovaSessionFactory.java:<span class="number">86</span>)</div><div class="line">	- locked &lt;<span class="number">0x00000000c4fcb1d0</span>&gt; (a smartx.framework.common.bs.NovaSessionFactory)</div><div class="line">	at smartx.framework.common.bs.NovaInitContext.getConn(NovaInitContext.java:<span class="number">70</span>)</div><div class="line">	at smartx.framework.common.bs.AbstractDMO.getConnection(AbstractDMO.java:<span class="number">48</span>)</div><div class="line">	at smartx.framework.common.bs.AbstractDMO.getConn(AbstractDMO.java:<span class="number">32</span>)</div><div class="line">	at smartx.framework.common.bs.CommDMO.executeImportByDS(CommDMO.java:<span class="number">855</span>)</div><div class="line">	at smartx.framework.common.bs.CommDMO.executeImportByDS(CommDMO.java:<span class="number">887</span>)</div><div class="line">	at smartx.publics.datatask.DataTaskExecThread.exportDb(DataTaskExecThread.java:<span class="number">425</span>)</div><div class="line">	at smartx.publics.datatask.DataTaskExecThread.doAction(DataTaskExecThread.java:<span class="number">130</span>)</div><div class="line">	at smartx.publics.datatask.TaskAbstractThread.run(TaskAbstractThread.java:<span class="number">119</span>)</div><div class="line"></div><div class="line">   Locked ownable synchronizers:</div><div class="line">	- None</div></pre></td></tr></table></figure>
-<p>以上可以总结出在NovaSessionFactory类的getConnection方法时卡住，占用了数据库资源，没有释放，导致其余进程等待，查看getConnection的源码，如下所示：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">this</span>.ds=<span class="keyword">new</span> BasicDataSource();</div><div class="line">		<span class="keyword">this</span>.ds.setDriverClassName(driver);</div><div class="line">		<span class="keyword">this</span>.ds.setUrl(url);</div><div class="line">		<span class="keyword">this</span>.ds.setMaxActive(poolsize);</div><div class="line">		<span class="keyword">this</span>.ds.setMinIdle(initsize);</div><div class="line">		<span class="keyword">this</span>.ds.setInitialSize(initsize);</div><div class="line">		<span class="keyword">this</span>.ds.setDefaultTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);</div><div class="line">		<span class="keyword">if</span>(validationQuery != <span class="keyword">null</span>)&#123;</div><div class="line">			<span class="keyword">this</span>.ds.setValidationQuery(validationQuery);</div><div class="line">			<span class="keyword">this</span>.ds.setMinEvictableIdleTimeMillis(<span class="number">1800000L</span>);</div><div class="line">			<span class="keyword">this</span>.ds.setTimeBetweenEvictionRunsMillis(<span class="number">1800000L</span>);</div><div class="line">			<span class="keyword">this</span>.ds.setNumTestsPerEvictionRun(<span class="number">3</span>);</div><div class="line">			<span class="keyword">this</span>.ds.setTestOnBorrow(<span class="keyword">true</span>);</div><div class="line">			<span class="keyword">this</span>.ds.setTestOnReturn(<span class="keyword">true</span>);</div><div class="line">			<span class="keyword">this</span>.ds.setTestWhileIdle(<span class="keyword">true</span>);</div><div class="line">		&#125;</div><div class="line">		<span class="keyword">this</span>.ds.setMaxWait(<span class="number">3000L</span>);</div><div class="line">		<span class="keyword">this</span>.ds.setDefaultAutoCommit(<span class="keyword">true</span>);</div></pre></td></tr></table></figure>
-<p>以上代码为框架中获取数据库链接的源码。<br>网上查询了部分问题，参考以下链接<br><a href="http://www.importnew.com/2466.html" target="_blank" rel="external">jdbc超时讲解</a><strong>讲解的非常细致和实用，强烈推荐</strong><br><a href="http://www.baba.io/article/77077.html" target="_blank" rel="external">超时问题链接</a><br>增加如下设置</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">this</span>.ds.setConnectionProperties(<span class="string">"oracle.net.CONNECT_TIMEOUT=10000;oracle.net.READ_TIMEOUT=180000"</span>);</div></pre></td></tr></table></figure>
-<p>设置一下链接超时时间，避免因为</p>
-<blockquote>
-<p> 如果不设置socket timeout或connect timeout，应用多数情况下是无法发现网络错误的。因此，当网络错误发生后，在连接重新连接成功或成功接收到数据之前，应用会无限制地等下去。但是，通过本文开篇处的实际案例我们发现，30分钟后应用的连接问题奇迹般的解决了，这是因为操作系统同样能够对socket timeout进行配置。公司的Linux服务器将socket timeout设置为了30分钟，从而会在操作系统的层面对网络连接做校验，因此即使JDBC的socket timeout设置为0，由网络错误造成的数据库连接问题的持续时间也不会超过30分钟.</p>
-</blockquote>
-<p>修改发版后，目前未出现问题</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://alenx.github.io/2017/03/17/kotlin入门/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="wangss   邮箱:genhaoai#gmail.com">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="南山东篱">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/03/17/kotlin入门/" itemprop="url">kotlin基础语法一</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-17T22:19:12+08:00">
-                2017-03-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><h3 id="定义包"><a href="#定义包" class="headerlink" title="定义包"></a>定义包</h3><p>包的定义应该在源文件的顶部<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> my.demo</div><div class="line"><span class="keyword">import</span> java.util.*</div><div class="line"><span class="comment">//</span></div></pre></td></tr></table></figure></p>
-<p>目录和包不是必须匹配，也就是说源文件可以任意存放</p>
-<h3 id="定义函数"><a href="#定义函数" class="headerlink" title="定义函数"></a>定义函数</h3><p>一个拥有两个<strong> Int</strong>参数和一个<strong>Int</strong>返回值的函数如下所示:<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">sum</span><span class="params">(a:<span class="type">Int</span>,b:<span class="type">Int</span>)</span></span>:<span class="built_in">Int</span>&#123;</div><div class="line">	<span class="keyword">return</span> a+b</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>一个拥有表达式体的函数和返回类型可推断出的函数如下所示:<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">sum</span><span class="params">(a:<span class="type">Int</span>,b:<span class="type">Int</span>)</span></span>=a+b</div></pre></td></tr></table></figure></p>
-<p>无返回值的函数如下所示:<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">printSum</span><span class="params">(a:<span class="type">Int</span>,b:<span class="type">Int</span>)</span></span>:<span class="built_in">Unit</span>&#123;</div><div class="line">  print(a+b)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p><strong>Unit</strong>返回类型可以省略<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">printSum</span><span class="params">(a:<span class="type">Int</span>,b:<span class="type">Int</span>)</span></span>&#123;</div><div class="line">  print(a+b)</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>定义局部变量<br>只读属性的局部变量定义如下：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> a:<span class="built_in">Int</span> =<span class="number">1</span></div><div class="line"><span class="keyword">val</span> b = <span class="number">1</span> <span class="comment">// `Int`类型可以推断出</span></div><div class="line"><span class="keyword">val</span> c:<span class="built_in">Int</span> <span class="comment">// 当变量没有初始化时，类型必须生命</span></div><div class="line">c = <span class="number">1</span> <span class="comment">//定义赋值</span></div></pre></td></tr></table></figure></p>
-<p>可变变量<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> x = <span class="number">5</span></div><div class="line">x+=<span class="number">1</span></div></pre></td></tr></table></figure></p>
-<h3 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h3><p>像Java和JavaScript一样，kotlin支持行注释和块注释<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 行注释</span></div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line">基于多行的块注释</div><div class="line">*/</div></pre></td></tr></table></figure></p>
-<p>和Java不同，kotlin的块注释可以嵌套</p>
-<h3 id="string-templates"><a href="#string-templates" class="headerlink" title="string templates"></a>string templates</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args:<span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span>&#123;</div><div class="line">  <span class="keyword">if</span>(args.size==<span class="number">0</span>)<span class="keyword">return</span></div><div class="line">  print(<span class="string">"First argument:<span class="subst">$&#123;args[<span class="number">0</span>]&#125;</span>"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="条件表达"><a href="#条件表达" class="headerlink" title="条件表达"></a>条件表达</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">max</span><span class="params">(a:<span class="type">Int</span>,b:<span class="type">Int</span>)</span></span>:<span class="built_in">Int</span>&#123;</div><div class="line">  <span class="keyword">if</span>(a&gt;b)</div><div class="line">  	<span class="keyword">return</span> a</div><div class="line">  <span class="keyword">else</span></div><div class="line">  	<span class="keyword">return</span> b</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>表达式化的if语句<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">max</span><span class="params">(a:<span class="type">Int</span>,b:<span class="type">Int</span>)</span></span>=<span class="keyword">if</span>(a&gt;b)a <span class="keyword">else</span> b</div></pre></td></tr></table></figure></p>
-<h3 id="可空数值和对null的检查"><a href="#可空数值和对null的检查" class="headerlink" title="可空数值和对null的检查"></a>可空数值和对<strong>null</strong>的检查</h3><p>当引用类型可能为null时，必须将其标识为nullable<br>如果<strong>str</strong>不是数字是返回<strong>null</strong><br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">parseInt</span><span class="params">(str:<span class="type">String</span>)</span></span>:<span class="built_in">Int</span>?&#123;</div><div class="line">  <span class="comment">//</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>函数中返回可空的数值<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">(args:<span class="type">Array</span>&lt;<span class="type">String</span>&gt;)</span></span>&#123;</div><div class="line">  <span class="keyword">if</span>(args.size&lt;<span class="number">2</span>)&#123;</div><div class="line">    print(<span class="string">"Two integers expected"</span>)</div><div class="line">    <span class="keyword">return</span></div><div class="line">  &#125;</div><div class="line">  <span class="keyword">val</span> x = parseInt(args[<span class="number">0</span>])</div><div class="line">  <span class="keyword">val</span> y = parseInt(args[<span class="number">1</span>])</div><div class="line">  <span class="keyword">if</span>(x!=<span class="literal">null</span> &amp;&amp; y!=<span class="literal">null</span>)&#123;</div><div class="line">    print(x*y)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>或者如下:<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(x==<span class="literal">null</span>)&#123;</div><div class="line">  pritn(<span class="string">"wrong number format in '<span class="subst">$&#123;args[<span class="number">0</span>]&#125;</span>'"</span>)</div><div class="line">  <span class="keyword">return</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">if</span>(y==<span class="literal">null</span>)&#123;</div><div class="line">  pritn(<span class="string">"wrong number format in '<span class="subst">$&#123;args[<span class="number">1</span>]&#125;</span>'"</span>)</div><div class="line">  <span class="keyword">return</span></div><div class="line">&#125;</div><div class="line">print(x*y)</div></pre></td></tr></table></figure></p>
-<hr>
-<blockquote>
-<p><em>备注:该内容翻译自kotlin官方文档，学习之用</em></p>
-</blockquote>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://alenx.github.io/2017/03/13/hello-world hexo/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="wangss   邮箱:genhaoai#gmail.com">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="南山东篱">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/03/13/hello-world hexo/" itemprop="url">Hello World世界</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-13T17:25:23+08:00">
-                2017-03-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1607,7 +1583,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1620,7 +1596,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
