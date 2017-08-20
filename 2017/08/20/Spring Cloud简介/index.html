@@ -1,0 +1,729 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Spring Cloud,微服务," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Spring Cloud简介Spring Cloud框架的主要组成有:Spring Boot（RESTful服务web框架）、Eureka(服务注册)、Ribbon（客户端负载均衡）、Feign（服务消费者）、Hystrix（断路器）等。
+Spring Boot基础Spring Boot框架，可以认为是基于SpringMVC框架的优化版，将之前web系统中的大量配置文件以及xml文件简化掉，简化的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Cloud简介">
+<meta property="og:url" content="https://alenx.github.io/2017/08/20/Spring Cloud简介/index.html">
+<meta property="og:site_name" content="南山东篱">
+<meta property="og:description" content="Spring Cloud简介Spring Cloud框架的主要组成有:Spring Boot（RESTful服务web框架）、Eureka(服务注册)、Ribbon（客户端负载均衡）、Feign（服务消费者）、Hystrix（断路器）等。
+Spring Boot基础Spring Boot框架，可以认为是基于SpringMVC框架的优化版，将之前web系统中的大量配置文件以及xml文件简化掉，简化的">
+<meta property="og:image" content="https://alenx.github.io/D:\p\1.png">
+<meta property="og:image" content="https://alenx.github.io/D:\p\2.png">
+<meta property="og:image" content="https://alenx.github.io/D:\p\3.png">
+<meta property="og:updated_time" content="2017-08-20T04:51:55.985Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring Cloud简介">
+<meta name="twitter:description" content="Spring Cloud简介Spring Cloud框架的主要组成有:Spring Boot（RESTful服务web框架）、Eureka(服务注册)、Ribbon（客户端负载均衡）、Feign（服务消费者）、Hystrix（断路器）等。
+Spring Boot基础Spring Boot框架，可以认为是基于SpringMVC框架的优化版，将之前web系统中的大量配置文件以及xml文件简化掉，简化的">
+<meta name="twitter:image" content="https://alenx.github.io/D:\p\1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://alenx.github.io/2017/08/20/Spring Cloud简介/"/>
+
+
+
+
+
+  <title>Spring Cloud简介 | 南山东篱</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">南山东篱</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://alenx.github.io/2017/08/20/Spring Cloud简介/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wangss   邮箱:genhaoai#gmail.com">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="南山东篱">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring Cloud简介</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-20T12:52:05+08:00">
+                2017-08-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Spring-Cloud简介"><a href="#Spring-Cloud简介" class="headerlink" title="Spring Cloud简介"></a>Spring Cloud简介</h3><p>Spring Cloud框架的主要组成有:Spring Boot（RESTful服务web框架）、Eureka(服务注册)、Ribbon（客户端负载均衡）、Feign（服务消费者）、Hystrix（断路器）等。</p>
+<h4 id="Spring-Boot基础"><a href="#Spring-Boot基础" class="headerlink" title="Spring Boot基础"></a>Spring Boot基础</h4><p>Spring Boot框架，可以认为是基于SpringMVC框架的优化版，将之前web系统中的大量配置文件以及xml文件简化掉，简化的方式为<strong>约定优于配置</strong>。<br>举例说明该配置，之前web工程如果需要设置服务器端口号（不管是tomcat还是jboss等），需要在对应的服务容器中修改配置文件，而Spring Boot框架首先将容器内置（默认为tomcat），同时将容器的配置约定化，以端口号为例，默认端口号为8080，如果不做修改，那么该服务器启动后端口默认8080，如果想要修改该端口号，那么需要在application.properties文件（或application.yaml）中增加<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">server.port = 8181 #application.yaml中写法有差异，具体可以参考yaml文件的格式</div></pre></td></tr></table></figure></p>
+<p>那么服务器启动后的端口则修改为8181端口，其余配置均类似。<br>下面使用Spring Boot开发简易的古诗词API<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">drop</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">exists</span> CI;</div><div class="line"></div><div class="line"><span class="comment">/*==============================================================*/</span></div><div class="line"><span class="comment">/* Table: CI                                                    */</span></div><div class="line"><span class="comment">/*==============================================================*/</span></div><div class="line"><span class="keyword">create</span> <span class="keyword">table</span> CI</div><div class="line">(</div><div class="line">   <span class="keyword">ID</span>                   <span class="built_in">bigint</span> <span class="keyword">not</span> <span class="literal">null</span> auto_increment <span class="keyword">comment</span> <span class="string">'ID'</span>,</div><div class="line">   <span class="keyword">NAME</span>                 <span class="built_in">varchar</span>(<span class="number">32</span>) <span class="keyword">comment</span> <span class="string">'词牌名'</span>,</div><div class="line">   TITLE                <span class="built_in">varchar</span>(<span class="number">256</span>) <span class="keyword">comment</span> <span class="string">'题目'</span>,</div><div class="line">   AUTHOR               <span class="built_in">varchar</span>(<span class="number">32</span>) <span class="keyword">comment</span> <span class="string">'作者'</span>,</div><div class="line">   DYNASTY              <span class="built_in">varchar</span>(<span class="number">32</span>) <span class="keyword">comment</span> <span class="string">'朝代'</span>,</div><div class="line">   <span class="keyword">CONTENT</span>              <span class="built_in">text</span> <span class="keyword">comment</span> <span class="string">'内容'</span>,</div><div class="line">   primary <span class="keyword">key</span> (<span class="keyword">ID</span>)</div><div class="line">);</div><div class="line"></div><div class="line"><span class="keyword">alter</span> <span class="keyword">table</span> CI <span class="keyword">comment</span> <span class="string">'词表内容'</span>;</div></pre></td></tr></table></figure></p>
+<p>ORM框架使用JPA（MyBaties框架的Bean文件稍微有差异）<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">spring.jpa.properties.hibernate.hbm2ddl.auto=create_update</div></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Entity</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Ci</span> </span>&#123;</div><div class="line">    <span class="meta">@Id</span></div><div class="line">    <span class="meta">@GeneratedValue</span></div><div class="line">    <span class="keyword">private</span> Integer id;</div><div class="line">    <span class="meta">@Column</span>(nullable = <span class="keyword">false</span>)</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="meta">@Column</span></div><div class="line">    <span class="keyword">private</span> String title;</div><div class="line">    <span class="meta">@Column</span>(nullable = <span class="keyword">false</span>)</div><div class="line">    <span class="keyword">private</span> String author;</div><div class="line">    <span class="meta">@Column</span></div><div class="line">    <span class="keyword">private</span> String dynasty;</div><div class="line">    <span class="meta">@Column</span>(nullable = <span class="keyword">false</span>)</div><div class="line">    <span class="keyword">private</span> String content;</div><div class="line">    </div><div class="line">    <span class="comment">// 省略setter以及getter方法</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CiRepository</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">Ci</span>,<span class="title">Long</span>&gt; </span>&#123;</div><div class="line">    <span class="function">Ci <span class="title">findCiById</span><span class="params">(Long id)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>编写测试用例如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@RunWith</span>(SpringJUnit4ClassRunner.class)</div><div class="line"><span class="meta">@SpringBootTest</span>(classes = DemoApplication.class)</div><div class="line"><span class="meta">@WebAppConfiguration</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppTest</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> CiRepository pr;</div><div class="line"></div><div class="line">    <span class="meta">@Test</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</div><div class="line">        Ci ci = <span class="keyword">new</span> Ci();</div><div class="line">        ci.setName(<span class="string">"如梦令"</span>);</div><div class="line">        ci.setTitle(<span class="string">"常记溪亭日暮"</span>);</div><div class="line">        ci.setAuthor(<span class="string">"李清照"</span>);</div><div class="line">        ci.setDynasty(<span class="string">"宋朝"</span>);</div><div class="line">        ci.setContent(<span class="string">"常记溪亭日暮，沉醉不知归路，\n"</span> +</div><div class="line">                <span class="string">"兴尽晚回舟，误入藕花深处。\n"</span> +</div><div class="line">                <span class="string">"争渡，争渡，惊起一滩鸥鹭。"</span>);</div><div class="line">        pr.save(ci);</div><div class="line">        Assert.assertEquals(<span class="number">1</span>, pr.findAll().size());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>编写对应的Controller<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@RestController</span></div><div class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/ci"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CiController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> CiRepository ciRep;</div><div class="line"></div><div class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/id/&#123;id&#125;"</span>, produces = <span class="string">"application/json; charset=UTF-8"</span>)</div><div class="line">    <span class="function"><span class="keyword">private</span> Ci <span class="title">findCiById</span><span class="params">(@PathVariable(value = <span class="string">"id"</span>)</span> Long id) </span>&#123;</div><div class="line">        <span class="keyword">return</span> ciRep.findCiById(id);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>访问结果如图所示：<br><img src="D:\p\1.png" alt="image"><br>至于其余的version控制、token权限校验、流量访问管理等功能不再详述。</p>
+<h4 id="Eureka简介"><a href="#Eureka简介" class="headerlink" title="Eureka简介"></a>Eureka简介</h4><p>关于Eureka的介绍，大家可以在网站查看对应的内容<br><a href="https://github.com/Netflix/eureka/wiki/Eureka-at-a-glance" target="_blank" rel="external">Eureka glance</a>，以下简要描述写个人理解。<br>所有的Spring Cloud中的组件（除Spring Boot外）都是为了分布式部署而产生的。在服务器单机情况下，只有一个服务，所有的请求均达到该服务，因此就不需要用到Eureka提供的的服务注册发现以及Ribbon提供的负载均衡。但是随着业务发展的要求，分布部署的情况越来越多，分布部署的思路很简单，即将所有请求分发不同服务器，将请求平均到服务器集群中的单个服务器，那么随之而来的便产生了很多问题，当某个服务器无法使用时，如何避免请求仍旧发送到该服务器，这个属于负载均衡的范畴，在Spring Cloud出现之前，已经有了成熟的方案，Nginx就能实现负载均衡还配有多个轮询方式，当然这里的Nginx属于服务端负载均衡。而Spring Cloud的出现，大大简化了分布式部署遇到问题的解决方式。例如Eureka，实现了服务的注册以及发现，当某个服务器失效时，Eureka Server便将该服务剔除，避免客户请求分发到该无效服务器，同时，当Eureka Client启动后，便将对应的服务注册到Eureka Server中，便于后续的服务器调用分配。另外Ribbon也实现了客户端的负载均衡。  </p>
+<p>下图为官网Eureka架构分析图：<br><img src="D:\p\2.png" alt="image"><br>着重看左侧部分，至于Eureka Server之间的复制，为服务器之间的数据同步更新。<br>应用服务向Eureka服务器注册服务，然后定时更新服务（30s心跳），或者取消该服务。然后应用客户端从Eureka获取注册服务，然后对应用服务进行远程调用。<br>Eureka服务器端配置：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">server.port=<span class="number">8762</span></div><div class="line">eureka.client.register-with-eureka=<span class="keyword">false</span></div><div class="line">eureka.client.fetch-registry=<span class="keyword">false</span></div><div class="line">eureka.client.service-url.defaultZone=http:<span class="comment">//localhost:8762/eureka</span></div></pre></td></tr></table></figure></p>
+<p>pom.xml文件中增加对于Eureka服务器端的依赖<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-eureka-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>增加注解@EnableEurekaServer<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@EnableEurekaServer</span></div><div class="line"><span class="meta">@SpringBootApplication</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoApplication</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        SpringApplication.run(DemoApplication.class, args);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>启动服务器即可。  </p>
+<p>客户端项目配置：<br>配置文件增加如下配置：<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">spring.application.name=demo-service  #此处为服务名称，尽量避免下划线</div><div class="line">eureka.client.service-url.defaultZone=http://localhost:8762/eureka  #此处http://localhost:8762为对应Eureka服务器地址</div></pre></td></tr></table></figure></p>
+<p>pom.xml增加对于Eureka的依赖<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-eureka<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>增加@EnableDiscoveryClient注解<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@EnableDiscoveryClient</span></div><div class="line"><span class="meta">@SpringBootApplication</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoApplication</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        SpringApplication.run(DemoApplication.class, args);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="Ribbon简介"><a href="#Ribbon简介" class="headerlink" title="Ribbon简介"></a>Ribbon简介</h4><p>增加xml配置<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-ribbon<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@EnableDiscoveryClient</span></div><div class="line"><span class="meta">@SpringBootApplication</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoApplication</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">//Ribbon的负载均衡增加</span></div><div class="line">    <span class="meta">@Bean</span></div><div class="line">    <span class="meta">@LoadBalanced</span></div><div class="line">    <span class="function">RestTemplate <span class="title">restTemplate</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> RestTemplate();</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        SpringApplication.run(DemoApplication.class, args);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>增加消费者信息<br>配置信息如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">server.port=<span class="number">9000</span></div><div class="line">spring.application.name=ribbon-consumer</div><div class="line">eureka.client.service-url.defaultZone=http:<span class="comment">//localhost:8762/eureka</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@RestController</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConsumerController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> RestTemplate restTemplate;</div><div class="line"></div><div class="line">    <span class="meta">@GetMapping</span>(value = <span class="string">"/ci/&#123;id&#125;"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> Person <span class="title">aa</span><span class="params">(@PathVariable(<span class="string">"id"</span>)</span> Long id)</span>&#123;</div><div class="line">        <span class="keyword">return</span> restTemplate.getForEntity(<span class="string">"http://demo-service/ci/id/&#123;id&#125;"</span>,Person.class,id).getBody();<span class="comment">//此处的demo-service为之前注册服务的名称</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>启用消费者应用后（首先启用多个应用服务），多次访问<a href="http://localhost:9000/ci/1，首先能够正常返回结果，其次，每次访问，分发的服务器地址不同" target="_blank" rel="external">http://localhost:9000/ci/1，首先能够正常返回结果，其次，每次访问，分发的服务器地址不同</a></p>
+<h4 id="Feign"><a href="#Feign" class="headerlink" title="Feign"></a>Feign</h4><p>Feign的主要作用是简化HTTP的调用。<br>使用Feign简化上面的例子</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@FeignClient</span>(<span class="string">"DEMO-SERVICE"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ApiClient</span> </span>&#123;</div><div class="line">    <span class="meta">@RequestMapping</span>(method = RequestMethod.GET, value = <span class="string">"/ci/&#123;id&#125;"</span>)</div><div class="line">    <span class="function">Ci <span class="title">queryCi</span><span class="params">(@PathVariable(value = <span class="string">"id"</span>)</span> Long id)</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@EnableDiscoveryClient</span></div><div class="line"><span class="meta">@EnableFeignClients</span> <span class="comment">//启动Feign功能</span></div><div class="line"><span class="meta">@SpringBootApplication</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoApplication</span> </span>&#123;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="meta">@Bean</span></div><div class="line">    <span class="meta">@LoadBalanced</span></div><div class="line">    <span class="function">RestTemplate <span class="title">restTemplate</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> RestTemplate();</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        SpringApplication.run(DemoApplication.class, args);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@RestController</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConsumerController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> RestTemplate restTemplate;</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> ApiClient apiClient;</div><div class="line"></div><div class="line">    <span class="meta">@GetMapping</span>(value = <span class="string">"/ci/&#123;id&#125;"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> Ci <span class="title">queryCi</span><span class="params">(@PathVariable(<span class="string">"id"</span>)</span> Long id) </span>&#123;</div><div class="line"><span class="comment">//        return restTemplate.getForEntity("http://DEMO-SERVICE/ci/id/&#123;id&#125;", Ci.class, id).getBody();</span></div><div class="line">        <span class="keyword">return</span> apiClient.queryCi(id);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="Hystrix（断路器、熔断器）简介"><a href="#Hystrix（断路器、熔断器）简介" class="headerlink" title="Hystrix（断路器、熔断器）简介"></a>Hystrix（断路器、熔断器）简介</h4><p><a href="https://github.com/Netflix/Hystrix/wiki" target="_blank" rel="external">Hystrix Wiki</a><br>Hystrix通过隔离服务访问来提供对于系统错误的处理机制，并提供了fallback回退选项，提高系统的整体弹性。<br>Hystrix的主要用途有以下几点：</p>
+<ul>
+<li>Give protection from and control over latency and failure from dependencies accessed (typically over the network) via third-party client libraries.（通过第三方客户端库避免系统陷入依赖访问错误）</li>
+<li>Stop cascading failures in a complex distributed system.（在分布式系统中终止大量错误）</li>
+<li>Fail fast and rapidly recover.（失败快速恢复）</li>
+<li>Fallback and gracefully degrade when possible.（恢复以及平滑降级）</li>
+<li>Enable near real-time monitoring, alerting, and operational control.（实时预警以及操作控制）</li>
+</ul>
+<p>Hystrix 的一个很重要的思想就是使用拒绝服务来替换将服务队列排序。避免因为排队等待导致的资源浪费。<br><a href="https://github.com/Netflix/Hystrix/wiki/How-it-Works" target="_blank" rel="external">Hystrix原理</a><br>增加注解<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@EnableCircuitBreaker</span></div><div class="line"><span class="meta">@EnableHystrixDashboard</span></div></pre></td></tr></table></figure></p>
+<p>然后直接调用方法时增加command注解<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Service</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DependService</span> </span>&#123;</div><div class="line">    Random random = <span class="keyword">new</span> Random();</div><div class="line"></div><div class="line"></div><div class="line">    <span class="meta">@HystrixCommand</span>(fallbackMethod = <span class="string">"backMethod"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">world</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">int</span> a = random.nextInt();</div><div class="line">        <span class="keyword">if</span> (a&gt;<span class="number">6</span>)&#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"dd"</span>);</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="string">"number"</span>+a;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">backMethod</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"fallback"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>Hystrix所需要的pom.xml配置<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--hystrix--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-hystrix<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"></div><div class="line"><span class="comment">&lt;!--hystrix-dashboard 监控--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-hystrix-dashboard<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- dashboard显示所需要jar--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>建议将hystrix-dashboard-1.5.12.war单独部署<br>最终监控内容如下：<br><img src="D:\p\3.png" alt="image"><br>使用turbine可以管理监控集群下的hystrix情况。</p>
+<h3 id="CAP理论以及负载均衡"><a href="#CAP理论以及负载均衡" class="headerlink" title="CAP理论以及负载均衡"></a>CAP理论以及负载均衡</h3><h4 id="CAP理论"><a href="#CAP理论" class="headerlink" title="CAP理论"></a>CAP理论</h4><ul>
+<li>C：consistency数据一致性  </li>
+<li>A：availability服务可用性  </li>
+<li>P:partition-tolerance分区容错性</li>
+</ul>
+<p>分布式系统中关于CAP三种需求，最多满足两者，根据实际业务的取舍来实现，例如</p>
+<h4 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h4><p>负载均衡目前基本分为两类，一类为服务器端复杂均衡，Nginx即属于此类；另一类为客户端负载均衡，上面谈到的Ribbon即为此类。<br>服务器端负载均衡，顾名思义就是指的从服务器端来实现请求的合理分发。而客户端负载均衡指的是在客户端的程序里，根据设定的调度算法，向服务器发起请求时，先执行调度算法计算向哪一台服务器发送请求，以实现均衡。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spring-Cloud/" rel="tag"># Spring Cloud</a>
+          
+            <a href="/tags/微服务/" rel="tag"># 微服务</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/09/prototype.js探微（四）/" rel="next" title="prototype.js探微（四）">
+                <i class="fa fa-chevron-left"></i> prototype.js探微（四）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/head.jpg"
+               alt="wangss   邮箱:genhaoai#gmail.com" />
+          <p class="site-author-name" itemprop="name">wangss   邮箱:genhaoai#gmail.com</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring-Cloud简介"><span class="nav-number">1.</span> <span class="nav-text">Spring Cloud简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Spring-Boot基础"><span class="nav-number">1.1.</span> <span class="nav-text">Spring Boot基础</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Eureka简介"><span class="nav-number">1.2.</span> <span class="nav-text">Eureka简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Ribbon简介"><span class="nav-number">1.3.</span> <span class="nav-text">Ribbon简介</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Feign"><span class="nav-number">1.4.</span> <span class="nav-text">Feign</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hystrix（断路器、熔断器）简介"><span class="nav-number">1.5.</span> <span class="nav-text">Hystrix（断路器、熔断器）简介</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CAP理论以及负载均衡"><span class="nav-number">2.</span> <span class="nav-text">CAP理论以及负载均衡</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CAP理论"><span class="nav-number">2.1.</span> <span class="nav-text">CAP理论</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#负载均衡"><span class="nav-number">2.2.</span> <span class="nav-text">负载均衡</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wangss   邮箱:genhaoai#gmail.com</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Muse
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
