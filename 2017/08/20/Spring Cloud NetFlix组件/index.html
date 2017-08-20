@@ -107,8 +107,8 @@
 服务发现是基于微服务架构的关键原则之一。每个服务器将注册服务的状态复制到其他服务器。
 如果客户端指定心跳时间内不可达，那么服务端将该服务实例移除
 @EnableDiscoveryClient和@EnableEurek">
-<meta property="og:image" content="https://alenx.github.io/D:/p/6.png">
-<meta property="og:updated_time" content="2017-08-20T04:54:59.072Z">
+<meta property="og:image" content="https://alenx.github.io/img/6.png">
+<meta property="og:updated_time" content="2017-08-20T05:02:17.128Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring Cloud NetFlix组件">
 <meta name="twitter:description" content="Spring Cloud NetFlix提供的模块包括Eureka(服务发现)、Hystrix(断路器)、Zuul(智能路由)、Ribbon(客户端负载均衡)。
@@ -116,7 +116,7 @@
 服务发现是基于微服务架构的关键原则之一。每个服务器将注册服务的状态复制到其他服务器。
 如果客户端指定心跳时间内不可达，那么服务端将该服务实例移除
 @EnableDiscoveryClient和@EnableEurek">
-<meta name="twitter:image" content="https://alenx.github.io/D:/p/6.png">
+<meta name="twitter:image" content="https://alenx.github.io/img/6.png">
 
 
 
@@ -342,7 +342,7 @@
 <li>the instance, the server and the client 三部分元数据统一，每个心跳时间为30s，所以需要全部同步，需要90s。eureka.instance.leaseRenewalIntervalInSeconds属性可以设置该时间</li>
 <li>Eureka区块的概念？</li>
 <li>结点复制以及集群实现，spring.profiles=master<br>eureka.instance.hostname=master<br>eureka.client.serviceUrl.defaultZone=<a href="http://slaves:8762/eureka" target="_blank" rel="external">http://slaves:8762/eureka</a></li>
-<li>Region（区域默认us-east-1）以及Zone（可用区us-east-1c）的概念，Spring Cloud中默认的region是us-east-1 。<br><img src="D:/p/6.png" alt="image"></li>
+<li>Region（区域默认us-east-1）以及Zone（可用区us-east-1c）的概念，Spring Cloud中默认的region是us-east-1 。<br><img src="/img/6.png" alt="image"></li>
 </ul>
 <p>服务发现的独立模式 ，关闭客户端行为，不会继续尝试并且无法访问对等体。</p>
 <h4 id="Eureka服务器的集群处理peer-Awareness"><a href="#Eureka服务器的集群处理peer-Awareness" class="headerlink" title="Eureka服务器的集群处理peer Awareness"></a>Eureka服务器的集群处理peer Awareness</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">spring.profiles=master</div><div class="line">eureka.instance.hostname=master</div><div class="line">eureka.client.serviceUrl.defaultZone=http://slaves:8762/eureka</div></pre></td></tr></table></figure>
