@@ -253,6 +253,171 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://alenx.github.io/2017/08/20/Spring Cloud NetFlix组件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wangss   邮箱:genhaoai#gmail.com">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="南山东篱">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/20/Spring Cloud NetFlix组件/" itemprop="url">Spring Cloud NetFlix组件</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-20T12:55:06+08:00">
+                2017-08-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Spring-Cloud-NetFlix"><a href="#Spring-Cloud-NetFlix" class="headerlink" title="Spring Cloud NetFlix"></a>Spring Cloud NetFlix</h2><p>提供的模块包括Eureka(服务发现)、Hystrix(断路器)、Zuul(智能路由)、Ribbon(客户端负载均衡)。</p>
+<h3 id="服务发现Eureka"><a href="#服务发现Eureka" class="headerlink" title="服务发现Eureka"></a>服务发现Eureka</h3><ul>
+<li>服务发现是基于微服务架构的关键原则之一。每个服务器将注册服务的状态复制到其他服务器。</li>
+<li>如果客户端指定心跳时间内不可达，那么服务端将该服务实例移除</li>
+<li>@EnableDiscoveryClient和@EnableEurekaClient的区别，在只有一个Eureka服务器时可以使用@EnableDiscoveryClient</li>
+<li>eureka.instance配置实例相关信息</li>
+<li>the instance, the server and the client 三部分元数据统一，每个心跳时间为30s，所以需要全部同步，需要90s。eureka.instance.leaseRenewalIntervalInSeconds属性可以设置该时间</li>
+<li>Eureka区块的概念？</li>
+<li>结点复制以及集群实现，spring.profiles=master<br>eureka.instance.hostname=master<br>eureka.client.serviceUrl.defaultZone=<a href="http://slaves:8762/eureka" target="_blank" rel="external">http://slaves:8762/eureka</a></li>
+<li>Region（区域默认us-east-1）以及Zone（可用区us-east-1c）的概念，Spring Cloud中默认的region是us-east-1 。<br><img src="D:/p/6.png" alt="image"></li>
+</ul>
+<p>服务发现的独立模式 ，关闭客户端行为，不会继续尝试并且无法访问对等体。</p>
+<h4 id="Eureka服务器的集群处理peer-Awareness"><a href="#Eureka服务器的集群处理peer-Awareness" class="headerlink" title="Eureka服务器的集群处理peer Awareness"></a>Eureka服务器的集群处理peer Awareness</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">spring.profiles=master</div><div class="line">eureka.instance.hostname=master</div><div class="line">eureka.client.serviceUrl.defaultZone=http://slaves:8762/eureka</div></pre></td></tr></table></figure>
+<h3 id="断路器"><a href="#断路器" class="headerlink" title="断路器"></a>断路器</h3><p>针对微服务中的多层服务调用</p>
+<ul>
+<li>底层服务失败，会将该失败级联传递给上层用户</li>
+<li>Hystrix从项目javanica进化而来</li>
+<li>​<h4 id="Hystrix指标流"><a href="#Hystrix指标流" class="headerlink" title="Hystrix指标流"></a>Hystrix指标流</h4>增加<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>后可以支持/hystrix.stream </p>
+<ul>
+<li>/hystrix.stream  使用hystrix</li>
+<li>/turbine.stream  使用turbine<h4 id="Turbine"><a href="#Turbine" class="headerlink" title="Turbine"></a>Turbine</h4>Turbine将所有的hystrix.stream整合为一个turbine.stream，然后将监控信息整合展示。<h3 id="客户端负载均衡-Ribbon"><a href="#客户端负载均衡-Ribbon" class="headerlink" title="客户端负载均衡 Ribbon"></a>客户端负载均衡 Ribbon</h3></li>
+<li>Ribbon的具体使用。(Feign already uses Ribbon, so if you are using @FeignClient then this section also applies.在Feign中已经包含Ribbon，所以使用注解 @FeignClient即可)</li>
+<li></li>
+</ul>
+<p>直接使用Ribbon接口<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> LoadBalancerClient loadBalancer;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doStuff</span><span class="params">()</span> </span>&#123;</div><div class="line">        ServiceInstance instance = loadBalancer.choose(<span class="string">"stores"</span>);<span class="comment">//stores为service id</span></div><div class="line">        URI storesUri = URI.create(String.format(<span class="string">"http://%s:%s"</span>, instance.getHost(), instance.getPort()));</div><div class="line">        <span class="comment">// ... do something with the URI</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="Feign"><a href="#Feign" class="headerlink" title="Feign"></a>Feign</h3><p>Spring Cloud integrates Ribbon and Eureka to provide a load balanced http client when using Feign.(Spring Cloud通过整合Ribbon和Eureka来使用Feign提供一个HTTP端的负载均衡)</p>
+<ul>
+<li>Feign的Hystrix支持，使用feign.hystrix.enabled=false取消其支持<br>To disable Hystrix support on a per-client basis create a vanilla Feign.Builder with the “prototype” scope, e.g.:<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Configuration</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FooConfiguration</span> </span>&#123;</div><div class="line">    <span class="meta">@Bean</span></div><div class="line">	<span class="meta">@Scope</span>(<span class="string">"prototype"</span>)</div><div class="line">	<span class="keyword">public</span> Feign.<span class="function">Builder <span class="title">feignBuilder</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> Feign.builder();</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="Feign的请求响应压缩"><a href="#Feign的请求响应压缩" class="headerlink" title="Feign的请求响应压缩"></a>Feign的请求响应压缩</h4><p>配置文件如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">feign.compression.request.enabled=true</div><div class="line">feign.compression.response.enabled=true</div></pre></td></tr></table></figure></p>
+<h3 id="Zuul"><a href="#Zuul" class="headerlink" title="Zuul"></a>Zuul</h3><ul>
+<li>EnableZuulProxy 和EnableZuulServer的区别，过滤器的不同，建议使用EnableZuulProxy</li>
+<li>ZuulFilter的有效范围，路由控制的全部功能均受该Filter控制</li>
+<li><p>路由映射，可以使用正则匹配方式配置</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Bean</span></div><div class="line"><span class="function"><span class="keyword">public</span> PatternServiceRouteMapper <span class="title">serviceRouteMapper</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> PatternServiceRouteMapper(</div><div class="line">        <span class="string">"(?&lt;name&gt;^.+)-(?&lt;version&gt;v.+$)"</span>,</div><div class="line">        <span class="string">"$&#123;version&#125;/$&#123;name&#125;"</span>);<span class="comment">//This means that a serviceId "myusers-v1" will be mapped to route "/v1/myusers/&#123;asterisk&#125;&#123;asterisk&#125;". </span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>可以配置忽略路由地址信息 zuul.ignoredPatterns: /<strong>/admin/</strong></p>
+</li>
+</ul>
+<blockquote>
+<p>验证与安全保障: 识别面向各类资源的验证要求并拒绝那些与要求不符的请求。</p>
+<p>审查与监控: 在边缘位置追踪有意义数据及统计结果，从而为我们带来准确的生产状态结论。</p>
+<p>动态路由: 以动态方式根据需要将请求路由至不同后端集群处。</p>
+<p>压力测试: 逐渐增加指向集群的负载流量，从而计算性能水平。</p>
+<p>负载分配: 为每一种负载类型分配对应容量，并弃用超出限定值的请求。</p>
+<p>静态响应处理: 在边缘位置直接建立部分响应，从而避免其流入内部集群。</p>
+</blockquote>
+<p>Netflix公司还利用Zuul的功能通过金丝雀版本实现精确路由与压力测试。</p>
+<p>虽然提供的功能还算丰富，但都比较弱，很难满足高要求的场景。</p>
+<p><a href="http://localhost:8761/eureka" target="_blank" rel="external">http://localhost:8761/eureka</a><br><a href="http://localhost:8761/hystrix.stream" target="_blank" rel="external">http://localhost:8761/hystrix.stream</a><br>| 服务类型      | 端口区域      |<br>| ——— | ——— |<br>| 核心业务服务    | 8101-8109 |<br>| Eureka服务器 | 8761      |<br>| Zuul路由分发  | 8861      |</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://alenx.github.io/2017/08/20/Spring Cloud简介/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -329,7 +494,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CiRepository</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">Ci</span>,<span class="title">Long</span>&gt; </span>&#123;</div><div class="line">    <span class="function">Ci <span class="title">findCiById</span><span class="params">(Long id)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>编写测试用例如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@RunWith</span>(SpringJUnit4ClassRunner.class)</div><div class="line"><span class="meta">@SpringBootTest</span>(classes = DemoApplication.class)</div><div class="line"><span class="meta">@WebAppConfiguration</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppTest</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> CiRepository pr;</div><div class="line"></div><div class="line">    <span class="meta">@Test</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</div><div class="line">        Ci ci = <span class="keyword">new</span> Ci();</div><div class="line">        ci.setName(<span class="string">"如梦令"</span>);</div><div class="line">        ci.setTitle(<span class="string">"常记溪亭日暮"</span>);</div><div class="line">        ci.setAuthor(<span class="string">"李清照"</span>);</div><div class="line">        ci.setDynasty(<span class="string">"宋朝"</span>);</div><div class="line">        ci.setContent(<span class="string">"常记溪亭日暮，沉醉不知归路，\n"</span> +</div><div class="line">                <span class="string">"兴尽晚回舟，误入藕花深处。\n"</span> +</div><div class="line">                <span class="string">"争渡，争渡，惊起一滩鸥鹭。"</span>);</div><div class="line">        pr.save(ci);</div><div class="line">        Assert.assertEquals(<span class="number">1</span>, pr.findAll().size());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>编写对应的Controller<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@RestController</span></div><div class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/ci"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CiController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> CiRepository ciRep;</div><div class="line"></div><div class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/id/&#123;id&#125;"</span>, produces = <span class="string">"application/json; charset=UTF-8"</span>)</div><div class="line">    <span class="function"><span class="keyword">private</span> Ci <span class="title">findCiById</span><span class="params">(@PathVariable(value = <span class="string">"id"</span>)</span> Long id) </span>&#123;</div><div class="line">        <span class="keyword">return</span> ciRep.findCiById(id);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>访问结果如图所示：<br><img src="D:\p\1.png" alt="image"><br>至于其余的version控制、token权限校验、流量访问管理等功能不再详述。</p>
+<p>访问结果如图所示：<br><img src="/img/1.png" alt="image"><br>至于其余的version控制、token权限校验、流量访问管理等功能不再详述。</p>
 <h4 id="Eureka简介"><a href="#Eureka简介" class="headerlink" title="Eureka简介"></a>Eureka简介</h4><p>关于Eureka的介绍，大家可以在网站查看对应的内容<br><a href="https://github.com/Netflix/eureka/wiki/Eureka-at-a-glance" target="_blank" rel="external">Eureka glance</a>，以下简要描述写个人理解。<br>所有的Spring Cloud中的组件（除Spring Boot外）都是为了分布式部署而产生的。在服务器单机情况下，只有一个服务，所有的请求均达到该服务，因此就不需要用到Eureka提供的的服务注册发现以及Ribbon提供的负载均衡。但是随着业务发展的要求，分布部署的情况越来越多，分布部署的思路很简单，即将所有请求分发不同服务器，将请求平均到服务器集群中的单个服务器，那么随之而来的便产生了很多问题，当某个服务器无法使用时，如何避免请求仍旧发送到该服务器，这个属于负载均衡的范畴，在Spring Cloud出现之前，已经有了成熟的方案，Nginx就能实现负载均衡还配有多个轮询方式，当然这里的Nginx属于服务端负载均衡。而Spring Cloud的出现，大大简化了分布式部署遇到问题的解决方式。例如Eureka，实现了服务的注册以及发现，当某个服务器失效时，Eureka Server便将该服务剔除，避免客户请求分发到该无效服务器，同时，当Eureka Client启动后，便将对应的服务注册到Eureka Server中，便于后续的服务器调用分配。另外Ribbon也实现了客户端的负载均衡。  </p>
 <p>下图为官网Eureka架构分析图：<br><img src="D:\p\2.png" alt="image"><br>着重看左侧部分，至于Eureka Server之间的复制，为服务器之间的数据同步更新。<br>应用服务向Eureka服务器注册服务，然后定时更新服务（30s心跳），或者取消该服务。然后应用客户端从Eureka获取注册服务，然后对应用服务进行远程调用。<br>Eureka服务器端配置：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">server.port=<span class="number">8762</span></div><div class="line">eureka.client.register-with-eureka=<span class="keyword">false</span></div><div class="line">eureka.client.fetch-registry=<span class="keyword">false</span></div><div class="line">eureka.client.service-url.defaultZone=http:<span class="comment">//localhost:8762/eureka</span></div></pre></td></tr></table></figure></p>
 <p>pom.xml文件中增加对于Eureka服务器端的依赖<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-eureka-server<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure></p>
@@ -1407,147 +1572,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://alenx.github.io/2017/05/14/类和对象-类和继承/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="wangss   邮箱:genhaoai#gmail.com">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="南山东篱">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/14/类和对象-类和继承/" itemprop="url">类和对象-类和继承</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-14T13:00:50+08:00">
-                2017-05-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="类和对象"><a href="#类和对象" class="headerlink" title="类和对象"></a>类和对象</h2><h3 id="类和继承"><a href="#类和继承" class="headerlink" title="类和继承"></a>类和继承</h3><h4 id="类"><a href="#类" class="headerlink" title="类"></a>类</h4><p>kotlin中的类使用关键字class声明</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">class Invoice&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>类声明由类名称、类头（指定类的参数类型和第一构造函数等）以及由括号包围的类体构成。函数头和函数体是可选的，如果类没有函数体，那么大括号可以被省略</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Empty</span></span></div></pre></td></tr></table></figure>
-<h4 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h4><p>kotlin中的类有一个首要构造方法和若干个次要构造方法。首要构造方法是函数头的一部分，紧跟在类名的后面（参数类型可选）。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">constructor</span></span>(firstName:String)&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>如果首要构造方法没有任何附件的注解或者其他的可见的修饰符，那么constructor关键是可省略。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>(firstName:String)&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>首要构造方法中不能包含任何代码，初始代码存放在初始块中。初始块以init关键字作为前置。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Customer</span></span>(name:String)&#123;</div><div class="line">	init&#123;</div><div class="line">		logger.info(<span class="string">"Customer initialized with value <span class="subst">$&#123;name&#125;</span>"</span>)</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>从上可以看出，首要函数的参数可以在初始块中被使用，他们也可以在类内部的属性初始时被使用。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Customer</span></span>(name:String)&#123;</div><div class="line">	<span class="keyword">val</span> customKey  =  name.toUpperCase()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>实际上声明属性并从首要方法中初始他们，kotlin有一个简洁的语法。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>(<span class="keyword">val</span> firstName:String,<span class="keyword">val</span> lastName:String,<span class="keyword">var</span> age:<span class="built_in">Int</span>)&#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>和很多其他的属性一样，首要方法里的属性可以是可修改的var也可以是只读的val<br>如果构造方法有注解或者可见的修饰符，那么constructor关键字是必要的，所有的修饰符加在它前面</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Customer</span> <span class="keyword">public</span> <span class="meta">@Inject</span> <span class="keyword">constructor</span></span>(name:String)&#123;...&#125;</div></pre></td></tr></table></figure>
-<h4 id="次要构造方法"><a href="#次要构造方法" class="headerlink" title="次要构造方法"></a>次要构造方法</h4><p>类也能声明次要构造方法，语法为使用constructor作为前缀</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</div><div class="line">	<span class="keyword">constructor</span>(parent:Person)&#123;</div><div class="line">		parent.children.add(<span class="keyword">this</span>)</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>如果类有首要构造方法，那么每一个次要构造方法需要委托给首要构造方法，但不能直接或者间接的通过其他的次要构造方法。使用关键字this来实现委托给本类的其他构造方法</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>(<span class="keyword">val</span> name:String )&#123;</div><div class="line">	<span class="keyword">constructor</span>(name:String,parent:Person):<span class="keyword">this</span>(name)&#123;</div><div class="line">		parent.children.add(<span class="keyword">this</span>)</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>如果一个非抽象类没有声明任何的构造方法（首要构造方法或者次要构造方法），那么它将自动生成一个没有参数的首要构造方法。该构造方法的是可见性为public。如果你不想要你的类拥有一个public的构造方法，那么你需要声明一个空的首要构造方法，且该构造方法没有默认可见性修饰符。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">DontCreateMe</span> <span class="keyword">private</span> <span class="keyword">constructor</span></span>()&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>在JVM上，如果首要构造方法的参数全部都有默认值，那么编译器将使用默认参数值额外生成一个无参的构造方法。这使得用kotlin调用例如jackson或者JPA这些通过无参构造方法创建实例的库更加简单。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="class"><span class="keyword">class</span> <span class="title">Customer</span></span>(<span class="keyword">val</span> customerName:String=<span class="string">""</span>)</div><div class="line">&gt;</div></pre></td></tr></table></figure>
-</blockquote>
-<h3 id="创建类实例"><a href="#创建类实例" class="headerlink" title="创建类实例"></a>创建类实例</h3><p>创建类实例时，我们直接调用类的构造方法。</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> invoice = Invoice()</div><div class="line"><span class="keyword">val</span> customer = Customer(<span class="string">"Joe Simth"</span>)</div></pre></td></tr></table></figure>
-<p>注意kotlin没有new关键字</p>
-<h4 id="类成员"><a href="#类成员" class="headerlink" title="类成员"></a>类成员</h4><p>类里可包括<br>构造方法和初始块<br>函数<br>属性<br>嵌套和内部类<br>对象声明</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1597,7 +1621,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

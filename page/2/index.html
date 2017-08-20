@@ -253,6 +253,147 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://alenx.github.io/2017/05/14/类和对象-类和继承/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wangss   邮箱:genhaoai#gmail.com">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="南山东篱">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/05/14/类和对象-类和继承/" itemprop="url">类和对象-类和继承</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-14T13:00:50+08:00">
+                2017-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="类和对象"><a href="#类和对象" class="headerlink" title="类和对象"></a>类和对象</h2><h3 id="类和继承"><a href="#类和继承" class="headerlink" title="类和继承"></a>类和继承</h3><h4 id="类"><a href="#类" class="headerlink" title="类"></a>类</h4><p>kotlin中的类使用关键字class声明</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">class Invoice&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>类声明由类名称、类头（指定类的参数类型和第一构造函数等）以及由括号包围的类体构成。函数头和函数体是可选的，如果类没有函数体，那么大括号可以被省略</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Empty</span></span></div></pre></td></tr></table></figure>
+<h4 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h4><p>kotlin中的类有一个首要构造方法和若干个次要构造方法。首要构造方法是函数头的一部分，紧跟在类名的后面（参数类型可选）。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">constructor</span></span>(firstName:String)&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果首要构造方法没有任何附件的注解或者其他的可见的修饰符，那么constructor关键是可省略。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>(firstName:String)&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>首要构造方法中不能包含任何代码，初始代码存放在初始块中。初始块以init关键字作为前置。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Customer</span></span>(name:String)&#123;</div><div class="line">	init&#123;</div><div class="line">		logger.info(<span class="string">"Customer initialized with value <span class="subst">$&#123;name&#125;</span>"</span>)</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>从上可以看出，首要函数的参数可以在初始块中被使用，他们也可以在类内部的属性初始时被使用。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Customer</span></span>(name:String)&#123;</div><div class="line">	<span class="keyword">val</span> customKey  =  name.toUpperCase()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>实际上声明属性并从首要方法中初始他们，kotlin有一个简洁的语法。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>(<span class="keyword">val</span> firstName:String,<span class="keyword">val</span> lastName:String,<span class="keyword">var</span> age:<span class="built_in">Int</span>)&#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>和很多其他的属性一样，首要方法里的属性可以是可修改的var也可以是只读的val<br>如果构造方法有注解或者可见的修饰符，那么constructor关键字是必要的，所有的修饰符加在它前面</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Customer</span> <span class="keyword">public</span> <span class="meta">@Inject</span> <span class="keyword">constructor</span></span>(name:String)&#123;...&#125;</div></pre></td></tr></table></figure>
+<h4 id="次要构造方法"><a href="#次要构造方法" class="headerlink" title="次要构造方法"></a>次要构造方法</h4><p>类也能声明次要构造方法，语法为使用constructor作为前缀</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</div><div class="line">	<span class="keyword">constructor</span>(parent:Person)&#123;</div><div class="line">		parent.children.add(<span class="keyword">this</span>)</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果类有首要构造方法，那么每一个次要构造方法需要委托给首要构造方法，但不能直接或者间接的通过其他的次要构造方法。使用关键字this来实现委托给本类的其他构造方法</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>(<span class="keyword">val</span> name:String )&#123;</div><div class="line">	<span class="keyword">constructor</span>(name:String,parent:Person):<span class="keyword">this</span>(name)&#123;</div><div class="line">		parent.children.add(<span class="keyword">this</span>)</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果一个非抽象类没有声明任何的构造方法（首要构造方法或者次要构造方法），那么它将自动生成一个没有参数的首要构造方法。该构造方法的是可见性为public。如果你不想要你的类拥有一个public的构造方法，那么你需要声明一个空的首要构造方法，且该构造方法没有默认可见性修饰符。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">DontCreateMe</span> <span class="keyword">private</span> <span class="keyword">constructor</span></span>()&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>在JVM上，如果首要构造方法的参数全部都有默认值，那么编译器将使用默认参数值额外生成一个无参的构造方法。这使得用kotlin调用例如jackson或者JPA这些通过无参构造方法创建实例的库更加简单。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="class"><span class="keyword">class</span> <span class="title">Customer</span></span>(<span class="keyword">val</span> customerName:String=<span class="string">""</span>)</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="创建类实例"><a href="#创建类实例" class="headerlink" title="创建类实例"></a>创建类实例</h3><p>创建类实例时，我们直接调用类的构造方法。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">val</span> invoice = Invoice()</div><div class="line"><span class="keyword">val</span> customer = Customer(<span class="string">"Joe Simth"</span>)</div></pre></td></tr></table></figure>
+<p>注意kotlin没有new关键字</p>
+<h4 id="类成员"><a href="#类成员" class="headerlink" title="类成员"></a>类成员</h4><p>类里可包括<br>构造方法和初始块<br>函数<br>属性<br>嵌套和内部类<br>对象声明</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://alenx.github.io/2017/05/07/高阶函数和lambdas/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -982,7 +1123,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
