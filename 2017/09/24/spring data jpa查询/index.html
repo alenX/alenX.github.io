@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Python," />
+  <meta name="keywords" content="Spring Cloud,Jpa," />
 
 
 
@@ -93,22 +93,37 @@
 
 
 
-<meta name="description" content="Python2.X中，在列表推导中for关键字之后的赋值操作可能会影响列表推导上下文中的同名变量，例如在Python2.7123x=&apos;my precious&apos;dummy = [x for x in &apos;ABC&apos;]print x
-输出的结果1C
-x原本的值被取代了，但是在python中不会出来。列表推导、生成器表达式，以及同它们很相似的集合（set）推导和字典（dict）推导，在Python3中都有了">
+<meta name="description" content="Spring Data Jpa的查询简要根据项目的开发经验介绍下，jpa的使用方式
+Jpa的使用的查询的三种方式
+Query creation,方法名称动态解析为JPQL
+NamedQueries方式
+Query注解实现HQL实现
+Query注解实现SQL原生语句查询
+
+方法名称解析JPQLQuery creation在Jpa中，使用关键字命名函数名称的方式来实现query查询。1Student">
 <meta property="og:type" content="article">
-<meta property="og:title" content="python的列表推导之变量泄漏问题">
-<meta property="og:url" content="https://alenx.github.io/2017/07/08/python的列表推导之变量泄漏问题/index.html">
+<meta property="og:title" content="Spring Data Jpa查询简介">
+<meta property="og:url" content="https://alenx.github.io/2017/09/24/spring data jpa查询/index.html">
 <meta property="og:site_name" content="南山东篱">
-<meta property="og:description" content="Python2.X中，在列表推导中for关键字之后的赋值操作可能会影响列表推导上下文中的同名变量，例如在Python2.7123x=&apos;my precious&apos;dummy = [x for x in &apos;ABC&apos;]print x
-输出的结果1C
-x原本的值被取代了，但是在python中不会出来。列表推导、生成器表达式，以及同它们很相似的集合（set）推导和字典（dict）推导，在Python3中都有了">
-<meta property="og:updated_time" content="2017-07-08T13:36:27.551Z">
+<meta property="og:description" content="Spring Data Jpa的查询简要根据项目的开发经验介绍下，jpa的使用方式
+Jpa的使用的查询的三种方式
+Query creation,方法名称动态解析为JPQL
+NamedQueries方式
+Query注解实现HQL实现
+Query注解实现SQL原生语句查询
+
+方法名称解析JPQLQuery creation在Jpa中，使用关键字命名函数名称的方式来实现query查询。1Student">
+<meta property="og:updated_time" content="2017-09-24T08:19:09.451Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="python的列表推导之变量泄漏问题">
-<meta name="twitter:description" content="Python2.X中，在列表推导中for关键字之后的赋值操作可能会影响列表推导上下文中的同名变量，例如在Python2.7123x=&apos;my precious&apos;dummy = [x for x in &apos;ABC&apos;]print x
-输出的结果1C
-x原本的值被取代了，但是在python中不会出来。列表推导、生成器表达式，以及同它们很相似的集合（set）推导和字典（dict）推导，在Python3中都有了">
+<meta name="twitter:title" content="Spring Data Jpa查询简介">
+<meta name="twitter:description" content="Spring Data Jpa的查询简要根据项目的开发经验介绍下，jpa的使用方式
+Jpa的使用的查询的三种方式
+Query creation,方法名称动态解析为JPQL
+NamedQueries方式
+Query注解实现HQL实现
+Query注解实现SQL原生语句查询
+
+方法名称解析JPQLQuery creation在Jpa中，使用关键字命名函数名称的方式来实现query查询。1Student">
 
 
 
@@ -136,13 +151,13 @@ x原本的值被取代了，但是在python中不会出来。列表推导、生�
 
 
 
-  <link rel="canonical" href="https://alenx.github.io/2017/07/08/python的列表推导之变量泄漏问题/"/>
+  <link rel="canonical" href="https://alenx.github.io/2017/09/24/spring data jpa查询/"/>
 
 
 
 
 
-  <title>python的列表推导之变量泄漏问题 | 南山东篱</title>
+  <title>Spring Data Jpa查询简介 | 南山东篱</title>
   
 
 
@@ -261,7 +276,7 @@ x原本的值被取代了，但是在python中不会出来。列表推导、生�
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://alenx.github.io/2017/07/08/python的列表推导之变量泄漏问题/">
+    <link itemprop="mainEntityOfPage" href="https://alenx.github.io/2017/09/24/spring data jpa查询/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="wangss   邮箱:genhaoai#gmail.com">
@@ -278,7 +293,7 @@ x原本的值被取代了，但是在python中不会出来。列表推导、生�
 
         
         
-          <h1 class="post-title" itemprop="name headline">python的列表推导之变量泄漏问题</h1>
+          <h1 class="post-title" itemprop="name headline">Spring Data Jpa查询简介</h1>
         
 
         <div class="post-meta">
@@ -290,8 +305,8 @@ x原本的值被取代了，但是在python中不会出来。列表推导、生�
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-08T21:35:24+08:00">
-                2017-07-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-24T16:19:44+08:00">
+                2017-09-24
               </time>
             
 
@@ -325,13 +340,20 @@ x原本的值被取代了，但是在python中不会出来。列表推导、生�
       
 
       
-        <p>Python2.X中，在列表推导中for关键字之后的赋值操作可能会影响列表推导上下文中的同名变量，例如在Python2.7<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">x=<span class="string">'my precious'</span></div><div class="line">dummy = [x <span class="keyword">for</span> x <span class="keyword">in</span> <span class="string">'ABC'</span>]</div><div class="line"><span class="keyword">print</span> x</div></pre></td></tr></table></figure></p>
-<p>输出的结果<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">C</div></pre></td></tr></table></figure></p>
-<p>x原本的值被取代了，但是在python中不会出来。<br>列表推导、生成器表达式，以及同它们很相似的集合（set）推导和字典（dict）推导，在Python3中都有了自己的局部作用域，就像函数，表达式内部的变量和赋值只在局部起作用，表达式的上下文里的同名变量还可以被正常引用，局部变量并不会影响到它们。<br>Python3的代码如下</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">x =<span class="string">'ABC'</span></div><div class="line">dummy = [ord(x) <span class="keyword">for</span> x <span class="keyword">in</span> x]</div><div class="line">print(x)  <span class="comment">#①</span></div><div class="line">print(dummy)   <span class="comment">#②</span></div></pre></td></tr></table></figure>
-<p>输出内容</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ABC</div><div class="line">[<span class="number">65</span>,<span class="number">66</span>,<span class="number">67</span>]</div></pre></td></tr></table></figure>
-<p>① x的值被保留了<br>②列表推导也创建了正确的列表</p>
+        <h3 id="Spring-Data-Jpa的查询"><a href="#Spring-Data-Jpa的查询" class="headerlink" title="Spring Data Jpa的查询"></a>Spring Data Jpa的查询</h3><p>简要根据项目的开发经验介绍下，jpa的使用方式</p>
+<h4 id="Jpa的使用的查询的三种方式"><a href="#Jpa的使用的查询的三种方式" class="headerlink" title="Jpa的使用的查询的三种方式"></a>Jpa的使用的查询的三种方式</h4><ul>
+<li>Query creation,方法名称动态解析为JPQL</li>
+<li>NamedQueries方式</li>
+<li>Query注解实现HQL实现</li>
+<li>Query注解实现SQL原生语句查询</li>
+</ul>
+<h4 id="方法名称解析JPQL"><a href="#方法名称解析JPQL" class="headerlink" title="方法名称解析JPQL"></a>方法名称解析JPQL</h4><p><a href="https://docs.spring.io/spring-data/jpa/docs/1.11.7.RELEASE/reference/html/#jpa.query-methods.query-creation" target="_blank" rel="external">Query creation</a><br>在Jpa中，使用关键字命名函数名称的方式来实现query查询。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function">Student <span class="title">findAllByAddress</span><span class="params">(String address)</span></span>;<span class="comment">//jpa接口的方法定义</span></div></pre></td></tr></table></figure></p>
+<p>以上方法的实现where x.address = ?1 ，此方法避免了重复命名sql查询语句，将sql查询语句信息继承到函数名称中。</p>
+<h4 id="NamedQueries方式"><a href="#NamedQueries方式" class="headerlink" title="NamedQueries方式"></a>NamedQueries方式</h4><p>将查询sql以及对应的方法统一在类中定义，如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Entity</span></div><div class="line"><span class="meta">@NamedQuery</span>(name = <span class="string">"User.findByEmailAddress"</span>,</div><div class="line">  query = <span class="string">"select u from User u where u.emailAddress = ?1"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在类User的Jpa中定义方法findByEmailAddress，与之对应的我HQL查询语句为<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> u <span class="keyword">from</span> <span class="keyword">User</span> u <span class="keyword">where</span> u.emailAddress = ?<span class="number">1</span></div></pre></td></tr></table></figure></p>
+<p>该方法对于方法和sql关联关系较直观，而且位置固定，但容易造成类文件注解过多</p>
+<h4 id="Query注解实现HQL实现"><a href="#Query注解实现HQL实现" class="headerlink" title="Query注解实现HQL实现"></a>Query注解实现HQL实现</h4><p>在方法上增加Query注解，在注解中生命对应HQL语句，如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Query</span>(<span class="string">"select u from User u where u.emailAddress = ?1"</span>)</div><div class="line"><span class="function">User <span class="title">findByEmailAddress</span><span class="params">(String emailAddress)</span></span>;</div></pre></td></tr></table></figure></p>
+<h4 id="原生sql支持"><a href="#原生sql支持" class="headerlink" title="原生sql支持"></a>原生sql支持</h4><p>在Query注解中增加nativeQuery =true，直接编写原生sql语句，如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Query</span>(value = <span class="string">"SELECT * FROM USERS WHERE EMAIL_ADDRESS = ?1"</span>, nativeQuery = <span class="keyword">true</span>)</div><div class="line"> <span class="function">User <span class="title">findByEmailAddress</span><span class="params">(String emailAddress)</span></span>;</div></pre></td></tr></table></figure></p>
 
       
     </div>
@@ -361,7 +383,9 @@ x原本的值被取代了，但是在python中不会出来。列表推导、生�
       
         <div class="post-tags">
           
-            <a href="/tags/Python/" rel="tag"># Python</a>
+            <a href="/tags/Spring-Cloud/" rel="tag"># Spring Cloud</a>
+          
+            <a href="/tags/Jpa/" rel="tag"># Jpa</a>
           
         </div>
       
@@ -374,8 +398,8 @@ x原本的值被取代了，但是在python中不会出来。列表推导、生�
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/02/MyBatis的Cache/" rel="next" title="MyBatis的Cache浅谈">
-                <i class="fa fa-chevron-left"></i> MyBatis的Cache浅谈
+              <a href="/2017/08/20/Spring Cloud NetFlix组件/" rel="next" title="Spring Cloud NetFlix组件">
+                <i class="fa fa-chevron-left"></i> Spring Cloud NetFlix组件
               </a>
             
           </div>
@@ -383,10 +407,6 @@ x原本的值被取代了，但是在python中不会出来。列表推导、生�
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/07/09/prototype.js探微（一）/" rel="prev" title="prototype.js探微（一）">
-                prototype.js探微（一） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -433,8 +453,17 @@ x原本的值被取代了，但是在python中不会出来。列表推导、生�
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/head.jpg"
@@ -487,6 +516,22 @@ x原本的值被取代了，但是在python中不会出来。列表推导、生�
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring-Data-Jpa的查询"><span class="nav-number">1.</span> <span class="nav-text">Spring Data Jpa的查询</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Jpa的使用的查询的三种方式"><span class="nav-number">1.1.</span> <span class="nav-text">Jpa的使用的查询的三种方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方法名称解析JPQL"><span class="nav-number">1.2.</span> <span class="nav-text">方法名称解析JPQL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#NamedQueries方式"><span class="nav-number">1.3.</span> <span class="nav-text">NamedQueries方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Query注解实现HQL实现"><span class="nav-number">1.4.</span> <span class="nav-text">Query注解实现HQL实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#原生sql支持"><span class="nav-number">1.5.</span> <span class="nav-text">原生sql支持</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

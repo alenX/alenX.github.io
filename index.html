@@ -253,6 +253,131 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://alenx.github.io/2017/09/24/spring data jpa查询/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wangss   邮箱:genhaoai#gmail.com">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="南山东篱">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/24/spring data jpa查询/" itemprop="url">Spring Data Jpa查询简介</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-24T16:19:44+08:00">
+                2017-09-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="Spring-Data-Jpa的查询"><a href="#Spring-Data-Jpa的查询" class="headerlink" title="Spring Data Jpa的查询"></a>Spring Data Jpa的查询</h3><p>简要根据项目的开发经验介绍下，jpa的使用方式</p>
+<h4 id="Jpa的使用的查询的三种方式"><a href="#Jpa的使用的查询的三种方式" class="headerlink" title="Jpa的使用的查询的三种方式"></a>Jpa的使用的查询的三种方式</h4><ul>
+<li>Query creation,方法名称动态解析为JPQL</li>
+<li>NamedQueries方式</li>
+<li>Query注解实现HQL实现</li>
+<li>Query注解实现SQL原生语句查询</li>
+</ul>
+<h4 id="方法名称解析JPQL"><a href="#方法名称解析JPQL" class="headerlink" title="方法名称解析JPQL"></a>方法名称解析JPQL</h4><p><a href="https://docs.spring.io/spring-data/jpa/docs/1.11.7.RELEASE/reference/html/#jpa.query-methods.query-creation" target="_blank" rel="external">Query creation</a><br>在Jpa中，使用关键字命名函数名称的方式来实现query查询。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function">Student <span class="title">findAllByAddress</span><span class="params">(String address)</span></span>;<span class="comment">//jpa接口的方法定义</span></div></pre></td></tr></table></figure></p>
+<p>以上方法的实现where x.address = ?1 ，此方法避免了重复命名sql查询语句，将sql查询语句信息继承到函数名称中。</p>
+<h4 id="NamedQueries方式"><a href="#NamedQueries方式" class="headerlink" title="NamedQueries方式"></a>NamedQueries方式</h4><p>将查询sql以及对应的方法统一在类中定义，如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Entity</span></div><div class="line"><span class="meta">@NamedQuery</span>(name = <span class="string">"User.findByEmailAddress"</span>,</div><div class="line">  query = <span class="string">"select u from User u where u.emailAddress = ?1"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> </span>&#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在类User的Jpa中定义方法findByEmailAddress，与之对应的我HQL查询语句为<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">select</span> u <span class="keyword">from</span> <span class="keyword">User</span> u <span class="keyword">where</span> u.emailAddress = ?<span class="number">1</span></div></pre></td></tr></table></figure></p>
+<p>该方法对于方法和sql关联关系较直观，而且位置固定，但容易造成类文件注解过多</p>
+<h4 id="Query注解实现HQL实现"><a href="#Query注解实现HQL实现" class="headerlink" title="Query注解实现HQL实现"></a>Query注解实现HQL实现</h4><p>在方法上增加Query注解，在注解中生命对应HQL语句，如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Query</span>(<span class="string">"select u from User u where u.emailAddress = ?1"</span>)</div><div class="line"><span class="function">User <span class="title">findByEmailAddress</span><span class="params">(String emailAddress)</span></span>;</div></pre></td></tr></table></figure></p>
+<h4 id="原生sql支持"><a href="#原生sql支持" class="headerlink" title="原生sql支持"></a>原生sql支持</h4><p>在Query注解中增加nativeQuery =true，直接编写原生sql语句，如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Query</span>(value = <span class="string">"SELECT * FROM USERS WHERE EMAIL_ADDRESS = ?1"</span>, nativeQuery = <span class="keyword">true</span>)</div><div class="line"> <span class="function">User <span class="title">findByEmailAddress</span><span class="params">(String emailAddress)</span></span>;</div></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://alenx.github.io/2017/08/20/Spring Cloud NetFlix组件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1455,123 +1580,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://alenx.github.io/2017/05/16/浅谈咏梅/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="wangss   邮箱:genhaoai#gmail.com">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/head.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="南山东篱">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/05/16/浅谈咏梅/" itemprop="url">杂论-浅谈咏梅</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-16T19:49:24+08:00">
-                2017-05-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="浅谈咏梅"><a href="#浅谈咏梅" class="headerlink" title="浅谈咏梅"></a>浅谈咏梅</h2><p>陆游的这首《卜算子·咏梅》应该是家喻户晓的词作</p>
-<blockquote>
-<p>驿外断桥边，寂寞开无主。已是黄昏独自愁，更著风和雨。<br>无意苦争春，一任群芳妒。零落成泥碾作尘，只有香如故。</p>
-</blockquote>
-<p>诚然，现在不是谈论冬天，谈论梅花的季节，但是个人还是很执意拿出这首词来简单的讨论一下，简单说说自己的想法，且不去管是否谬误。</p>
-<p>前半阙着重说出梅花的周围环境，很明显，环境是非常的恶劣，<strong>驿外断桥边</strong>,着重是外和断字，被遗弃被放逐的状态通过这两个字现露出来，这么恶劣的环境其实难道只有梅花才有的，想想我们周遭的事情，每个人的环境都有外和断，都是被放逐和被流浪的状态，只不过梅花只有冬天的时候才是梅花，而我们却每时每刻都是我们。当然作者也是如此。<br><strong>寂寞开无主</strong>，孤芳自赏这个词语就应该是对这句的最好映照，因为寂寞开无主，所以才会孤芳自赏，如果<strong>开有主</strong>呢，那样会不会是另一番景象，那样便不会有<strong>孤</strong>和<strong>自</strong>了，正是因为周围环境的恶劣，所以梅花只能退而求其次，求自己的欣赏，追求自我的肯定，因为无法追求别人的肯定，这一切都是源自<strong>驿外断桥边</strong>，源自周围环境对自己施加的结果。<br><strong>无意苦争春</strong>，这样看，春在这里有着特殊的含义，应该是世俗的追求，这里的追求显然是存在一定的竞争关系，首先写出自己无意，又点出其余人的苦的状态，更加彰显个人的追求境界，但是这句中却隐含着一个非常深层的意思，即，就算我不争春，难道春天就不青睐我么？很显然，现实是哪怕我无意争春，我还是倍受春天青睐的一个，至于后面的<strong>一任群芳妒</strong>，更多的是一种对于不能望其项背者的调侃，既然你们不如我，那至少能让你们嫉妒。<br>最后一句好像写出了梅花的归宿，从最后来看，作者本人也是知道自己最终的归途，当然，这里不管其追求的是否是香如故，至少，成泥成尘了。<br>纵览这阙词，词里不免对自身处境的哀叹，但里面也透露着<strong>不恨古人吾不见，恨古人，不见吾狂尔</strong>的豪气，比起前者，我更欣赏后者，正所谓，首先你是梅花，然后你才自怨自艾。当然，此处的自怨自艾，更多的应是褒义。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1621,7 +1629,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1634,7 +1642,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
