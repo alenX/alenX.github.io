@@ -253,6 +253,137 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://alenx.github.io/2017/06/24/MyBatis整理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="wangss   邮箱:genhaoai#gmail.com">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="南山东篱">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/06/24/MyBatis整理/" itemprop="url">MyBatis缓存基础</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-24T10:29:19+08:00">
+                2017-06-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="一级缓存"><a href="#一级缓存" class="headerlink" title="一级缓存"></a>一级缓存</h4><p>MyBatis开启一次和数据库的会话，创建一个SqlSession对象表示一次数据库会话。<br>在会话对象中建立一个简单的缓存，将查询到的结果缓存起来，当下次查询的时候，判断是否已经存在该查询，如果存在，直接从缓存中读取查询结果返回，如果不存在，那么从数据库查询，并将结果加入缓存。</p>
+<p>SqlSession将工作交给Executor执行器完成，负责对数据库的各种操作，缓存信息就被维护在Executor执行器中。将缓存和对缓存相关的操作，封装成Cache接口中。<br>Executor接口的实现类BaseExecutor中拥有一个Cache接口的实现类<br>PerpetualCache，对于BaseExecutor来说，它将使用PerpetualCache来维护缓存。<br>实际维护时用HashMap维护，map的key使用 statementId,params,rowBounds构建 </p>
+<h5 id="事项说明"><a href="#事项说明" class="headerlink" title="事项说明"></a>事项说明</h5><ol>
+<li>SqlSession中执行了任何一个update操作（upate、delete、insert）都会清空PerpetualCache对象的数据，但是该对象可以继续使用</li>
+<li>SqlSession调用close()方法后释放一级缓存PerpetualCache对象，一级缓存将不可用，调用clearCache()，清空PerpetualCache中的数据，但是对象可以继续使用。</li>
+<li>map的大小没有做效率优化</li>
+<li>一级缓存是一个粗粒度的缓存，没有更新缓存和缓存过期的概念</li>
+<li>一级缓存存在一定的数据不同步的可能，如果对于数据变化频率很大，控制SqlSession的生存时间。</li>
+</ol>
+<h4 id="二级缓存"><a href="#二级缓存" class="headerlink" title="二级缓存"></a>二级缓存</h4><p>二级缓存使用cacheEnabled=true配置，那么SqlSession在创建Executor时，会在Executor对象上加一个装饰器CachingExecutor，后续的查询使用CachingExecutor进行管理，是否在Application级别的二级缓存中是否有缓存结果。<br>二级缓存的划分</p>
+<ol>
+<li>每一个mapper都有一个cache对象</li>
+<li><p>MyBatis对二级缓存的支持粒度很细，它会指定某一条查询语句是否使用二级缓存</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;select id=<span class="string">"select"</span> userCache=<span class="string">"true"</span>/&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>使用顺序：二级缓存-一级缓存-数据库</p>
+</li>
+</ol>
+<h4 id="MyBatis连接池"><a href="#MyBatis连接池" class="headerlink" title="MyBatis连接池"></a>MyBatis连接池</h4><p>PooledDataSource<br>PooledConnection分为空间和活动两种状态，使用两个list来维护。<br>首先从空闲状态的PooledConnection对象，如果有直接返回，如果没有查看活动的PooledConnection是否已经满，如果没有满，那么新建一个PooledConnection同时放进活动PooledConnection的list中，如果已经满了，看最先进入活动PooledConnection中的链接是否已经过期，如果过期，那么清除该连接，同时新建一个活动连接，放入活动PooledConnection中，否则等待。<br>增加Connection的代理，当调用其他方法时，直接调用Connection的方法，但是当调用close方法时，特殊处理，并不把Connection关闭，而是将该连接对象添加到连接池中。 </p>
+<h4 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h4><p>物理分页和逻辑分页，物理分页使用数据库的分页实现好处效率高坏处sql不统一，逻辑分页利用游标分页，hibernate使用物理分页，mybatis使用rowbound实现的分页是逻辑分页，使用pagehelper实现物理分页</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://alenx.github.io/2017/05/16/浅谈咏梅/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1240,7 +1371,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">18</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1253,7 +1384,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
